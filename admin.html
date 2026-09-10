@@ -6,44 +6,42 @@
   <title>Founder Control Panel</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Segoe UI', Arial, sans-serif; background: #0f172a; color: #fff; padding: 20px; }
-    .container { max-width: 800px; margin: 0 auto; }
-    h1 { margin-bottom: 20px; color: #38bdf8; text-align: center; }
+    body { font-family: sans-serif; background: #0f172a; color: #fff; padding: 20px; }
+    .container { max-width: 600px; margin: auto; }
+    h1 { color: #38bdf8; text-align: center; margin-bottom: 20px; }
     .card { background: #1e293b; padding: 20px; border-radius: 12px; margin-bottom: 20px; border: 1px solid #334155; }
-    h3 { margin-bottom: 12px; color: #f87171; }
     input { width: 100%; padding: 12px; margin-bottom: 10px; border-radius: 6px; border: 1px solid #475569; background: #0f172a; color: #fff; font-size: 16px; }
     button { width: 100%; padding: 12px; background: #22c55e; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 16px; }
-    button:hover { background: #16a34a; }
-    .link-box { background: #0f172a; padding: 12px; border-radius: 6px; margin-top: 10px; word-break: break-all; font-size: 14px; border: 1px dashed #38bdf8; }
+    .link-box { background: #0f172a; padding: 12px; border-radius: 6px; margin-top: 10px; word-break: break-all; border: 1px dashed #38bdf8; }
     table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-    th, td { padding: 12px; text-align: left; border-bottom: 1px solid #334155; }
-    th { background: #334155; color: #38bdf8; }
+    th, td { padding: 10px; text-align: left; border-bottom: 1px solid #334155; }
+    th { color: #38bdf8; }
   </style>
 </head>
 <body>
 
 <div class="container">
-  <h1>⚡ Founder Admin Dashboard</h1>
+  <h1>⚡ Founder Admin Panel</h1>
 
   <div class="card">
-    <h3>1. नया पार्टनर / क्रिएटर जोड़ें</h3>
-    <input type="text" id="partnerId" placeholder="पार्टनर का नाम या Alias (उदा: arhan_gaming)">
+    <h3>1. नया क्रिएटर जोड़ें</h3>
+    <input type="text" id="partnerId" placeholder="क्रिएटर का नाम (उदा: arhan)">
     <button onclick="generatePartner()">Link Generate करें</button>
     <div id="output" style="display:none;" class="link-box"></div>
   </div>
 
   <div class="card">
-    <h3>2. सभी पार्टनर्स का लाइव डेटा (Real-Time)</h3>
+    <h3>2. सभी क्रिएटर्स का लाइव डेटा</h3>
     <table>
       <thead>
         <tr>
-          <th>Partner Name</th>
-          <th>Total Clicks</th>
-          <th>Est. Payout (₹150/1K)</th>
+          <th>Creator</th>
+          <th>Clicks</th>
+          <th>Payout (₹150/1K)</th>
         </tr>
       </thead>
       <tbody id="partnerTable">
-        <tr><td colspan="3">Loading data...</td></tr>
+        <tr><td colspan="3">Loading...</td></tr>
       </tbody>
     </table>
   </div>
@@ -68,27 +66,29 @@
 
   window.generatePartner = async function() {
     const id = document.getElementById('partnerId').value.trim().toLowerCase().replace(/\s+/g, '_');
-    if(!id) return alert("कृपया पार्टनर का नाम डालें!");
+    if(!id) return alert("क्रिएटर का नाम डालें!");
 
     await setDoc(doc(db, "partners", id), { name: id, clicks: 0 }, { merge: true });
 
-    const baseUrl = window.location.origin;
+    // यहाँ आपकी मेन प्रोमो वेबसाइट का लिंक है
+    const promoBaseUrl = "https://main-dashboard-pink.vercel.app";
+    const dashBaseUrl = window.location.origin;
+
     const out = document.getElementById('output');
     out.style.display = "block";
     out.innerHTML = `
-      <p style="margin-bottom:8px;"><b>प्रोमो लिंक (पार्टनर को दें):</b><br><span style="color:#22c55e;">${baseUrl}/?ref=${id}</span></p>
-      <p><b>पार्टनर का डैशबोर्ड लिंक:</b><br><span style="color:#38bdf8;">${baseUrl}/partner.html?id=${id}</span></p>
+      <p style="margin-bottom:8px;"><b>प्रोमो लिंक (क्रिएटर को दें काम करने के लिए):</b><br><span style="color:#22c55e;">${promoBaseUrl}/?ref=${id}</span></p>
+      <p><b>क्रिएटर डैशबोर्ड लिंक (लाइव क्लिक देखने के लिए):</b><br><span style="color:#38bdf8;">${dashBaseUrl}/partner.html?id=${id}</span></p>
     `;
   };
 
-  // Live Database Sync
   onSnapshot(collection(db, "partners"), (snapshot) => {
     const tbody = document.getElementById('partnerTable');
     tbody.innerHTML = '';
     snapshot.forEach((docSnap) => {
       const data = docSnap.data();
       const clicks = data.clicks || 0;
-      const payout = (clicks / 1000) * 150; // ₹150 प्रति 1,000 क्लिक्स
+      const payout = (clicks / 1000) * 150;
 
       tbody.innerHTML += `
         <tr>
