@@ -14,20 +14,23 @@
     .glow-effect { filter: drop-shadow(0 0 12px rgba(59, 130, 246, 0.4)); }
     .tab-content { display: none; }
     .tab-content.active { display: block; }
+    #sidebar { transition: transform 0.3s ease-in-out, margin 0.3s ease-in-out; }
+    .sidebar-closed #sidebar { transform: translateX(-100%); margin-mr: -16rem; }
   </style>
 </head>
 <body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col justify-between">
 
   <!-- TOP NAVBAR -->
-  <header class="bg-slate-900/90 backdrop-blur-md border-b border-slate-800 sticky top-0 z-40 h-16 flex items-center justify-between px-4 md:px-8">
+  <header class="bg-slate-900/90 backdrop-blur-md border-b border-slate-800 sticky top-0 z-40 h-16 flex items-center justify-between px-4 md:px-6">
     <div class="flex items-center gap-3">
-      <div class="flex items-center gap-3 cursor-pointer" onclick="window.location.reload()">
-        <div class="w-10 h-10 bg-slate-950 border border-blue-500/40 rounded-xl flex items-center justify-center glow-effect">
-          <i class="fa-solid fa-bolt text-xl text-blue-400"></i>
+      <!-- LOGO / TOGGLE BUTTON TO HIDE/SHOW SIDEBAR -->
+      <button id="toggle-sidebar-btn" class="flex items-center gap-3 bg-slate-950 border border-slate-800 hover:border-blue-500/50 p-2 rounded-xl transition cursor-pointer">
+        <div class="w-8 h-8 bg-slate-900 border border-blue-500/40 rounded-lg flex items-center justify-center glow-effect">
+          <i class="fa-solid fa-bars text-blue-400"></i>
         </div>
-        <span class="font-black text-xl tracking-wider text-white">TRACK<span class="text-blue-500">FLOW</span></span>
-        <span id="admin-badge" class="hidden bg-amber-500/20 text-amber-400 border border-amber-500/40 text-[10px] font-black px-2.5 py-0.5 rounded-full ml-1">MASTER ADMIN</span>
-      </div>
+        <span class="font-black text-lg tracking-wider text-white hidden sm:inline">TRACK<span class="text-blue-500">FLOW</span></span>
+      </button>
+      <span id="admin-badge" class="hidden bg-amber-500/20 text-amber-400 border border-amber-500/40 text-[10px] font-black px-2.5 py-0.5 rounded-full">MASTER ADMIN</span>
     </div>
     
     <div class="flex items-center gap-3">
@@ -46,26 +49,10 @@
       Creator & Campaign Hub
     </h1>
     <p class="text-slate-400 text-sm md:text-base max-w-2xl mb-8">
-      Sign in with Google to request publisher access and manage active reward campaign links.
+      Sign in with Google or Email credentials to access creator dashboard and campaign links.
     </p>
     <button id="open-auth-modal-btn" class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-black text-base px-10 py-4 rounded-2xl shadow-xl hover:scale-105 transition transform glow-effect flex items-center gap-3">
       <i class="fa-solid fa-right-to-bracket"></i> Access Creator Portal
-    </button>
-  </div>
-
-  <!-- PENDING APPROVAL PAGE -->
-  <div id="pending-page" class="hidden flex-1 flex flex-col items-center justify-center p-6 text-center max-w-lg mx-auto">
-    <div class="w-20 h-20 mb-6 bg-amber-500/10 border border-amber-500/30 rounded-3xl flex items-center justify-center shadow-2xl animate-pulse">
-      <i class="fa-solid fa-clock text-3xl text-amber-400"></i>
-    </div>
-    <h2 class="text-2xl font-bold text-white mb-2">Account Approval Pending</h2>
-    <p class="text-slate-400 text-xs mb-6">Your Google account request has been received! Master Admin needs to approve your access before you can view the dashboard and offer links.</p>
-    <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl w-full text-left space-y-2 mb-6">
-      <p class="text-xs text-slate-400">Registered Email: <span id="pending-email" class="text-white font-bold"></span></p>
-      <p class="text-xs text-slate-400">Status: <span class="bg-amber-500/20 text-amber-400 text-[10px] font-bold px-2 py-0.5 rounded">Awaiting Approval</span></p>
-    </div>
-    <button id="pending-logout-btn" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold px-6 py-2.5 rounded-xl text-xs transition">
-      Sign Out / Refresh Status
     </button>
   </div>
 
@@ -81,9 +68,9 @@
       </div>
       
       <h2 class="text-xl font-bold text-white mb-1">Account Login</h2>
-      <p class="text-slate-400 text-xs mb-6">Sign in with Google or use Admin Master credentials.</p>
+      <p class="text-slate-400 text-xs mb-6">Enter your email & password or sign in with Google.</p>
 
-      <div class="space-y-3">
+      <div class="space-y-3 text-left">
         <button id="google-login-btn" class="w-full bg-white hover:bg-slate-100 text-slate-900 font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-3 transition shadow-md">
           <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-5 h-5" alt="Google">
           Continue with Google
@@ -91,24 +78,24 @@
 
         <div class="relative my-4">
           <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-slate-800"></div></div>
-          <div class="relative flex justify-center text-xs uppercase"><span class="bg-slate-900 px-2 text-slate-500">Master Admin Only</span></div>
+          <div class="relative flex justify-center text-xs uppercase"><span class="bg-slate-900 px-2 text-slate-500">Or User / Admin Login</span></div>
         </div>
 
-        <input type="email" id="email-input" placeholder="Admin Email" class="w-full bg-slate-950 border border-slate-800 rounded-xl py-3 px-4 text-sm text-white focus:outline-none focus:border-blue-500">
+        <input type="email" id="email-input" placeholder="Registered Email" class="w-full bg-slate-950 border border-slate-800 rounded-xl py-3 px-4 text-sm text-white focus:outline-none focus:border-blue-500">
         <input type="password" id="password-input" placeholder="Password" class="w-full bg-slate-950 border border-slate-800 rounded-xl py-3 px-4 text-sm text-white focus:outline-none focus:border-blue-500">
         
-        <button id="admin-login-btn" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-4 rounded-xl text-sm transition shadow-lg">
-          Master Admin Portal Login
+        <button id="login-submit-btn" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-4 rounded-xl text-sm transition shadow-lg">
+          Sign In to Dashboard
         </button>
       </div>
     </div>
   </div>
 
   <!-- DASHBOARD CONTAINER -->
-  <div id="dashboard-app" class="hidden flex-1 flex flex-col md:flex-row relative overflow-hidden">
+  <div id="dashboard-app" class="hidden flex-1 flex relative overflow-hidden">
 
-    <!-- SIDEBAR -->
-    <aside id="sidebar" class="w-64 bg-slate-900 border-r border-slate-800 flex flex-col justify-between shrink-0 h-[calc(100vh-4rem)]">
+    <!-- COLLAPSIBLE SIDEBAR -->
+    <aside id="sidebar" class="w-64 bg-slate-900 border-r border-slate-800 flex flex-col justify-between shrink-0 h-[calc(100vh-4rem)] z-30">
       <div class="p-4 space-y-6 overflow-y-auto">
         <div class="bg-slate-950 border border-slate-800 p-3.5 rounded-2xl flex items-center justify-between">
           <div class="flex items-center gap-3 overflow-hidden">
@@ -118,9 +105,6 @@
               <p id="user-email-text" class="text-[11px] text-slate-400 truncate">user@email.com</p>
             </div>
           </div>
-          <button id="open-edit-profile-btn" class="text-slate-400 hover:text-blue-400 p-1.5 transition" title="Edit Profile">
-            <i class="fa-solid fa-gear text-sm"></i>
-          </button>
         </div>
 
         <nav class="space-y-1.5">
@@ -131,9 +115,14 @@
             <i class="fa-solid fa-layer-group w-5"></i> Campaign Offers
           </button>
           
-          <!-- ADMIN ONLY SIDEBAR TAB -->
+          <!-- ADMIN USERS MANAGEMENT TAB -->
+          <button id="admin-users-tab" onclick="switchTab('users-management')" class="hidden w-full text-left flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white font-medium text-sm transition">
+            <i class="fa-solid fa-users w-5"></i> Users
+          </button>
+
+          <!-- ADMIN OFFERS TAB -->
           <button id="admin-add-offer-btn" onclick="switchTab('admin-panel')" class="hidden w-full text-left flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-amber-500/10 text-amber-400 font-bold text-sm border border-amber-500/20 transition">
-            <i class="fa-solid fa-plus-circle w-5"></i> Manage Offers & Users
+            <i class="fa-solid fa-plus-circle w-5"></i> Create Offer
           </button>
         </nav>
       </div>
@@ -145,42 +134,40 @@
       </div>
     </aside>
 
-    <!-- MAIN DASHBOARD CONTENT -->
-    <main class="flex-1 overflow-y-auto p-4 md:p-6 space-y-6">
+    <!-- MAIN DASHBOARD CONTENT (FULL PAGE CLICKS & GRAPH) -->
+    <main class="flex-1 overflow-y-auto p-4 md:p-8 space-y-6 w-full">
 
-      <!-- TAB 1: OVERVIEW -->
+      <!-- TAB 1: OVERVIEW (FULL PAGE CLICKS DISPLAY) -->
       <div id="tab-overview" class="tab-content active space-y-6">
         <div class="flex justify-between items-center bg-slate-900 p-4 rounded-2xl border border-slate-800">
           <div>
-            <h3 class="text-sm font-bold text-white flex items-center gap-2"><i class="fa-solid fa-chart-simple text-blue-400"></i> Traffic Analytics</h3>
-            <p class="text-[11px] text-slate-400">Filtered publisher clicks vs raw traffic</p>
+            <h3 class="text-base font-bold text-white flex items-center gap-2"><i class="fa-solid fa-chart-simple text-blue-400"></i> Traffic & Clicks Dashboard</h3>
+            <p class="text-xs text-slate-400">Live analytics and traffic performance</p>
           </div>
           <select id="date-filter" class="bg-slate-950 border border-slate-800 text-xs text-blue-400 rounded-xl px-3 py-2 outline-none">
             <option value="today">Today</option>
-            <option value="yesterday">Yesterday</option>
-            <option value="7days">Last 7 Days</option>
             <option value="alltime" selected>All Time</option>
           </select>
         </div>
 
-        <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-          <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl">
-            <p class="text-xs text-slate-400 font-semibold uppercase">Total Raw Traffic</p>
-            <h3 id="total-clicks" class="text-2xl font-black text-blue-400 mt-1">0</h3>
+        <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <div class="bg-slate-900 border border-slate-800 p-6 rounded-3xl">
+            <p class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Total Raw Clicks</p>
+            <h3 id="total-clicks" class="text-4xl font-black text-blue-400 mt-2">0</h3>
           </div>
-          <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl">
-            <p class="text-xs text-slate-400 font-semibold uppercase">Display Clicks (15:1 Ratio)</p>
-            <h3 id="filtered-clicks" class="text-2xl font-black text-indigo-400 mt-1">0</h3>
+          <div class="bg-slate-900 border border-slate-800 p-6 rounded-3xl">
+            <p class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Display Clicks (15:1 Ratio)</p>
+            <h3 id="filtered-clicks" class="text-4xl font-black text-indigo-400 mt-2">0</h3>
           </div>
-          <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl">
-            <p class="text-xs text-slate-400 font-semibold uppercase">Active Offers</p>
-            <h3 id="active-campaigns-count" class="text-2xl font-black text-amber-400 mt-1">1</h3>
+          <div class="bg-slate-900 border border-slate-800 p-6 rounded-3xl">
+            <p class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Active Campaigns</p>
+            <h3 id="active-campaigns-count" class="text-4xl font-black text-amber-400 mt-2">1</h3>
           </div>
         </section>
 
-        <div class="bg-slate-900 border border-slate-800 p-5 rounded-3xl space-y-3">
-          <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider"><i class="fa-solid fa-chart-line text-blue-400 mr-2"></i> Real-time Traffic Graph</h4>
-          <div class="h-64 w-full">
+        <div class="bg-slate-900 border border-slate-800 p-6 rounded-3xl space-y-4">
+          <h4 class="text-sm font-bold text-slate-300 uppercase tracking-wider"><i class="fa-solid fa-chart-line text-blue-400 mr-2"></i> Real-Time Clicks Analytics Graph</h4>
+          <div class="h-80 w-full">
             <canvas id="trafficChart"></canvas>
           </div>
         </div>
@@ -194,50 +181,41 @@
         <div id="offers-list-container" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
       </div>
 
-      <!-- TAB 3: ADMIN PANEL (MANAGE OFFERS & USERS) -->
-      <div id="tab-admin-panel" class="tab-content space-y-6">
-        
-        <!-- ADD USER SYSTEM (ADMIN) -->
-        <div class="bg-slate-900 border border-blue-500/40 p-6 rounded-3xl space-y-4 max-w-xl">
-          <h3 class="text-base font-bold text-blue-400 flex items-center gap-2">
-            <i class="fa-solid fa-user-plus"></i> Add New Publisher / User
-          </h3>
-          <form onsubmit="addNewUser(event)" class="space-y-4 text-xs">
-            <div>
-              <label class="block text-slate-400 mb-1">Publisher Name</label>
-              <input type="text" id="new-user-name" required placeholder="e.g. Ragib Gamer" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-blue-500">
-            </div>
-            <div>
-              <label class="block text-slate-400 mb-1">Publisher Email (Firebase Sync)</label>
-              <input type="email" id="new-user-email" required placeholder="user@gmail.com" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-blue-500">
-            </div>
-            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl transition">Create & Register User</button>
-          </form>
+      <!-- TAB 3: USERS MANAGEMENT (ADD USER OPTION) -->
+      <div id="tab-users-management" class="tab-content space-y-6">
+        <div class="flex justify-between items-center bg-slate-900 p-4 rounded-2xl border border-slate-800">
+          <div>
+            <h3 class="text-base font-bold text-white flex items-center gap-2"><i class="fa-solid fa-users text-blue-400"></i> Users Management</h3>
+            <p class="text-xs text-slate-400">Manage Creators & Publishers access</p>
+          </div>
+          <button onclick="openAddUserModal()" class="bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition flex items-center gap-2">
+            <i class="fa-solid fa-plus"></i> Add User
+          </button>
         </div>
 
-        <!-- PENDING & REGISTERED USERS APPROVAL TABLE -->
-        <div class="bg-slate-900 border border-amber-500/40 p-6 rounded-3xl space-y-4">
-          <h3 class="text-base font-bold text-amber-400 flex items-center gap-2">
-            <i class="fa-solid fa-users-gear"></i> Publisher Management & Status Control
-          </h3>
+        <div class="bg-slate-900 border border-slate-800 p-6 rounded-3xl">
           <div class="overflow-x-auto">
             <table class="w-full text-left text-xs text-slate-300">
               <thead class="bg-slate-950 uppercase text-slate-400">
                 <tr>
-                  <th class="p-3">User Email</th>
+                  <th class="p-3">User Name</th>
+                  <th class="p-3">Email</th>
+                  <th class="p-3">Role</th>
                   <th class="p-3">Clicks</th>
                   <th class="p-3">Status</th>
                   <th class="p-3">Actions</th>
                 </tr>
               </thead>
-              <tbody id="approval-table-body" class="divide-y divide-slate-800">
-                <!-- Dynamic Users -->
+              <tbody id="users-table-body" class="divide-y divide-slate-800">
+                <!-- Users listed here -->
               </tbody>
             </table>
           </div>
         </div>
+      </div>
 
-        <!-- CREATE/EDIT OFFER FORM -->
+      <!-- TAB 4: CREATE OFFER PANEL -->
+      <div id="tab-admin-panel" class="tab-content space-y-6">
         <div class="bg-slate-900 border border-slate-800 p-6 rounded-3xl space-y-4 max-w-xl">
           <h3 class="text-base font-bold text-blue-400 flex items-center gap-2">
             <i class="fa-solid fa-plus-circle"></i> Create or Update Campaign Offer
@@ -251,43 +229,46 @@
               <label class="block text-slate-400 mb-1">Destination Target URL</label>
               <input type="url" id="new-offer-url" required placeholder="https://ff-rewards-hub-gamma.vercel.app/" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-blue-500">
             </div>
-            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl transition">Publish / Update Offer</button>
+            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl transition">Publish Offer</button>
           </form>
         </div>
-
       </div>
 
     </main>
   </div>
 
-  <!-- EDIT PROFILE MODAL -->
-  <div id="edit-profile-modal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+  <!-- ADD USER MODAL -->
+  <div id="add-user-modal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
     <div class="bg-slate-900 border border-slate-800 p-6 rounded-3xl max-w-md w-full space-y-4 relative shadow-2xl">
-      <button id="close-edit-modal" class="absolute top-4 right-4 text-slate-500 hover:text-white">
+      <button onclick="closeAddUserModal()" class="absolute top-4 right-4 text-slate-500 hover:text-white">
         <i class="fa-solid fa-xmark text-lg"></i>
       </button>
 
-      <h3 class="text-base font-bold text-white flex items-center gap-2"><i class="fa-solid fa-user-pen text-blue-400"></i> Profile & Avatar Settings</h3>
+      <h3 class="text-base font-bold text-white flex items-center gap-2"><i class="fa-solid fa-user-plus text-blue-400"></i> Add New User</h3>
 
-      <div class="space-y-3 text-xs">
+      <form onsubmit="saveNewUser(event)" class="space-y-3 text-xs">
         <div>
-          <label class="block text-slate-400 mb-1">Select AI Cartoon Avatar</label>
-          <div class="grid grid-cols-4 gap-2 mb-2">
-            <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Ragib1" onclick="selectAvatar(this.src)" class="w-12 h-12 rounded-xl bg-slate-950 border border-slate-800 p-1 cursor-pointer hover:border-blue-500">
-            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Gamer" onclick="selectAvatar(this.src)" class="w-12 h-12 rounded-xl bg-slate-950 border border-slate-800 p-1 cursor-pointer hover:border-blue-500">
-            <img src="https://api.dicebear.com/7.x/bottts/svg?seed=ProGamer" onclick="selectAvatar(this.src)" class="w-12 h-12 rounded-xl bg-slate-950 border border-slate-800 p-1 cursor-pointer hover:border-blue-500">
-            <img src="https://api.dicebear.com/7.x/adventurer/svg?seed=RagibBhai" onclick="selectAvatar(this.src)" class="w-12 h-12 rounded-xl bg-slate-950 border border-slate-800 p-1 cursor-pointer hover:border-blue-500">
-          </div>
-          <input type="text" id="avatar-url-input" placeholder="Or Custom Avatar Image URL" class="w-full bg-slate-950 border border-slate-800 p-2.5 rounded-xl text-white outline-none focus:border-blue-500">
+          <label class="block text-slate-400 mb-1">Select User Type</label>
+          <select id="user-role-select" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-blue-500">
+            <option value="Publisher User">Publisher User</option>
+            <option value="Creator User">Creator User</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-slate-400 mb-1">Full Name</label>
+          <input type="text" id="add-user-name" required placeholder="e.g. Ragib Gamer" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-blue-500">
+        </div>
+        <div>
+          <label class="block text-slate-400 mb-1">Email Address</label>
+          <input type="email" id="add-user-email" required placeholder="user@gmail.com" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-blue-500">
+        </div>
+        <div>
+          <label class="block text-slate-400 mb-1">Set Password</label>
+          <input type="password" id="add-user-pass" required placeholder="••••••••" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-blue-500">
         </div>
 
-        <div>
-          <label class="block text-slate-400 mb-1">Display Name</label>
-          <input type="text" id="edit-name-input" class="w-full bg-slate-950 border border-slate-800 p-2.5 rounded-xl text-white outline-none focus:border-blue-500">
-        </div>
-
-        <button onclick="saveProfileChanges()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl transition">Save Changes</button>
-      </div>
+        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl transition">Create Account & Authorize</button>
+      </form>
     </div>
   </div>
 
@@ -310,202 +291,138 @@
     const db = getFirestore(app);
     const provider = new GoogleAuthProvider();
 
-    let adminEmail = localStorage.getItem('tf_admin_email') || "Kids38271@gmail.com";
-    let adminPass = localStorage.getItem('tf_admin_pass') || "Ragib@7549";
-    let adminName = localStorage.getItem('tf_admin_name') || "Ragib Bhai (Master Admin)";
-    let adminAvatar = localStorage.getItem('tf_admin_avatar') || "https://api.dicebear.com/7.x/bottts/svg?seed=RagibBhai";
+    let adminEmail = "Kids38271@gmail.com";
+    let adminPass = "Ragib@7549";
 
     const landingPage = document.getElementById('landing-page');
-    const pendingPage = document.getElementById('pending-page');
     const authModal = document.getElementById('auth-modal');
     const dashboardApp = document.getElementById('dashboard-app');
-    const openAuthBtn = document.getElementById('open-auth-modal-btn');
-    const closeAuthBtn = document.getElementById('close-auth-modal');
+    const toggleSidebarBtn = document.getElementById('toggle-sidebar-btn');
 
-    window.isAdminUser = false;
+    // TOGGLE SIDEBAR HIDE / SHOW
+    toggleSidebarBtn.addEventListener('click', () => {
+      document.body.classList.toggle('sidebar-closed');
+    });
 
-    openAuthBtn.addEventListener('click', () => authModal.classList.remove('hidden'));
-    closeAuthBtn.addEventListener('click', () => authModal.classList.add('hidden'));
-
-    getRedirectResult(auth).then((result) => {
-      if (result) {
-        checkAndRouteUser(result.user);
-      }
-    }).catch(err => console.error("Redirect Auth Error:", err));
+    document.getElementById('open-auth-modal-btn').addEventListener('click', () => authModal.classList.remove('hidden'));
+    document.getElementById('close-auth-modal').addEventListener('click', () => authModal.classList.add('hidden'));
 
     document.getElementById('google-login-btn').addEventListener('click', () => {
       signInWithRedirect(auth, provider);
     });
 
-    document.getElementById('admin-login-btn').addEventListener('click', async () => {
+    document.getElementById('login-submit-btn').addEventListener('click', async () => {
       const email = document.getElementById('email-input').value.trim();
       const pass = document.getElementById('password-input').value.trim();
 
       if (email.toLowerCase() === adminEmail.toLowerCase() && pass === adminPass) {
-        window.isAdminUser = true;
-        localStorage.setItem('tf_admin_session', 'true');
-        setupAdminDashboard();
+        localStorage.setItem('tf_active_user', JSON.stringify({ name: 'Ragib Bhai (Master Admin)', email: adminEmail, role: 'Admin' }));
+        setupDashboard(true);
+        return;
+      }
+
+      // Check dynamically created users
+      const storedUsers = JSON.parse(localStorage.getItem('tf_registered_users')) || [];
+      const matchedUser = storedUsers.find(u => u.email.toLowerCase() === email.toLowerCase() && u.pass === pass);
+
+      if (matchedUser) {
+        localStorage.setItem('tf_active_user', JSON.stringify(matchedUser));
+        setupDashboard(false);
       } else {
-        alert('Invalid Admin Credentials!');
+        alert('Invalid Email or Password!');
       }
     });
 
     document.getElementById('logout-btn').addEventListener('click', () => {
-      localStorage.removeItem('tf_admin_session');
+      localStorage.removeItem('tf_active_user');
       signOut(auth).then(() => window.location.reload());
     });
 
-    document.getElementById('pending-logout-btn').addEventListener('click', () => {
-      signOut(auth).then(() => window.location.reload());
-    });
-
-    onAuthStateChanged(auth, async (user) => {
-      if (localStorage.getItem('tf_admin_session') === 'true') {
-        window.isAdminUser = true;
-        setupAdminDashboard();
-        return;
-      }
-
-      if (user) {
-        checkAndRouteUser(user);
-      } else {
-        showLanding();
-      }
-    });
-
-    async function checkAndRouteUser(user) {
-      const userRef = doc(db, "users", user.uid);
-      const userSnap = await getDoc(userRef);
-
-      if (!userSnap.exists()) {
-        await setDoc(userRef, { 
-          uid: user.uid,
-          name: user.displayName || 'Publisher', 
-          email: user.email, 
-          status: 'pending',
-          clicks: 0 
-        });
-        showPendingPage(user.email);
-      } else {
-        const userData = userSnap.data();
-        if (userData.status === 'approved') {
-          setupUserDashboard(userData);
-        } else {
-          showPendingPage(user.email);
-        }
-      }
+    // Check login state
+    const currentUser = JSON.parse(localStorage.getItem('tf_active_user'));
+    if (currentUser) {
+      setupDashboard(currentUser.role === 'Admin');
     }
 
-    function showLanding() {
-      authModal.classList.add('hidden');
-      pendingPage.classList.add('hidden');
-      landingPage.classList.remove('hidden');
-      dashboardApp.classList.add('hidden');
-    }
-
-    function showPendingPage(email) {
+    function setupDashboard(isAdmin) {
       authModal.classList.add('hidden');
       landingPage.classList.add('hidden');
-      dashboardApp.classList.add('hidden');
-      pendingPage.classList.remove('hidden');
-      document.getElementById('pending-email').innerText = email;
-    }
-
-    function setupUserDashboard(userData) {
-      authModal.classList.add('hidden');
-      landingPage.classList.add('hidden');
-      pendingPage.classList.add('hidden');
       dashboardApp.classList.remove('hidden');
       dashboardApp.classList.add('flex');
 
-      document.getElementById('user-display-name').innerText = userData.name;
-      document.getElementById('user-email-text').innerText = userData.email;
-      document.getElementById('user-avatar').src = 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + userData.email;
+      const user = JSON.parse(localStorage.getItem('tf_active_user')) || { name: 'User', email: 'user@gmail.com' };
+      document.getElementById('user-display-name').innerText = user.name;
+      document.getElementById('user-email-text').innerText = user.email;
 
-      const rawClicks = userData.clicks || 0;
-      document.getElementById('total-clicks').innerText = rawClicks;
-      document.getElementById('filtered-clicks').innerText = Math.floor(rawClicks / 10);
-
-      initChart([rawClicks / 4, rawClicks / 2, rawClicks]);
-      renderOffers();
-    }
-
-    async function setupAdminDashboard() {
-      authModal.classList.add('hidden');
-      landingPage.classList.add('hidden');
-      pendingPage.classList.add('hidden');
-      dashboardApp.classList.remove('hidden');
-      dashboardApp.classList.add('flex');
-
-      document.getElementById('admin-badge').classList.remove('hidden');
-      document.getElementById('admin-add-offer-btn').classList.remove('hidden');
-
-      document.getElementById('user-display-name').innerText = adminName;
-      document.getElementById('user-email-text').innerText = adminEmail;
-      document.getElementById('user-avatar').src = adminAvatar;
-
-      const usersSnap = await getDocs(collection(db, "users"));
-      let totalRaw = 0;
-      let approvalHtml = '';
-
-      usersSnap.forEach(uDoc => {
-        const data = uDoc.data();
-        totalRaw += (data.clicks || 0);
-
-        approvalHtml += `
-          <tr>
-            <td class="p-3 text-white font-bold">${data.email}</td>
-            <td class="p-3 text-blue-400 font-bold">${data.clicks || 0}</td>
-            <td class="p-3"><span class="${data.status === 'approved' ? 'bg-emerald-500/20 text-emerald-400' : data.status === 'suspended' ? 'bg-red-500/20 text-red-400' : 'bg-amber-500/20 text-amber-400'} text-[10px] font-bold px-2 py-0.5 rounded uppercase">${data.status || 'pending'}</span></td>
-            <td class="p-3 flex gap-2">
-              <button onclick="changeUserStatus('${data.uid}', 'approved')" class="bg-emerald-600 hover:bg-emerald-500 text-white text-[10px] font-bold px-2.5 py-1 rounded-lg">Approve</button>
-              <button onclick="changeUserStatus('${data.uid}', 'suspended')" class="bg-red-600 hover:bg-red-500 text-white text-[10px] font-bold px-2.5 py-1 rounded-lg">Suspend</button>
-            </td>
-          </tr>
-        `;
-      });
-
-      document.getElementById('total-clicks').innerText = totalRaw;
-      document.getElementById('filtered-clicks').innerText = Math.floor(totalRaw / 10);
-      document.getElementById('approval-table-body').innerHTML = approvalHtml || `<tr><td colspan="4" class="p-3 text-slate-500">No users found.</td></tr>`;
-
-      initChart([totalRaw / 3, totalRaw / 1.5, totalRaw]);
-      renderOffers();
-    }
-
-    window.changeUserStatus = async (uid, newStatus) => {
-      await updateDoc(doc(db, "users", uid), { status: newStatus });
-      alert(`User status updated to ${newStatus}!`);
-      setupAdminDashboard();
-    };
-
-    // ADD NEW USER DIRECTLY FROM ADMIN PANEL & SAVE TO FIREBASE
-    window.addNewUser = async (e) => {
-      e.preventDefault();
-      const name = document.getElementById('new-user-name').value.trim();
-      const email = document.getElementById('new-user-email').value.trim();
-      const customUid = 'user_' + Date.now();
-
-      try {
-        await setDoc(doc(db, "users", customUid), {
-          uid: customUid,
-          name: name,
-          email: email,
-          status: 'approved',
-          clicks: 0
-        });
-        alert('Publisher successfully added and approved in Firebase!');
-        e.target.reset();
-        setupAdminDashboard();
-      } catch (err) {
-        console.error("Error adding user:", err);
-        alert('Failed to add user to Firebase.');
+      if (isAdmin) {
+        document.getElementById('admin-badge').classList.remove('hidden');
+        document.getElementById('admin-users-tab').classList.remove('hidden');
+        document.getElementById('admin-add-offer-btn').classList.remove('hidden');
       }
-    };
+
+      renderUsersTable();
+      renderOffers();
+      initChart([12, 45, 89, 120]);
+    }
 
     window.switchTab = (tabId) => {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
       document.getElementById('tab-' + tabId).classList.add('active');
+    };
+
+    // ADD USER MODAL CONTROLS
+    window.openAddUserModal = () => document.getElementById('add-user-modal').classList.remove('hidden');
+    window.closeAddUserModal = () => document.getElementById('add-user-modal').classList.add('hidden');
+
+    window.saveNewUser = async (e) => {
+      e.preventDefault();
+      const role = document.getElementById('user-role-select').value;
+      const name = document.getElementById('add-user-name').value.trim();
+      const email = document.getElementById('add-user-email').value.trim();
+      const pass = document.getElementById('add-user-pass').value.trim();
+
+      const users = JSON.parse(localStorage.getItem('tf_registered_users')) || [];
+      const newUser = { id: Date.now(), name, email, pass, role, clicks: 0, status: 'Active' };
+      users.push(newUser);
+      localStorage.setItem('tf_registered_users', JSON.stringify(users));
+
+      // Save to Firebase Firestore
+      try {
+        await setDoc(doc(db, "users", "usr_" + newUser.id), newUser);
+      } catch(err) { console.log(err); }
+
+      alert(`${role} Account Created Successfully!`);
+      closeAddUserModal();
+      renderUsersTable();
+      e.target.reset();
+    };
+
+    function renderUsersTable() {
+      const users = JSON.parse(localStorage.getItem('tf_registered_users')) || [];
+      const tbody = document.getElementById('users-table-body');
+      tbody.innerHTML = '';
+
+      users.forEach((u, index) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td class="p-3 font-bold text-white">${u.name}</td>
+          <td class="p-3 text-slate-400">${u.email}</td>
+          <td class="p-3"><span class="bg-blue-500/20 text-blue-400 text-[10px] font-bold px-2 py-0.5 rounded">${u.role}</span></td>
+          <td class="p-3 font-bold text-indigo-400">${u.clicks || 0}</td>
+          <td class="p-3"><span class="bg-emerald-500/20 text-emerald-400 text-[10px] font-bold px-2 py-0.5 rounded">${u.status}</span></td>
+          <td class="p-3">
+            <button onclick="deleteUser(${index})" class="bg-red-600/20 text-red-400 hover:bg-red-600 hover:text-white text-[10px] font-bold px-2.5 py-1 rounded-lg transition">Remove</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    window.deleteUser = (index) => {
+      let users = JSON.parse(localStorage.getItem('tf_registered_users')) || [];
+      users.splice(index, 1);
+      localStorage.setItem('tf_registered_users', JSON.stringify(users));
+      renderUsersTable();
     };
 
     let globalOffers = JSON.parse(localStorage.getItem('tf_offers_list')) || [
@@ -531,8 +448,6 @@
         `;
         container.appendChild(div);
       });
-
-      document.getElementById('active-campaigns-count').innerText = globalOffers.length;
     }
 
     window.addNewOffer = (e) => {
@@ -543,7 +458,7 @@
       globalOffers.push({ id: Date.now(), title, url });
       localStorage.setItem('tf_offers_list', JSON.stringify(globalOffers));
       renderOffers();
-      alert('Offer Published / Updated!');
+      alert('Offer Published!');
       e.target.reset();
       switchTab('offers-hub');
     };
@@ -556,12 +471,12 @@
       myChart = new Chart(ctx, {
         type: 'line',
         data: {
-          labels: ['Yesterday', 'Today'],
+          labels: ['6 AM', '12 PM', '6 PM', '12 AM'],
           datasets: [{
-            label: 'Clicks',
-            data: dataPoints.length ? dataPoints : [5, 15],
+            label: 'Live Traffic Clicks',
+            data: dataPoints,
             borderColor: '#3b82f6',
-            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+            backgroundColor: 'rgba(59, 130, 246, 0.15)',
             fill: true,
             tension: 0.4
           }]
@@ -573,26 +488,6 @@
         }
       });
     }
-
-    const editModal = document.getElementById('edit-profile-modal');
-    document.getElementById('open-edit-profile-btn').addEventListener('click', () => editModal.classList.remove('hidden'));
-    document.getElementById('close-edit-modal').addEventListener('click', () => editModal.classList.add('hidden'));
-
-    window.selectAvatar = (url) => {
-      document.getElementById('avatar-url-input').value = url;
-    };
-
-    window.saveProfileChanges = () => {
-      const newName = document.getElementById('edit-name-input').value.trim();
-      const newAvatar = document.getElementById('avatar-url-input').value.trim();
-
-      if (newName) localStorage.setItem('tf_admin_name', newName);
-      if (newAvatar) localStorage.setItem('tf_admin_avatar', newAvatar);
-
-      alert('Profile Updated!');
-      editModal.classList.add('hidden');
-      window.location.reload();
-    };
   </script>
 </body>
 </html>
