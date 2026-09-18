@@ -5,16 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TrackFlow - Pro Marketing & Creator Hub</title>
   
-  <!-- Paint & Design Favicon -->
+  <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='paint' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%23ec4899'/><stop offset='100%' stop-color='%238b5cf6'/></linearGradient></defs><circle cx='50' cy='50' r='46' fill='%230f172a' stroke='url(%23paint)' stroke-width='4'/><path d='M65 25 C65 25 75 35 75 35 C75 35 45 65 35 75 C30 80 20 80 20 80 C20 80 20 70 25 65 C35 55 65 25 65 25 Z' fill='url(%23paint)'/></svg>">
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- FontAwesome Icons CDN -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Chart.js for Animated Graph -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   
   <style>
     .paint-glow { filter: drop-shadow(0 0 10px rgba(236, 72, 153, 0.5)); }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
   </style>
 </head>
 <body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col justify-between">
@@ -26,12 +30,13 @@
         <i class="fa-solid fa-bars text-xl"></i>
       </button>
       
-      <!-- ORIGINAL PAINT / ARTIST CREATOR LOGO -->
+      <!-- LOGO -->
       <div class="flex items-center gap-2.5">
         <div class="w-10 h-10 bg-slate-950 border border-fuchsia-500/40 rounded-xl flex items-center justify-center paint-glow">
           <i class="fa-solid fa-palette text-xl text-fuchsia-400"></i>
         </div>
         <span class="font-extrabold text-xl tracking-wider text-white">TRACK<span class="text-fuchsia-400">FLOW</span></span>
+        <span id="admin-badge" class="hidden bg-amber-500/20 text-amber-400 border border-amber-500/40 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full ml-2">MASTER ADMIN</span>
       </div>
     </div>
     
@@ -42,9 +47,8 @@
     </div>
   </header>
 
-  <!-- LANDING PAGE SECTION (VISIBLE BEFORE LOGIN) -->
+  <!-- LANDING PAGE SECTION -->
   <div id="landing-page" class="flex-1 flex flex-col items-center justify-center p-6 text-center max-w-4xl mx-auto">
-    <!-- Paint Brush Main Logo Icon -->
     <div class="w-20 h-20 mb-6 bg-slate-900 border-2 border-fuchsia-500/50 rounded-3xl flex items-center justify-center paint-glow shadow-2xl">
       <i class="fa-solid fa-paint-brush text-3xl text-fuchsia-400"></i>
     </div>
@@ -56,29 +60,27 @@
       TrackFlow is a powerful digital campaign dashboard engineered for content creators to manage marketing analytics, custom alias traffic, and promotional campaign links.
     </p>
 
-    <!-- GET STARTED BUTTON -->
     <button id="open-auth-modal-btn" class="bg-gradient-to-r from-fuchsia-600 via-purple-600 to-cyan-500 hover:from-fuchsia-500 hover:to-cyan-400 text-white font-black text-lg px-10 py-4 rounded-2xl shadow-xl hover:scale-105 transition transform paint-glow flex items-center gap-3">
       <i class="fa-solid fa-rocket"></i> Get Started
     </button>
   </div>
 
-  <!-- AUTH POPUP MODAL (HIDDEN BY DEFAULT) -->
+  <!-- AUTH POPUP MODAL -->
   <div id="auth-modal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
     <div class="bg-slate-900 border border-slate-800 p-8 rounded-3xl max-w-md w-full text-center shadow-2xl relative">
       <button id="close-auth-modal" class="absolute top-4 right-4 text-slate-500 hover:text-white text-lg">
         <i class="fa-solid fa-xmark"></i>
       </button>
 
-      <!-- Modal Paint Icon -->
       <div class="w-14 h-14 mx-auto mb-4 bg-slate-950 border border-fuchsia-500/40 rounded-2xl flex items-center justify-center paint-glow">
         <i class="fa-solid fa-palette text-2xl text-fuchsia-400"></i>
       </div>
       
       <h2 class="text-2xl font-bold text-white mb-1">Access TrackFlow</h2>
-      <p class="text-slate-400 text-xs mb-6">You are logging in to TrackFlow Creator Hub. Choose your authentication method to continue.</p>
+      <p class="text-slate-400 text-xs mb-6">Choose your authentication method to access publisher or admin dashboard.</p>
 
       <div class="space-y-3">
-        <!-- GOOGLE LOGIN BUTTON -->
+        <!-- GOOGLE LOGIN -->
         <button id="google-login-btn" class="w-full bg-white hover:bg-slate-100 text-slate-900 font-bold py-3.5 px-4 rounded-xl flex items-center justify-center gap-3 transition shadow-lg">
           <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-5 h-5" alt="Google">
           Continue with Google
@@ -86,21 +88,23 @@
 
         <div class="relative my-4">
           <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-slate-800"></div></div>
-          <div class="relative flex justify-center text-xs uppercase"><span class="bg-slate-900 px-2 text-slate-500">Or register with email</span></div>
+          <div class="relative flex justify-center text-xs uppercase"><span class="bg-slate-900 px-2 text-slate-500">Admin or Email Access</span></div>
         </div>
 
-        <!-- EMAIL/REGISTER OPTION -->
-        <input type="email" id="email-input" placeholder="Enter your email" class="w-full bg-slate-950 border border-slate-800 rounded-xl py-3 px-4 text-sm text-white focus:outline-none focus:border-fuchsia-500">
-        <button id="email-signup-btn" class="w-full bg-slate-800 hover:bg-slate-700 text-fuchsia-400 font-bold py-3 px-4 rounded-xl text-sm transition border border-slate-700">
-          Register / Sign Up with Email
+        <!-- EMAIL / ADMIN LOGIN INPUTS -->
+        <input type="email" id="email-input" placeholder="Email Address" class="w-full bg-slate-950 border border-slate-800 rounded-xl py-3 px-4 text-sm text-white focus:outline-none focus:border-fuchsia-500">
+        <input type="password" id="password-input" placeholder="Password (For Admin)" class="w-full bg-slate-950 border border-slate-800 rounded-xl py-3 px-4 text-sm text-white focus:outline-none focus:border-fuchsia-500">
+        
+        <button id="admin-login-btn" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-extrabold py-3 px-4 rounded-xl text-sm transition shadow-lg">
+          Login to Dashboard
         </button>
       </div>
 
-      <p class="text-[11px] text-slate-500 mt-5">By continuing, you accept our platform terms and marketing agreement.</p>
+      <p class="text-[11px] text-slate-500 mt-5">Admins login using official credentials.</p>
     </div>
   </div>
 
-  <!-- DASHBOARD CONTAINER (HIDDEN UNTIL AUTHENTICATED) -->
+  <!-- DASHBOARD CONTAINER -->
   <div id="dashboard-app" class="hidden flex-1 flex flex-col md:flex-row relative overflow-hidden">
 
     <!-- SIDEBAR PANEL -->
@@ -118,20 +122,25 @@
 
         <!-- NAVIGATION LINKS -->
         <nav class="space-y-1.5">
-          <a href="#overview" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-fuchsia-500/10 text-fuchsia-400 font-medium text-sm border border-fuchsia-500/20">
+          <button onclick="switchTab('overview')" class="w-full text-left flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-fuchsia-500/10 text-fuchsia-400 font-medium text-sm border border-fuchsia-500/20">
             <i class="fa-solid fa-chart-pie w-5"></i> Overview
-          </a>
-          <a href="#link-generator" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white font-medium text-sm transition">
+          </button>
+          <button onclick="switchTab('link-generator')" class="w-full text-left flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white font-medium text-sm transition">
             <i class="fa-solid fa-link w-5"></i> Alias Generator
-          </a>
-          <a href="#offers-hub" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white font-medium text-sm transition">
+          </button>
+          <button onclick="switchTab('offers-hub')" class="w-full text-left flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white font-medium text-sm transition">
             <i class="fa-solid fa-gift w-5"></i> Campaign Offers
-          </a>
+          </button>
+          
+          <!-- ADMIN ONLY BUTTON -->
+          <button id="admin-add-offer-btn" onclick="switchTab('admin-panel')" class="hidden w-full text-left flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-amber-500/10 text-amber-400 font-bold text-sm border border-amber-500/20 transition">
+            <i class="fa-solid fa-plus-circle w-5"></i> Admin: Add Offer
+          </button>
         </nav>
 
         <hr class="border-slate-800">
 
-        <!-- SECONDARY OFFERS -->
+        <!-- OFFERS QUICK LINK -->
         <div class="space-y-2">
           <p class="text-[11px] font-bold text-slate-500 uppercase tracking-wider px-2">Main Offer Link</p>
           <a href="https://ff-rewards-hub-gamma.vercel.app/" target="_blank" class="block p-2.5 rounded-xl bg-slate-950 hover:border-slate-700 border border-slate-800/80 transition">
@@ -153,92 +162,156 @@
     <!-- MAIN CONTENT AREA -->
     <main class="flex-1 overflow-y-auto p-4 md:p-6 space-y-6">
 
-      <!-- STATS OVERVIEW SECTION -->
-      <section id="overview" class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl">
-          <p class="text-xs text-slate-400 font-semibold uppercase">Total Clicks</p>
-          <h3 id="total-clicks" class="text-3xl font-extrabold text-fuchsia-400 mt-2">0</h3>
+      <!-- TAB 1: OVERVIEW DASHBOARD -->
+      <div id="tab-overview" class="tab-content active space-y-6">
+        
+        <!-- TOP DATE CALENDAR FILTER -->
+        <div class="flex justify-between items-center bg-slate-900 p-4 rounded-2xl border border-slate-800">
+          <div>
+            <h3 class="text-sm font-bold text-white"><i class="fa-solid fa-calendar-days text-fuchsia-400 mr-2"></i>Traffic Performance</h3>
+            <p class="text-[11px] text-slate-400">Real-time statistics & ratio analytics</p>
+          </div>
+          <select id="date-filter" class="bg-slate-950 border border-slate-800 text-xs text-fuchsia-400 rounded-xl px-3 py-2 outline-none">
+            <option value="today">Today</option>
+            <option value="7days">Last 7 Days</option>
+            <option value="alltime" selected>All Time</option>
+          </select>
         </div>
 
-        <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl">
-          <p class="text-xs text-slate-400 font-semibold uppercase">15 Clicks Goal Progress</p>
-          <h3 id="clicks-target" class="text-3xl font-extrabold text-cyan-400 mt-2">0 / 15</h3>
-          <div class="w-full bg-slate-800 h-2 rounded-full mt-3 overflow-hidden">
-            <div id="progress-bar" class="bg-gradient-to-r from-fuchsia-500 to-cyan-400 h-full w-0 transition-all duration-500"></div>
+        <!-- 4 TOP CARDS SUMMARY -->
+        <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+          <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl">
+            <p class="text-xs text-slate-400 font-semibold uppercase">Total Raw Clicks</p>
+            <h3 id="total-clicks" class="text-2xl font-extrabold text-fuchsia-400 mt-1">0</h3>
+            <p class="text-[10px] text-slate-500 mt-1">All Incoming Traffic</p>
+          </div>
+
+          <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl">
+            <p class="text-xs text-slate-400 font-semibold uppercase">Counted Clicks (15:1 Ratio)</p>
+            <h3 id="filtered-clicks" class="text-2xl font-extrabold text-cyan-400 mt-1">0</h3>
+            <p class="text-[10px] text-slate-500 mt-1">15 Real = 1 Display Click</p>
+          </div>
+
+          <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl">
+            <p class="text-xs text-slate-400 font-semibold uppercase">Active Campaigns</p>
+            <h3 id="active-campaigns-count" class="text-2xl font-extrabold text-amber-400 mt-1">1</h3>
+            <p class="text-[10px] text-slate-500 mt-1">Live Monetized Offers</p>
+          </div>
+
+          <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl">
+            <p class="text-xs text-slate-400 font-semibold uppercase">System Health</p>
+            <h3 class="text-2xl font-extrabold text-emerald-400 mt-1">100%</h3>
+            <p class="text-[10px] text-slate-500 mt-1">Secure & Operational</p>
+          </div>
+        </section>
+
+        <!-- DYNAMIC ANIMATED GRAPH -->
+        <div class="bg-slate-900 border border-slate-800 p-5 rounded-3xl space-y-3">
+          <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider"><i class="fa-solid fa-chart-line text-cyan-400 mr-1.5"></i> Live Clicks Analytics Graph</h4>
+          <div class="h-64 w-full">
+            <canvas id="trafficChart"></canvas>
           </div>
         </div>
 
-        <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl">
-          <p class="text-xs text-slate-400 font-semibold uppercase">Est. Revenue</p>
-          <h3 id="est-earnings" class="text-3xl font-extrabold text-emerald-400 mt-2">₹0.00</h3>
-        </div>
-      </section>
-
-      <!-- ALIAS LINK GENERATOR CARD -->
-      <section id="link-generator" class="bg-slate-900 border border-slate-800 rounded-3xl p-5 md:p-6 shadow-xl">
-        <h2 class="text-lg font-bold text-white flex items-center gap-2 mb-1">
-          <i class="fa-solid fa-wand-magic-sparkles text-fuchsia-400"></i> Create Custom Alias Tracking Link
-        </h2>
-        <p class="text-xs text-slate-400 mb-4">Enter your custom alias below to generate your direct reward tracking link.</p>
-
-        <div class="flex flex-col md:flex-row gap-3">
-          <div class="relative flex-1">
-            <span class="absolute left-3.5 top-3 text-slate-500 text-sm">@</span>
-            <input type="text" id="alias-input" placeholder="e.g. custom-alias-link" class="w-full bg-slate-950 border border-slate-800 rounded-xl py-2.5 pl-8 pr-4 text-sm text-fuchsia-300 focus:outline-none focus:border-fuchsia-500 transition">
+        <!-- MASTER ADMIN ONLY: USER TABLE -->
+        <div id="admin-user-table-card" class="hidden bg-slate-900 border border-slate-800 p-5 rounded-3xl space-y-4">
+          <h3 class="text-sm font-bold text-amber-400"><i class="fa-solid fa-users-gear mr-2"></i> All Registered Publishers (Admin View)</h3>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs text-slate-300">
+              <thead class="bg-slate-950 uppercase text-slate-400">
+                <tr>
+                  <th class="p-3">User Email</th>
+                  <th class="p-3">Raw Clicks</th>
+                  <th class="p-3">Display Clicks (15:1)</th>
+                  <th class="p-3">Status</th>
+                </tr>
+              </thead>
+              <tbody id="user-table-body" class="divide-y divide-slate-800">
+                <!-- Dynamic Content -->
+              </tbody>
+            </table>
           </div>
-          <button id="generate-btn" class="bg-gradient-to-r from-fuchsia-600 to-purple-600 hover:from-fuchsia-500 hover:to-purple-500 text-white font-bold px-6 py-2.5 rounded-xl text-sm transition shadow-lg shrink-0">
-            Create Link
-          </button>
         </div>
 
-        <!-- GENERATED LINK OUTPUT -->
-        <div class="mt-4 p-3.5 bg-slate-950 rounded-2xl border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-3">
-          <input type="text" id="final-link-output" readonly value="https://ff-rewards-hub-gamma.vercel.app/" class="bg-transparent text-xs text-slate-300 w-full outline-none font-mono">
-          <button id="copy-link-btn" class="w-full md:w-auto bg-slate-800 hover:bg-slate-700 text-fuchsia-400 px-4 py-1.5 rounded-lg text-xs font-semibold transition shrink-0 flex items-center justify-center gap-1.5">
-            <i class="fa-regular fa-copy"></i> Copy Link
-          </button>
-        </div>
-      </section>
+      </div>
 
-      <!-- CAMPAIGN OFFERS -->
-      <section id="offers-hub" class="space-y-4">
+      <!-- TAB 2: ALIAS GENERATOR -->
+      <div id="tab-link-generator" class="tab-content space-y-4">
+        <section class="bg-slate-900 border border-slate-800 rounded-3xl p-5 md:p-6 shadow-xl">
+          <h2 class="text-lg font-bold text-white flex items-center gap-2 mb-1">
+            <i class="fa-solid fa-wand-magic-sparkles text-fuchsia-400"></i> Create Custom Alias Tracking Link
+          </h2>
+          <p class="text-xs text-slate-400 mb-4">Enter your custom alias below to generate your direct reward tracking link.</p>
+
+          <div class="flex flex-col md:flex-row gap-3">
+            <div class="relative flex-1">
+              <span class="absolute left-3.5 top-3 text-slate-500 text-sm">@</span>
+              <input type="text" id="alias-input" placeholder="e.g. custom-alias-link" class="w-full bg-slate-950 border border-slate-800 rounded-xl py-2.5 pl-8 pr-4 text-sm text-fuchsia-300 focus:outline-none focus:border-fuchsia-500 transition">
+            </div>
+            <button id="generate-btn" class="bg-gradient-to-r from-fuchsia-600 to-purple-600 hover:from-fuchsia-500 hover:to-purple-500 text-white font-bold px-6 py-2.5 rounded-xl text-sm transition shadow-lg shrink-0">
+              Create Link
+            </button>
+          </div>
+
+          <div class="mt-4 p-3.5 bg-slate-950 rounded-2xl border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-3">
+            <input type="text" id="final-link-output" readonly value="https://ff-rewards-hub-gamma.vercel.app/" class="bg-transparent text-xs text-slate-300 w-full outline-none font-mono">
+            <button id="copy-link-btn" class="w-full md:w-auto bg-slate-800 hover:bg-slate-700 text-fuchsia-400 px-4 py-1.5 rounded-lg text-xs font-semibold transition shrink-0 flex items-center justify-center gap-1.5">
+              <i class="fa-regular fa-copy"></i> Copy Link
+            </button>
+          </div>
+        </section>
+      </div>
+
+      <!-- TAB 3: CAMPAIGN OFFERS -->
+      <div id="tab-offers-hub" class="tab-content space-y-4">
         <h3 class="text-base font-bold text-slate-200 flex items-center gap-2">
           <i class="fa-solid fa-layer-group text-fuchsia-400"></i> Active Campaign Offers
         </h3>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div class="bg-slate-900 border border-fuchsia-500/30 p-5 rounded-2xl relative overflow-hidden flex flex-col justify-between">
-            <div class="absolute top-0 right-0 bg-fuchsia-500 text-slate-950 text-[10px] font-extrabold uppercase px-3 py-1 rounded-bl-xl">Main Vercel Offer</div>
-            <div>
-              <h4 class="font-bold text-white text-base mb-1">Free Fire Rewards Hub</h4>
-              <p class="text-xs text-slate-400 mb-3">Main redirection destination for visitors and offer redemptions.</p>
-            </div>
-            <a href="https://ff-rewards-hub-gamma.vercel.app/" target="_blank" class="inline-flex items-center gap-2 text-xs font-bold text-fuchsia-400 hover:text-fuchsia-300">
-              Visit Vercel Offer <i class="fa-solid fa-arrow-up-right-from-square"></i>
-            </a>
-          </div>
+        <div id="offers-list-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Live Offers Render Here -->
         </div>
-      </section>
+      </div>
+
+      <!-- TAB 4: ADMIN ADD OFFER PANEL -->
+      <div id="tab-admin-panel" class="tab-content space-y-4 max-w-2xl mx-auto">
+        <div class="bg-slate-900 border border-amber-500/40 p-6 rounded-3xl space-y-4">
+          <h3 class="text-base font-bold text-amber-400 flex items-center gap-2">
+            <i class="fa-solid fa-plus-circle"></i> Create & Broadcast New Offer
+          </h3>
+          <p class="text-xs text-slate-400">Fill the form below to push a new monetization link to all publishers.</p>
+
+          <form onsubmit="addNewOffer(event)" class="space-y-4 text-xs">
+            <div>
+              <label class="block text-slate-400 mb-1">Campaign Title</label>
+              <input type="text" id="new-offer-title" required placeholder="e.g. Free Fire Diamond Macro Link" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-amber-500">
+            </div>
+            <div>
+              <label class="block text-slate-400 mb-1">Target Redirect Link</label>
+              <input type="url" id="new-offer-url" required placeholder="https://ff-rewards-hub-gamma.vercel.app/" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-amber-500">
+            </div>
+            <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-extrabold py-3 rounded-xl transition">Approve & Publish Live</button>
+          </form>
+        </div>
+      </div>
 
     </main>
   </div>
 
-  <!-- DISCLAIMER FOOTER -->
+  <!-- FOOTER -->
   <footer class="bg-slate-950 border-t border-slate-900 p-6 text-center text-slate-500 text-xs mt-auto">
     <div class="max-w-4xl mx-auto space-y-2">
       <p class="font-bold text-slate-400">DISCLAIMER & PLATFORM NOTICE</p>
-      <p>
-        TrackFlow is an independent digital marketing performance, analytical tracking, and referral link management platform. It is strictly created for promotional campaign aggregation, user engagement tracking, and redirect management. This platform is not affiliated with, endorsed by, or officially connected to any third-party game developers or digital storefronts. All trademarks belong to their respective owners.
-      </p>
+      <p>TrackFlow is an independent digital marketing performance & analytical tracking platform.</p>
       <p class="text-[10px] text-slate-600">© 2026 TrackFlow Pro. All Rights Reserved.</p>
     </div>
   </footer>
 
-  <!-- FIREBASE INTEGRATION SCRIPT -->
+  <!-- FIREBASE & CORE SYSTEM SCRIPT -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { getAuth, signInWithRedirect, getRedirectResult, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-    import { getFirestore, doc, setDoc, getDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { getFirestore, doc, setDoc, getDoc, updateDoc, increment, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyDhi-7RfGoAV1K9gXBiQcd3vUtHCmPrTCQ",
@@ -254,6 +327,10 @@
     const db = getFirestore(app);
     const provider = new GoogleAuthProvider();
 
+    // MASTER ADMIN CREDENTIALS
+    const ADMIN_EMAIL = "Kids38271@gmail.com";
+    const ADMIN_PASS = "Ragib@7549";
+
     const mainTargetURL = "https://ff-rewards-hub-gamma.vercel.app/";
 
     // UI ELEMENTS
@@ -265,13 +342,12 @@
     const toggleSidebarBtn = document.getElementById('toggle-sidebar-btn');
     const sidebar = document.getElementById('sidebar');
 
+    window.isAdminUser = false;
+
     // MODAL TOGGLES
     openAuthBtn.addEventListener('click', () => authModal.classList.remove('hidden'));
     closeAuthBtn.addEventListener('click', () => authModal.classList.add('hidden'));
-
-    toggleSidebarBtn.addEventListener('click', () => {
-      sidebar.classList.toggle('hidden');
-    });
+    toggleSidebarBtn.addEventListener('click', () => sidebar.classList.toggle('hidden'));
 
     // VISITOR REDIRECT & CLICK COUNTING
     const urlParams = new URLSearchParams(window.location.search);
@@ -286,76 +362,221 @@
       });
     }
 
-    // GOOGLE LOGIN HANDLER
+    // GOOGLE LOGIN
     document.getElementById('google-login-btn').addEventListener('click', () => {
       signInWithRedirect(auth, provider);
     });
 
-    document.getElementById('logout-btn').addEventListener('click', () => signOut(auth));
+    // ADMIN LOGIN HANDLER
+    document.getElementById('admin-login-btn').addEventListener('click', async () => {
+      const email = document.getElementById('email-input').value.trim();
+      const pass = document.getElementById('password-input').value.trim();
 
-    // CHECK REDIRECT RESULT
-    getRedirectResult(auth).catch((err) => console.log(err.message));
-
-    // AUTH & REALTIME DATA
-    onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        authModal.classList.add('hidden');
-        landingPage.classList.add('hidden');
-        dashboardApp.classList.remove('hidden');
-        dashboardApp.classList.add('flex');
-        toggleSidebarBtn.classList.remove('hidden');
-
-        document.getElementById('user-display-name').innerText = user.displayName || 'Creator User';
-        document.getElementById('user-email-text').innerText = user.email || '';
-        if(user.photoURL) document.getElementById('user-avatar').src = user.photoURL;
-
-        const userRef = doc(db, "users", user.uid);
-        const userSnap = await getDoc(userRef);
-
-        let clicksCount = 0;
-        if (!userSnap.exists()) {
-          await setDoc(userRef, { name: user.displayName, email: user.email, clicks: 0 });
-        } else {
-          clicksCount = userSnap.data().clicks || 0;
-        }
-
-        // UPDATE DASHBOARD STATS
-        document.getElementById('total-clicks').innerText = clicksCount;
-        document.getElementById('clicks-target').innerText = `${clicksCount} / 15`;
-        document.getElementById('est-earnings').innerText = `₹${(clicksCount * 0.50).toFixed(2)}`;
-
-        // PROGRESS BAR (15 CLICKS GOAL)
-        const progressPercentage = Math.min((clicksCount / 15) * 100, 100);
-        document.getElementById('progress-bar').style.width = `${progressPercentage}%`;
-
+      if (email.toLowerCase() === ADMIN_EMAIL.toLowerCase() && pass === ADMIN_PASS) {
+        window.isAdminUser = true;
+        localStorage.setItem('tf_admin_session', 'true');
+        setupAdminDashboard({ displayName: 'Master Owner (Ragib)', email: ADMIN_EMAIL });
       } else {
-        authModal.classList.add('hidden');
-        landingPage.classList.remove('hidden');
-        dashboardApp.classList.add('hidden');
-        dashboardApp.classList.remove('flex');
-        toggleSidebarBtn.classList.add('hidden');
+        alert('Invalid Admin Credentials!');
       }
     });
+
+    document.getElementById('logout-btn').addEventListener('click', () => {
+      localStorage.removeItem('tf_admin_session');
+      signOut(auth);
+      window.location.reload();
+    });
+
+    // AUTH STATE LISTENER
+    onAuthStateChanged(auth, async (user) => {
+      if (localStorage.getItem('tf_admin_session') === 'true') {
+        window.isAdminUser = true;
+        setupAdminDashboard({ displayName: 'Master Owner (Ragib)', email: ADMIN_EMAIL });
+        return;
+      }
+
+      if (user) {
+        setupUserDashboard(user);
+      } else {
+        showLanding();
+      }
+    });
+
+    function showLanding() {
+      authModal.classList.add('hidden');
+      landingPage.classList.remove('hidden');
+      dashboardApp.classList.add('hidden');
+      dashboardApp.classList.remove('flex');
+      toggleSidebarBtn.classList.add('hidden');
+    }
+
+    async function setupUserDashboard(user) {
+      authModal.classList.add('hidden');
+      landingPage.classList.add('hidden');
+      dashboardApp.classList.remove('hidden');
+      dashboardApp.classList.add('flex');
+      toggleSidebarBtn.classList.remove('hidden');
+
+      document.getElementById('user-display-name').innerText = user.displayName || 'Publisher User';
+      document.getElementById('user-email-text').innerText = user.email || '';
+      if(user.photoURL) document.getElementById('user-avatar').src = user.photoURL;
+
+      const userRef = doc(db, "users", user.uid);
+      const userSnap = await getDoc(userRef);
+
+      let rawClicks = 0;
+      if (!userSnap.exists()) {
+        await setDoc(userRef, { name: user.displayName, email: user.email, clicks: 0 });
+      } else {
+        rawClicks = userSnap.data().clicks || 0;
+      }
+
+      // 15:1 / 15:2 CUT-CLICK CALCULATION
+      const displayClicks = Math.floor(rawClicks / 10); // Cuts 10-15 clicks to 1
+
+      document.getElementById('total-clicks').innerText = rawClicks;
+      document.getElementById('filtered-clicks').innerText = displayClicks;
+
+      initChart([rawClicks / 4, rawClicks / 2, rawClicks]);
+      renderOffers();
+    }
+
+    async function setupAdminDashboard(adminObj) {
+      authModal.classList.add('hidden');
+      landingPage.classList.add('hidden');
+      dashboardApp.classList.remove('hidden');
+      dashboardApp.classList.add('flex');
+      toggleSidebarBtn.classList.remove('hidden');
+
+      document.getElementById('admin-badge').classList.remove('hidden');
+      document.getElementById('admin-add-offer-btn').classList.remove('hidden');
+      document.getElementById('admin-user-table-card').classList.remove('hidden');
+
+      document.getElementById('user-display-name').innerText = adminObj.displayName;
+      document.getElementById('user-email-text').innerText = adminObj.email;
+
+      // Fetch all users for Admin
+      const usersSnap = await getDocs(collection(db, "users"));
+      let totalRaw = 0;
+      let tableHtml = '';
+
+      usersSnap.forEach(uDoc => {
+        const data = uDoc.data();
+        const rClicks = data.clicks || 0;
+        const dClicks = Math.floor(rClicks / 10);
+        totalRaw += rClicks;
+
+        tableHtml += `
+          <tr>
+            <td class="p-3 text-white font-bold">${data.email || 'User'}</td>
+            <td class="p-3 text-fuchsia-400 font-bold">${rClicks}</td>
+            <td class="p-3 text-cyan-400 font-bold">${dClicks}</td>
+            <td class="p-3"><span class="bg-emerald-500/20 text-emerald-400 text-[10px] font-bold px-2 py-0.5 rounded">Active</span></td>
+          </tr>
+        `;
+      });
+
+      document.getElementById('total-clicks').innerText = totalRaw;
+      document.getElementById('filtered-clicks').innerText = Math.floor(totalRaw / 10);
+      document.getElementById('user-table-body').innerHTML = tableHtml || `<tr><td colspan="4" class="p-3 text-slate-500">No registered users yet.</td></tr>`;
+
+      initChart([totalRaw / 3, totalRaw / 1.5, totalRaw]);
+      renderOffers();
+    }
+
+    // TAB SWITCHING
+    window.switchTab = (tabId) => {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.getElementById('tab-' + tabId).classList.add('active');
+    };
+
+    // LIVE OFFERS RENDER
+    let globalOffers = JSON.parse(localStorage.getItem('tf_offers_list')) || [
+      { id: 1, title: 'Free Fire Rewards Hub', url: mainTargetURL, badge: 'Main Offer' }
+    ];
+
+    function renderOffers() {
+      const container = document.getElementById('offers-list-container');
+      container.innerHTML = '';
+
+      globalOffers.forEach(o => {
+        const div = document.createElement('div');
+        div.className = "bg-slate-900 border border-fuchsia-500/30 p-5 rounded-2xl relative overflow-hidden flex flex-col justify-between space-y-3";
+        div.innerHTML = `
+          <div class="flex justify-between items-center">
+            <h4 class="font-bold text-white text-base">${o.title}</h4>
+            <span class="bg-fuchsia-500/20 text-fuchsia-400 text-[10px] font-bold px-2.5 py-0.5 rounded-full">${o.badge}</span>
+          </div>
+          <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800 flex items-center justify-between">
+            <input type="text" readonly value="${o.url}" class="bg-transparent text-xs text-slate-400 outline-none w-full">
+            <button onclick="navigator.clipboard.writeText('${o.url}'); alert('Offer Copied!');" class="bg-fuchsia-600 text-white text-[10px] px-3 py-1.5 rounded-lg font-bold shrink-0 ml-2">Copy</button>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+
+      document.getElementById('active-campaigns-count').innerText = globalOffers.length;
+    }
+
+    window.addNewOffer = (e) => {
+      e.preventDefault();
+      const title = document.getElementById('new-offer-title').value;
+      const url = document.getElementById('new-offer-url').value;
+
+      globalOffers.push({ id: Date.now(), title, url, badge: 'New Offer' });
+      localStorage.setItem('tf_offers_list', JSON.stringify(globalOffers));
+      renderOffers();
+      alert('Offer Published Live!');
+      e.target.reset();
+      switchTab('offers-hub');
+    };
+
+    // GRAPH CHART INIT
+    let myChart = null;
+    function initChart(dataPoints) {
+      const ctx = document.getElementById('trafficChart').getContext('2d');
+      if (myChart) myChart.destroy();
+
+      myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['Day 1', 'Day 2', 'Day 3', 'Today'],
+          datasets: [{
+            label: 'Click Flow',
+            data: dataPoints.length ? dataPoints : [0, 5, 12, 20],
+            borderColor: '#ec4899',
+            backgroundColor: 'rgba(236, 72, 153, 0.1)',
+            fill: true,
+            tension: 0.4
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { grid: { color: 'rgba(255,255,255,0.05)' } },
+            y: { grid: { color: 'rgba(255,255,255,0.05)' } }
+          }
+        }
+      });
+    }
 
     // ALIAS GENERATOR
     document.getElementById('generate-btn').addEventListener('click', () => {
       const alias = document.getElementById('alias-input').value.trim().toLowerCase().replace(/[^a-z0-9-]/g, '');
-      if (!alias) {
-        alert('Please enter a valid alias!');
-        return;
-      }
+      if (!alias) return alert('Enter valid alias!');
       const currentUser = auth.currentUser;
-      const uid = currentUser ? currentUser.uid : 'guest';
-      const newGeneratedLink = `${window.location.origin}${window.location.pathname}?ref=${uid}&alias=${alias}`;
-      document.getElementById('final-link-output').value = newGeneratedLink;
-      alert('Custom Alias Link Generated Successfully!');
+      const uid = currentUser ? currentUser.uid : 'admin';
+      document.getElementById('final-link-output').value = `${window.location.origin}${window.location.pathname}?ref=${uid}&alias=${alias}`;
+      alert('Custom Alias Generated!');
     });
 
     document.getElementById('copy-link-btn').addEventListener('click', () => {
       const output = document.getElementById('final-link-output');
       output.select();
       navigator.clipboard.writeText(output.value);
-      alert('Link copied to clipboard!');
+      alert('Link Copied!');
     });
   </script>
 </body>
