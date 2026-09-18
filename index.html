@@ -3,222 +3,159 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TrackFlow - Role Based Dashboard</title>
-  
-  <!-- Tailwind CSS CDN -->
+  <title>TrackFlow Dashboard</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- FontAwesome Icons CDN -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
   <style>
-    .tf-logo-glow {
-      box-shadow: 0 0 20px rgba(168, 85, 247, 0.6), inset 0 0 10px rgba(6, 182, 212, 0.5);
-      animation: tfPulse 2.5s infinite alternate;
-    }
-    @keyframes tfPulse {
-      0% { box-shadow: 0 0 15px rgba(168, 85, 247, 0.5), inset 0 0 8px rgba(6, 182, 212, 0.3); transform: scale(1); }
-      100% { box-shadow: 0 0 28px rgba(168, 85, 247, 0.9), inset 0 0 18px rgba(6, 182, 212, 0.7); transform: scale(1.04); }
-    }
-    .spin-slow { animation: spin 8s linear infinite; }
-    @keyframes spin { 100% { transform: rotate(360deg); } }
+    .tf-glow { box-shadow: 0 0 15px rgba(168, 85, 247, 0.4); }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col justify-between">
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen">
 
-  <!-- TOP NAVBAR -->
-  <header class="bg-slate-900/90 backdrop-blur-md border-b border-slate-800 sticky top-0 z-40 h-16 flex items-center justify-between px-4 md:px-8">
-    <div class="flex items-center gap-3">
-      <div class="w-10 h-10 bg-slate-950 border border-purple-500 rounded-xl flex items-center justify-center tf-logo-glow">
-        <i class="fa-solid fa-chart-line text-lg text-cyan-400 spin-slow"></i>
+  <!-- LOGIN SECTION -->
+  <div id="auth-section" class="min-h-screen flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 p-8 rounded-3xl max-w-md w-full shadow-2xl">
+      <div class="text-center mb-6">
+        <h2 class="text-2xl font-black text-white">TRACK<span class="text-purple-500">FLOW</span></h2>
+        <p class="text-xs text-slate-400 mt-1">Sign in to your account</p>
       </div>
-      <span class="font-black text-xl tracking-wider text-white">TRACK<span class="text-purple-500">FLOW</span></span>
-    </div>
-
-    <div class="flex items-center gap-3">
-      <span id="role-badge" class="text-xs bg-purple-500/10 text-purple-400 border border-purple-500/20 px-3 py-1 rounded-full font-semibold flex items-center gap-1.5">
-        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span> Secure Portal
-      </span>
-    </div>
-  </header>
-
-  <!-- AUTH SECTION (EMAIL/PHONE & PASSWORD WITH AUTO-SAVE SUPPORT) -->
-  <div id="auth-section" class="flex-1 flex flex-col items-center justify-center p-4">
-    <div class="bg-slate-900 border border-slate-800 p-6 md:p-8 rounded-3xl max-w-md w-full shadow-2xl">
-      
-      <div class="w-14 h-14 mx-auto mb-4 bg-slate-950 border border-purple-500 rounded-2xl flex items-center justify-center tf-logo-glow">
-        <i class="fa-solid fa-lock text-2xl text-purple-400"></i>
-      </div>
-      
-      <h2 class="text-2xl font-black text-center text-white mb-1">TrackFlow Login</h2>
-      <p class="text-slate-400 text-xs text-center mb-6">Enter Admin / User Credentials</p>
 
       <form id="login-form" method="POST" action="javascript:void(0);" class="space-y-4">
         <div>
-          <label class="text-xs text-slate-400 block mb-1 font-bold">Email or Phone Number</label>
-          <input type="text" name="username" id="auth-email" required autocomplete="username" placeholder="Enter Email or Phone Number" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500">
-        </div>
-        <div>
-          <label class="text-xs text-slate-400 block mb-1 font-bold">Password</label>
-          <input type="password" name="password" id="auth-password" required autocomplete="current-password" placeholder="Enter Password" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500">
+          <label class="text-xs text-slate-400 block mb-1 font-semibold">Email or Phone Number</label>
+          <input type="text" name="username" id="auth-email" required autocomplete="username" placeholder="Email or Phone Number" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500">
         </div>
 
-        <button type="submit" id="btn-login" class="w-full bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 rounded-xl text-sm transition shadow-lg shadow-purple-600/30">
-          <i class="fa-solid fa-right-to-bracket mr-2"></i> Secure Login
+        <div>
+          <label class="text-xs text-slate-400 block mb-1 font-semibold">Password</label>
+          <div class="relative">
+            <input type="password" name="password" id="auth-password" required autocomplete="current-password" placeholder="Password" class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-4 pr-10 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500">
+            <!-- EYE ICON FOR LOGIN PASSWORD -->
+            <button type="button" id="toggle-login-pass" class="absolute right-3 top-2.5 text-slate-400 hover:text-white">
+              <i class="fa-solid fa-eye-slash" id="login-eye-icon"></i>
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" class="w-full bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 rounded-xl text-sm transition shadow-lg shadow-purple-600/30">
+          Login
         </button>
       </form>
-
       <p id="auth-error" class="text-xs text-red-400 mt-3 text-center hidden"></p>
     </div>
   </div>
 
-  <!-- MAIN DASHBOARD -->
-  <div id="dashboard-section" class="hidden flex-1 p-4 md:p-8 max-w-6xl mx-auto w-full space-y-6">
+  <!-- MAIN DASHBOARD WITH SIDE NAVIGATION BAR -->
+  <div id="dashboard-section" class="hidden flex min-h-screen">
     
-    <!-- USER PROFILE BAR -->
-    <div class="flex flex-col md:flex-row items-center justify-between bg-slate-900 border border-slate-800 p-4 rounded-2xl gap-4">
-      <div class="flex items-center gap-3">
-        <div class="w-11 h-11 bg-purple-600/20 border border-purple-500/40 rounded-xl flex items-center justify-center font-black text-purple-400 text-lg uppercase" id="user-avatar">
-          U
+    <!-- SIDEBAR NAVIGATION -->
+    <aside class="w-64 bg-slate-900 border-r border-slate-800 p-5 flex flex-col justify-between hidden md:flex">
+      <div class="space-y-6">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 bg-purple-600 rounded-xl flex items-center justify-center font-bold text-white">TF</div>
+          <span class="font-black text-lg text-white">TRACK<span class="text-purple-500">FLOW</span></span>
         </div>
-        <div>
-          <div class="flex items-center gap-2">
-            <h3 id="user-name" class="font-bold text-white text-base">User Name</h3>
-            <span id="user-role-tag" class="text-[10px] bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 px-2 py-0.5 rounded-md font-bold uppercase">Role</span>
+
+        <nav class="space-y-1 text-sm font-semibold">
+          <a href="#" class="flex items-center gap-3 px-3 py-2.5 bg-purple-600/10 text-purple-400 rounded-xl border border-purple-500/20">
+            <i class="fa-solid fa-chart-pie"></i> Overview
+          </a>
+          <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-slate-400 hover:text-white rounded-xl">
+            <i class="fa-solid fa-link"></i> Offer Links
+          </a>
+          <!-- ADMIN / PUBLISHER EXCLUSIVE MENU -->
+          <div id="admin-menu-items" class="hidden space-y-1 pt-2 border-t border-slate-800">
+            <a href="#admin-user-management" class="flex items-center gap-3 px-3 py-2.5 text-slate-400 hover:text-white rounded-xl">
+              <i class="fa-solid fa-user-plus"></i> Add User
+            </a>
+            <a href="#managed-users" class="flex items-center gap-3 px-3 py-2.5 text-slate-400 hover:text-white rounded-xl">
+              <i class="fa-solid fa-users"></i> All Users
+            </a>
           </div>
-          <p id="user-email" class="text-xs text-slate-400">user@email.com</p>
-        </div>
+        </nav>
       </div>
-      
-      <button id="btn-logout" class="bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/20 px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2">
+
+      <button id="btn-logout-side" class="flex items-center gap-2 text-xs font-bold text-red-400 hover:text-red-300">
         <i class="fa-solid fa-right-from-bracket"></i> Logout
       </button>
-    </div>
+    </aside>
 
-    <!-- OVERVIEW STATS CARDS -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl">
-        <p class="text-xs text-slate-400 font-bold uppercase">Total Clicks</p>
-        <h3 id="total-clicks" class="text-3xl font-black text-purple-400 mt-1">0</h3>
-      </div>
-      <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl">
-        <p class="text-xs text-slate-400 font-bold uppercase">Target Goal</p>
-        <h3 id="clicks-target" class="text-3xl font-black text-cyan-400 mt-1">0 / 15</h3>
-      </div>
-      <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl">
-        <p class="text-xs text-slate-400 font-bold uppercase">Est. Revenue</p>
-        <h3 id="est-revenue" class="text-3xl font-black text-emerald-400 mt-1">₹0.00</h3>
-      </div>
-    </div>
+    <!-- MAIN CONTENT AREA -->
+    <main class="flex-1 flex flex-col">
+      <!-- TOP BAR -->
+      <header class="h-16 border-b border-slate-800 px-6 flex items-center justify-between bg-slate-900/50">
+        <div class="flex items-center gap-2">
+          <span id="role-badge" class="text-xs bg-purple-500/10 text-purple-400 border border-purple-500/20 px-3 py-1 rounded-full font-bold uppercase">Role</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <span id="user-name-display" class="text-xs font-bold text-white">User</span>
+          <button id="btn-logout" class="md:hidden text-xs text-red-400 font-bold">Logout</button>
+        </div>
+      </header>
 
-    <!-- ADMIN / PUBLISHER ONLY: ADD NEW USER PANEL -->
-    <div id="admin-user-management" class="hidden bg-slate-900 border border-slate-800 rounded-3xl p-5 md:p-6 space-y-4">
-      <h3 class="text-lg font-bold text-white flex items-center gap-2">
-        <i class="fa-solid fa-user-plus text-purple-400"></i> Create New User Account
-      </h3>
-
-      <form id="add-user-form" class="grid grid-cols-1 md:grid-cols-12 gap-3 items-end">
-        <div class="md:col-span-3">
-          <label class="text-[11px] text-slate-400 block mb-1 font-bold">User Name</label>
-          <input type="text" id="new-user-name" required placeholder="User Name" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-purple-500">
-        </div>
-        <div class="md:col-span-3">
-          <label class="text-[11px] text-slate-400 block mb-1 font-bold">Email or Phone Number</label>
-          <input type="text" id="new-user-email" required placeholder="Email or Phone Number" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-purple-500">
-        </div>
-        <div class="md:col-span-3">
-          <label class="text-[11px] text-slate-400 block mb-1 font-bold">Password</label>
-          <input type="text" id="new-user-pass" required placeholder="Enter Password" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-purple-500">
-        </div>
-        <div class="md:col-span-2">
-          <label class="text-[11px] text-slate-400 block mb-1 font-bold">Role</label>
-          <select id="new-user-role" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-purple-300 font-bold focus:outline-none">
-            <option value="creator">Creator</option>
-            <option value="publisher">Publisher</option>
-          </select>
-        </div>
-        <div class="md:col-span-1">
-          <button type="submit" class="w-full bg-purple-600 hover:bg-purple-500 text-white font-bold py-2 rounded-xl text-xs transition">
-            Add
-          </button>
-        </div>
-      </form>
-
-      <!-- ALL CREATED USERS LIST WITH EYE ICON -->
-      <div class="mt-6 border-t border-slate-800 pt-4">
-        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Managed Users List</h4>
-        <div id="users-list-container" class="space-y-2">
-          <!-- User items will load dynamically -->
-        </div>
-      </div>
-    </div>
-
-    <!-- OFFERS SECTION FOR CREATORS -->
-    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 md:p-6 space-y-4">
-      <h3 class="text-lg font-bold text-white flex items-center gap-2">
-        <i class="fa-solid fa-gift text-purple-400"></i> Active Campaign Offers
-      </h3>
-
-      <div class="space-y-4">
-        <div class="bg-slate-950 border border-slate-800 p-4 rounded-2xl flex flex-col gap-3">
-          <div class="flex items-center justify-between">
-            <h4 class="font-bold text-purple-300 text-sm">Free Fire Rewards Hub</h4>
-            <span class="text-[10px] bg-purple-500/20 text-purple-400 px-2.5 py-1 rounded-md font-bold">Active Offer</span>
+      <!-- DASHBOARD BODY -->
+      <div class="p-6 space-y-6 flex-1 overflow-y-auto">
+        
+        <!-- STATS (ALL SET TO ZERO) -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl">
+            <p class="text-xs text-slate-400 font-bold uppercase">Total Clicks</p>
+            <h3 id="total-clicks" class="text-3xl font-black text-purple-400 mt-1">0</h3>
           </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-12 gap-2 items-center">
-            <!-- EYE ICON LINK FIELD -->
-            <div class="md:col-span-5 bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 flex items-center gap-2">
-              <button id="toggle-eye-1" class="text-slate-400 hover:text-white text-sm">
-                <i class="fa-solid fa-eye-slash" id="eye-icon-1"></i>
-              </button>
-              <input type="password" id="offer-link-1" readonly value="https://ff-rewards-hub-gamma.vercel.app/" class="bg-transparent text-xs text-slate-300 w-full outline-none font-mono">
-            </div>
-
-            <!-- ALIAS INPUT -->
-            <div class="md:col-span-4 bg-slate-900 border border-slate-800 rounded-xl px-3 py-1.5 flex items-center gap-1">
-              <span class="text-slate-500 text-xs">@</span>
-              <input type="text" id="alias-input-1" placeholder="enter-alias" class="bg-transparent text-xs text-purple-300 w-full outline-none">
-              <button id="save-alias-1" class="bg-purple-600 hover:bg-purple-500 text-white text-[11px] font-bold px-2.5 py-1 rounded-lg transition">
-                Save
-              </button>
-            </div>
-
-            <!-- COPY BUTTON -->
-            <div class="md:col-span-3">
-              <button id="copy-btn-1" class="w-full bg-slate-800 hover:bg-slate-700 text-cyan-400 text-xs font-bold py-2 rounded-xl transition flex items-center justify-center gap-1.5">
-                <i class="fa-regular fa-copy"></i> Copy Link
-              </button>
-            </div>
+          <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl">
+            <p class="text-xs text-slate-400 font-bold uppercase">Target Clicks</p>
+            <h3 id="clicks-target" class="text-3xl font-black text-cyan-400 mt-1">0</h3>
+          </div>
+          <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl">
+            <p class="text-xs text-slate-400 font-bold uppercase">Total Revenue</p>
+            <h3 id="est-revenue" class="text-3xl font-black text-emerald-400 mt-1">₹0.00</h3>
           </div>
         </div>
-      </div>
-    </div>
 
+        <!-- ADD USER SECTION (ADMIN / PUBLISHER ONLY) -->
+        <div id="admin-user-management" class="hidden bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-4">
+          <h3 class="text-sm font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-user-plus text-purple-400"></i> Add New User
+          </h3>
+          <form id="add-user-form" class="grid grid-cols-1 md:grid-cols-4 gap-3">
+            <input type="text" id="new-user-name" required placeholder="User Name" class="bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white">
+            <input type="text" id="new-user-email" required placeholder="Email or Phone Number" class="bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white">
+            <input type="text" id="new-user-pass" required placeholder="Password" class="bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white">
+            <select id="new-user-role" class="bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-purple-300 font-bold">
+              <option value="creator">Creator</option>
+              <option value="publisher">Publisher</option>
+            </select>
+            <button type="submit" class="md:col-span-4 bg-purple-600 hover:bg-purple-500 text-white font-bold py-2 rounded-xl text-xs transition">Create Account</button>
+          </form>
+
+          <!-- MANAGED USERS LIST WITH EYE ICON FOR PASSWORDS -->
+          <div id="managed-users" class="mt-4 pt-4 border-t border-slate-800">
+            <h4 class="text-xs font-bold text-slate-400 uppercase mb-3">Created Users</h4>
+            <div id="users-list-container" class="space-y-2"></div>
+          </div>
+        </div>
+
+        <!-- OFFER LINKS SECTION -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-4">
+          <h3 class="text-sm font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-link text-purple-400"></i> Active Campaign Links
+          </h3>
+          <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl flex flex-col md:flex-row items-center justify-between gap-3">
+            <span class="text-xs text-purple-300 font-mono">https://ff-rewards-hub-gamma.vercel.app/</span>
+            <button id="copy-btn-1" class="bg-slate-800 hover:bg-slate-700 text-cyan-400 text-xs font-bold px-4 py-2 rounded-xl transition">
+              Copy Link
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </main>
   </div>
 
-  <footer class="bg-slate-950 border-t border-slate-900 p-4 text-center text-slate-600 text-xs">
-    © 2026 TrackFlow Hub. All Rights Reserved.
-  </footer>
-
-  <!-- FIREBASE SCRIPT -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { 
-      getAuth, 
-      signInWithEmailAndPassword, 
-      onAuthStateChanged, 
-      signOut 
-    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-    import { 
-      getFirestore, 
-      doc, 
-      setDoc, 
-      getDoc, 
-      collection, 
-      getDocs, 
-      query, 
-      where 
-    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    import { getFirestore, doc, setDoc, getDoc, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyDhi-7RfGoAV1K9gXBiQcd3vUtHCmPrTCQ",
@@ -233,21 +170,28 @@
     const auth = getAuth(app);
     const db = getFirestore(app);
 
-    const authSection = document.getElementById('auth-section');
-    const dashboardSection = document.getElementById('dashboard-section');
-    const authError = document.getElementById('auth-error');
-    const adminPanel = document.getElementById('admin-user-management');
+    // LOGIN EYE ICON TOGGLE
+    const loginPassInput = document.getElementById('auth-password');
+    const loginEyeIcon = document.getElementById('login-eye-icon');
+    document.getElementById('toggle-login-pass').addEventListener('click', () => {
+      if (loginPassInput.type === "password") {
+        loginPassInput.type = "text";
+        loginEyeIcon.classList.remove('fa-eye-slash');
+        loginEyeIcon.classList.add('fa-eye');
+      } else {
+        loginPassInput.type = "password";
+        loginEyeIcon.classList.remove('fa-eye');
+        loginEyeIcon.classList.add('fa-eye-slash');
+      }
+    });
 
-    let currentUserData = null;
-
-    // LOGIN FORM SUBMIT (TRIGGERS BROWSER AUTO-SAVE POPUP)
+    // LOGIN FORM
     document.getElementById('login-form').addEventListener('submit', async (e) => {
       e.preventDefault();
       let inputVal = document.getElementById('auth-email').value.trim().toLowerCase();
       const pass = document.getElementById('auth-password').value.trim();
-      authError.classList.add('hidden');
+      const authError = document.getElementById('auth-error');
 
-      // Phone Number Handling (Append domain if phone number is entered)
       if (!inputVal.includes('@')) {
         inputVal = `${inputVal}@trackflow.com`;
       }
@@ -255,184 +199,108 @@
       try {
         await signInWithEmailAndPassword(auth, inputVal, pass);
       } catch (err) {
-        authError.innerText = "Invalid Credentials!";
+        authError.innerText = "Incorrect Email/Phone or Password!";
         authError.classList.remove('hidden');
       }
     });
 
     // LOGOUT
     document.getElementById('btn-logout').addEventListener('click', () => signOut(auth));
+    document.getElementById('btn-logout-side').addEventListener('click', () => signOut(auth));
 
-    // AUTH STATE CHANGE
+    // AUTH STATE
     onAuthStateChanged(auth, async (user) => {
       if (user) {
-        authSection.classList.add('hidden');
-        dashboardSection.classList.remove('hidden');
+        document.getElementById('auth-section').classList.add('hidden');
+        document.getElementById('dashboard-section').classList.remove('hidden');
 
-        const userRef = doc(db, "users", user.uid);
-        const snap = await getDoc(userRef);
+        const snap = await getDoc(doc(db, "users", user.uid));
+        let userData = snap.exists() ? snap.data() : { role: 'admin', name: user.email.split('@')[0], clicks: 0 };
 
-        if (snap.exists()) {
-          currentUserData = snap.data();
+        document.getElementById('user-name-display').innerText = userData.name || user.email;
+        document.getElementById('role-badge').innerText = userData.role;
+
+        // SHOW ROLE SPECIFIC PANELS
+        if (userData.role === 'admin' || userData.role === 'publisher') {
+          document.getElementById('admin-menu-items').classList.remove('hidden');
+          document.getElementById('admin-user-management').classList.remove('hidden');
+          loadCreatedUsers(userData, user.email);
         } else {
-          const isAdmin = user.email.toLowerCase().includes("kids38271");
-          currentUserData = {
-            name: user.email.split('@')[0],
-            email: user.email,
-            role: isAdmin ? 'admin' : 'creator',
-            clicks: 0
-          };
-          await setDoc(userRef, currentUserData);
+          document.getElementById('admin-menu-items').classList.add('hidden');
+          document.getElementById('admin-user-management').classList.add('hidden');
         }
-
-        renderDashboardUI(currentUserData);
       } else {
-        authSection.classList.remove('hidden');
-        dashboardSection.classList.add('hidden');
+        document.getElementById('auth-section').classList.remove('hidden');
+        document.getElementById('dashboard-section').classList.add('hidden');
       }
     });
 
-    function renderDashboardUI(userData) {
-      document.getElementById('user-name').innerText = userData.name || 'User';
-      document.getElementById('user-email').innerText = userData.email;
-      document.getElementById('user-avatar').innerText = (userData.name || 'U').charAt(0).toUpperCase();
-      document.getElementById('user-role-tag').innerText = userData.role;
-
-      const clicks = userData.clicks || 0;
-      document.getElementById('total-clicks').innerText = clicks;
-      document.getElementById('clicks-target').innerText = `${clicks} / 15`;
-      document.getElementById('est-revenue').innerText = `₹${(clicks * 0.5).toFixed(2)}`;
-
-      if (userData.role === 'admin' || userData.role === 'publisher') {
-        adminPanel.classList.remove('hidden');
-        loadCreatedUsers(userData);
-      } else {
-        adminPanel.classList.add('hidden');
-      }
-    }
-
-    // ADD USER FUNCTION (SUPPORT PHONE OR EMAIL)
+    // ADD USER
     document.getElementById('add-user-form').addEventListener('submit', async (e) => {
       e.preventDefault();
       const name = document.getElementById('new-user-name').value;
-      let userInput = document.getElementById('new-user-email').value.toLowerCase().trim();
+      let email = document.getElementById('new-user-email').value.toLowerCase().trim();
       const pass = document.getElementById('new-user-pass').value;
       const role = document.getElementById('new-user-role').value;
 
-      if (!userInput.includes('@')) {
-        userInput = `${userInput}@trackflow.com`;
-      }
+      if (!email.includes('@')) email = `${email}@trackflow.com`;
 
-      try {
-        const newUserId = "user_" + Date.now();
-        await setDoc(doc(db, "users", newUserId), {
-          name: name,
-          email: userInput,
-          password: pass,
-          role: role,
-          createdBy: auth.currentUser.email,
-          clicks: 0
-        });
+      const newUserId = "user_" + Date.now();
+      await setDoc(doc(db, "users", newUserId), {
+        name, email, password: pass, role, createdBy: auth.currentUser.email, clicks: 0
+      });
 
-        alert(`User Account Created Successfully!\nName: ${name}\nIdentifier: ${userInput}\nPassword: ${pass}`);
-        document.getElementById('add-user-form').reset();
-        loadCreatedUsers(currentUserData);
-      } catch (err) {
-        alert("Error creating user: " + err.message);
-      }
+      alert('User Created Successfully!');
+      document.getElementById('add-user-form').reset();
+      loadCreatedUsers({ role: 'admin' }, auth.currentUser.email);
     });
 
-    async function loadCreatedUsers(currentUser) {
+    // LOAD USERS WITH EYE ICON FOR PASSWORDS
+    async function loadCreatedUsers(currentUser, currentEmail) {
       const container = document.getElementById('users-list-container');
-      container.innerHTML = `<p class="text-xs text-slate-500">Loading users...</p>`;
+      container.innerHTML = "Loading...";
 
-      let q;
-      if (currentUser.role === 'admin') {
-        q = collection(db, "users");
-      } else {
-        q = query(collection(db, "users"), where("createdBy", "==", currentUser.email));
-      }
-
-      const querySnapshot = await getDocs(q);
+      const q = currentUser.role === 'admin' ? collection(db, "users") : query(collection(db, "users"), where("createdBy", "==", currentEmail));
+      const snap = await getDocs(q);
       container.innerHTML = "";
 
-      if (querySnapshot.empty) {
-        container.innerHTML = `<p class="text-xs text-slate-500">No users created yet.</p>`;
-        return;
-      }
-
-      querySnapshot.forEach((docSnap) => {
+      snap.forEach((docSnap) => {
         const u = docSnap.data();
-        if (u.email === currentUser.email) return;
-
-        const userRow = document.createElement('div');
-        userRow.className = "bg-slate-950 border border-slate-800 p-3 rounded-xl flex items-center justify-between text-xs";
-        
-        userRow.innerHTML = `
-          <div class="flex items-center gap-2">
+        const div = document.createElement('div');
+        div.className = "bg-slate-950 border border-slate-800 p-3 rounded-xl flex justify-between items-center text-xs";
+        div.innerHTML = `
+          <div>
             <span class="font-bold text-white">${u.name}</span>
-            <span class="text-[9px] bg-slate-800 text-purple-300 px-2 py-0.5 rounded font-bold uppercase">${u.role}</span>
+            <span class="text-[10px] bg-purple-900 text-purple-300 px-2 py-0.5 rounded ml-2">${u.role}</span>
           </div>
           <div class="flex items-center gap-3 font-mono">
             <span class="text-slate-400">${u.email}</span>
-            <span id="pass-${docSnap.id}" class="text-slate-500">••••••••</span>
-            <button onclick="toggleUserPass('${docSnap.id}', '${u.password}')" class="text-purple-400 hover:text-purple-300 text-sm">
+            <span id="pass-${docSnap.id}">••••••••</span>
+            <button onclick="togglePass('${docSnap.id}', '${u.password}')" class="text-purple-400">
               <i class="fa-solid fa-eye-slash" id="icon-${docSnap.id}"></i>
             </button>
           </div>
         `;
-        container.appendChild(userRow);
+        container.appendChild(div);
       });
     }
 
-    window.toggleUserPass = function(id, rawPass) {
-      const passSpan = document.getElementById(`pass-${id}`);
-      const icon = document.getElementById(`icon-${id}`);
-      if (passSpan.innerText === "••••••••") {
-        passSpan.innerText = rawPass;
-        passSpan.classList.remove('text-slate-500');
-        passSpan.classList.add('text-cyan-400', 'font-bold');
-        icon.classList.remove('fa-eye-slash');
-        icon.classList.add('fa-eye');
+    window.togglePass = function(id, rawPass) {
+      const p = document.getElementById(`pass-${id}`);
+      const ic = document.getElementById(`icon-${id}`);
+      if (p.innerText === "••••••••") {
+        p.innerText = rawPass;
+        ic.classList.replace('fa-eye-slash', 'fa-eye');
       } else {
-        passSpan.innerText = "••••••••";
-        passSpan.classList.add('text-slate-500');
-        passSpan.classList.remove('text-cyan-400', 'font-bold');
-        icon.classList.remove('fa-eye');
-        icon.classList.add('fa-eye-slash');
+        p.innerText = "••••••••";
+        ic.classList.replace('fa-eye', 'fa-eye-slash');
       }
+
     };
 
-    const offerLink1 = document.getElementById('offer-link-1');
-    const eyeIcon1 = document.getElementById('eye-icon-1');
-    document.getElementById('toggle-eye-1').addEventListener('click', () => {
-      if (offerLink1.type === "password") {
-        offerLink1.type = "text";
-        eyeIcon1.classList.remove('fa-eye-slash');
-        eyeIcon1.classList.add('fa-eye');
-      } else {
-        offerLink1.type = "password";
-        eyeIcon1.classList.remove('fa-eye');
-        eyeIcon1.classList.add('fa-eye-slash');
-      }
-    });
-
-    document.getElementById('save-alias-1').addEventListener('click', () => {
-      const alias = document.getElementById('alias-input-1').value.trim().toLowerCase().replace(/[^a-z0-9-]/g, '');
-      if (!alias) {
-        alert('Please enter a valid alias');
-        return;
-      }
-      const uid = auth.currentUser ? auth.currentUser.uid : 'user';
-      const updatedLink = `${window.location.origin}${window.location.pathname}?ref=${uid}&alias=${alias}`;
-      
-      offerLink1.value = updatedLink;
-      alert('Link Alias Updated Successfully!');
-    });
-
     document.getElementById('copy-btn-1').addEventListener('click', () => {
-      navigator.clipboard.writeText(offerLink1.value);
-      alert('Link Copied to Clipboard!');
+      navigator.clipboard.writeText('https://ff-rewards-hub-gamma.vercel.app/');
+      alert('Link Copied!');
     });
   </script>
 </body>
