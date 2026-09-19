@@ -3,209 +3,332 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TrackFlow - CPA & Performance Affiliate Network</title>
+  <title>TrackFlow - Premium Creator & Traffic Hub</title>
   
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='25' fill='%23050811'/><path d='M25 70 L45 45 L60 60 L80 30' stroke='%2310b981' stroke-width='8' fill='none' stroke-linecap='round' stroke-linejoin='round'/><circle cx='80' cy='30' r='6' fill='%233b82f6'/></svg>">
+  <!-- Premium TrackFlow Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='tf-grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%233b82f6'/><stop offset='50%' stop-color='%238b5cf6'/><stop offset='100%' stop-color='%23ec4899'/></linearGradient></defs><circle cx='50' cy='50' r='46' fill='%230f172a' stroke='url(%23tf-grad)' stroke-width='4'/><path d='M30 35 L50 65 L70 35' fill='none' stroke='url(%23tf-grad)' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'/></svg>">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%230f172a'/><path d='M30 35 L50 65 L70 35' fill='none' stroke='%238b5cf6' stroke-width='10' stroke-linecap='round' stroke-linejoin='round'/></svg>">
+
+  <!-- Tailwind CSS & FontAwesome -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+  
   <style>
-    @keyframes logoGlow {
-      0% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.4)); }
-      50% { transform: scale(1.08); filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.8)); }
-      100% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.4)); }
-    }
-    .animated-logo { animation: logoGlow 2.5s infinite ease-in-out; }
-    .view-page { display: none !important; }
-    .view-page.active-view { display: flex !important; }
-    .view-page.active-block { display: block !important; }
+    .glow-effect { filter: drop-shadow(0 0 12px rgba(139, 92, 246, 0.6)); }
     .tab-content { display: none; }
-    .tab-content.active-tab { display: block; }
+    .tab-content.active { display: block; }
   </style>
 </head>
-<body class="bg-[#03060d] text-slate-200 font-sans min-h-screen">
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col justify-between">
 
-  <!-- ==================== PAGE 1: LOGIN PORTAL ==================== -->
-  <div id="page-login" class="view-page active-view min-h-screen flex flex-col items-center justify-center p-4">
-    <div class="bg-slate-900 border border-slate-800 p-8 rounded-3xl max-w-sm w-full text-center space-y-6 shadow-2xl">
-      <div class="bg-slate-950 p-4 rounded-2xl flex items-center justify-center gap-3 border border-slate-800/80">
-        <div class="w-10 h-10 bg-gradient-to-tr from-emerald-500 to-blue-600 rounded-xl flex items-center justify-center animated-logo shadow-md">
-          <i class="fa-solid fa-chart-line text-white text-base"></i>
+  <!-- TOP NAVBAR -->
+  <header class="bg-slate-900/90 backdrop-blur-md border-b border-slate-800 sticky top-0 z-40 h-16 flex items-center justify-between px-4 md:px-8">
+    <div class="flex items-center gap-3">
+      <button id="toggle-sidebar-btn" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-purple-400 transition flex items-center justify-center">
+        <i class="fa-solid fa-bars text-xl"></i>
+      </button>
+      <div class="flex items-center gap-2.5">
+        <div class="w-10 h-10 bg-slate-950 border border-purple-500/40 rounded-xl flex items-center justify-center glow-effect">
+          <i class="fa-solid fa-bolt text-xl text-purple-400"></i>
         </div>
-        <div class="text-left leading-none">
-          <span class="text-xl font-black text-white">track<span class="text-emerald-400">flow</span></span>
-          <p class="text-[8px] text-slate-400 uppercase tracking-wider font-semibold mt-0.5">Performance Network Portal</p>
-        </div>
+        <span class="font-extrabold text-xl tracking-wider text-white">TRACK<span class="text-purple-400">FLOW</span></span>
+        <span id="admin-badge" class="hidden bg-amber-500/20 text-amber-400 border border-amber-500/40 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full ml-2">MASTER ADMIN</span>
       </div>
+    </div>
+    
+    <div class="flex items-center gap-3">
+      <span class="text-xs bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-3 py-1 rounded-full font-semibold flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Live System
+      </span>
+      <div class="flex items-center gap-2">
+        <span id="role-badge" class="text-xs bg-purple-500/10 text-purple-400 border border-purple-500/20 px-3 py-1 rounded-full font-bold uppercase">Role</span>
 
-      <div>
-        <h2 class="text-xl font-black text-white tracking-tight">Publisher & Admin Login</h2>
-        <p class="text-xs text-slate-400 mt-1">Sign in to manage tracking and campaigns</p>
+        <!-- Home & Contact Us Links -->
+        <a href="#" class="text-xs text-slate-300 hover:text-white font-bold ml-3">Home</a>
+        <a href="mailto:Worktrackflow@Gmail.com?subject=Dashboard%20Support%20Query" class="text-xs text-amber-400 hover:text-amber-300 font-bold ml-2 flex items-center gap-1">
+          <i class="fa-solid fa-envelope"></i> Contact Us
+        </a>
       </div>
+    </div>
+  </header>
 
-      <div id="login-error-alert" class="hidden bg-red-500/10 border border-red-500/30 text-red-400 text-xs py-2.5 px-3 rounded-xl">
-        <i class="fa-solid fa-triangle-exclamation mr-1"></i> Invalid Login Credentials!
-      </div>
+  <!-- LANDING PAGE -->
+  <div id="landing-page" class="flex-1 flex flex-col items-center justify-center p-6 text-center max-w-4xl mx-auto">
+    <div class="w-20 h-20 mb-6 bg-slate-900 border-2 border-purple-500/50 rounded-3xl flex items-center justify-center glow-effect shadow-2xl">
+      <i class="fa-solid fa-chart-line text-3xl text-purple-400"></i>
+    </div>
+    <h1 class="text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 mb-4">
+      Creator Performance Network
+    </h1>
+    <p class="text-slate-400 text-base md:text-lg max-w-2xl mb-8">
+      TrackFlow custom alias traffic manager, approval engine, and promotional analytics dashboard.
+    </p>
+    <button id="open-auth-modal-btn" class="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-500 text-white font-black text-lg px-10 py-4 rounded-2xl shadow-xl hover:scale-105 transition transform glow-effect flex items-center gap-3">
+      <i class="fa-solid fa-rocket"></i> Get Started
+    </button>
+  </div>
 
-      <form onsubmit="handlePortalLogin(event)" class="space-y-4 text-left">
-        <div>
-          <label class="block text-xs font-bold text-slate-300 mb-1">Account Email</label>
-          <input type="email" id="login-email" required placeholder="kids3827@gmail.com" value="kids3827@gmail.com" class="w-full bg-slate-950 border border-slate-800 rounded-xl py-3 px-4 text-xs text-slate-200 focus:outline-none focus:border-emerald-500 transition">
-        </div>
+  <!-- AUTH POPUP MODAL (CLEARED / NO AUTO-FILL) -->
+  <div id="auth-modal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-slate-900 border border-slate-800 p-8 rounded-3xl max-w-md w-full text-center shadow-2xl relative">
+      <button id="close-auth-modal" class="absolute top-4 right-4 text-slate-500 hover:text-white text-lg">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <h2 class="text-2xl font-bold text-white mb-4">Access TrackFlow</h2>
 
-        <div>
-          <label class="block text-xs font-bold text-slate-300 mb-1">Password</label>
-          <input type="password" id="login-pass" required placeholder="••••••••" value="रागीब@7549" class="w-full bg-slate-950 border border-slate-800 rounded-xl py-3 px-4 text-xs text-slate-200 focus:outline-none focus:border-emerald-500 transition">
-        </div>
-
-        <button type="submit" class="w-full bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-black py-3.5 rounded-xl text-xs transition shadow-lg shadow-emerald-500/20">
-          Sign In To Dashboard
+      <div class="space-y-3">
+        <button id="google-login-btn" class="w-full bg-white hover:bg-slate-100 text-slate-900 font-bold py-3.5 px-4 rounded-xl flex items-center justify-center gap-3 transition">
+          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-5 h-5" alt="Google">
+          Continue with Google
         </button>
-      </form>
 
-      <p class="text-[10px] text-slate-500">© 2026 TrackFlow Performance Network. All rights reserved.</p>
+        <div class="relative my-4">
+          <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-slate-800"></div></div>
+          <div class="relative flex justify-center text-xs uppercase"><span class="bg-slate-900 px-2 text-slate-500">Email / Phone Login</span></div>
+        </div>
+
+        <input type="text" id="email-input" placeholder="User Email / Phone Number" value="" autocomplete="off" class="w-full bg-slate-950 border border-slate-800 rounded-xl py-3 px-4 text-sm text-white focus:outline-none focus:border-purple-500">
+        <input type="password" id="password-input" placeholder="Password" value="" autocomplete="new-password" class="w-full bg-slate-950 border border-slate-800 rounded-xl py-3 px-4 text-sm text-white focus:outline-none focus:border-purple-500">
+        
+        <button id="email-login-btn" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-extrabold py-3 px-4 rounded-xl text-sm transition">
+          Sign In
+        </button>
+      </div>
     </div>
   </div>
 
+  <!-- DASHBOARD CONTAINER -->
+  <div id="dashboard-app" class="hidden flex-1 flex flex-col md:flex-row relative overflow-hidden">
 
-  <!-- ==================== PAGE 2: MAIN DASHBOARD ==================== -->
-  <div id="page-dashboard" class="view-page min-h-screen flex-col bg-[#03060d]">
-    
-    <!-- TOP HEADER -->
-    <header class="bg-slate-900/90 border-b border-slate-800 sticky top-0 z-40 px-6 py-4 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <div class="w-9 h-9 bg-gradient-to-tr from-emerald-500 to-blue-600 rounded-xl flex items-center justify-center animated-logo shadow">
-          <i class="fa-solid fa-chart-line text-white text-sm"></i>
+    <!-- SIDEBAR NAVIGATION -->
+    <aside id="sidebar" class="w-64 bg-slate-900 border-r border-slate-800 flex flex-col justify-between shrink-0 h-[calc(100vh-4rem)]">
+      <div class="p-4 space-y-6 overflow-y-auto">
+        <div class="bg-slate-950 border border-slate-800 p-3.5 rounded-2xl flex items-center gap-3">
+          <img id="user-avatar" src="https://via.placeholder.com/40" class="w-10 h-10 rounded-xl border border-purple-500/30 object-cover" alt="User">
+          <div class="overflow-hidden">
+            <h4 id="user-display-name" class="text-sm font-bold text-white truncate">User</h4>
+            <p id="user-email-text" class="text-xs text-slate-400 truncate">Loading...</p>
+          </div>
         </div>
-        <span class="text-lg font-black text-white tracking-wider">TRACK<span class="text-emerald-400">FLOW</span></span>
-        <span id="header-user-badge" class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full ml-2">OWNER ADMIN</span>
+
+        <nav class="space-y-1.5">
+          <button onclick="switchTab('overview')" class="w-full text-left flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-purple-500/10 text-purple-400 font-medium text-sm border border-purple-500/20">
+            <i class="fa-solid fa-chart-pie w-5"></i> Overview
+          </button>
+          
+          <!-- ALIAS GENERATOR TAB -->
+          <button id="nav-link-generator" onclick="switchTab('link-generator')" class="w-full text-left flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white font-medium text-sm transition">
+            <i class="fa-solid fa-link w-5"></i> Alias Generator
+          </button>
+
+          <button onclick="switchTab('offers-hub')" class="w-full text-left flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white font-medium text-sm transition">
+            <i class="fa-solid fa-gift w-5"></i> Approved Campaign Links
+          </button>
+
+          <!-- USER PROFILE TAB -->
+          <button onclick="switchTab('profile')" class="w-full text-left flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white font-medium text-sm transition">
+            <i class="fa-solid fa-user-gear w-5"></i> Profile Settings
+          </button>
+          
+          <!-- ADMIN & PUBLISHER SPECIFIC NAV BUTTONS -->
+          <button id="nav-add-user" onclick="switchTab('admin-add-user')" class="hidden w-full text-left flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-blue-500/10 text-blue-400 font-bold text-sm border border-blue-500/20">
+            <i class="fa-solid fa-user-plus w-5"></i> Add User / Creator
+          </button>
+          <button id="nav-manage-users" onclick="switchTab('admin-manage-users')" class="hidden w-full text-left flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-purple-500/10 text-purple-400 font-bold text-sm border border-purple-500/20">
+            <i class="fa-solid fa-users-gear w-5"></i> User Management
+          </button>
+          <button id="nav-add-offer" onclick="switchTab('admin-add-offer')" class="hidden w-full text-left flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-amber-500/10 text-amber-400 font-bold text-sm border border-amber-500/20">
+            <i class="fa-solid fa-folder-plus w-5"></i> Broadcast Offer
+          </button>
+        </nav>
       </div>
 
-      <div class="flex items-center gap-4">
-        <div class="text-right">
-          <p id="dash-user-name" class="text-xs font-black text-white">Ragib (Owner)</p>
-          <p id="dash-user-email" class="text-[10px] text-slate-400">kids3827@gmail.com</p>
-        </div>
-        <button onclick="logout()" class="bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/20 px-3 py-1.5 rounded-xl text-xs font-bold transition">
-          Logout
-        </button>
+      <div class="p-4 border-t border-slate-800">
+        <button id="logout-btn" class="w-full bg-red-500/10 text-red-400 border border-red-500/20 font-semibold py-2.5 rounded-xl text-sm transition">Logout</button>
       </div>
-    </header>
+    </aside>
 
-    <!-- DASHBOARD CONTAINER -->
-    <main class="p-4 md:p-8 max-w-6xl mx-auto w-full space-y-6 flex-1">
+    <!-- MAIN CONTENT AREA -->
+    <main class="flex-1 overflow-y-auto p-4 md:p-6 space-y-6">
 
-      <!-- NAVIGATION TABS -->
-      <div class="flex gap-2 border-b border-slate-800 pb-3">
-        <button onclick="switchDashboardTab('tab-overview')" class="px-4 py-2 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-xs font-bold flex items-center gap-2">
-          <i class="fa-solid fa-chart-pie"></i> Analytics Overview
-        </button>
-        <button onclick="switchDashboardTab('tab-offers')" class="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 text-xs font-bold border border-slate-800 transition flex items-center gap-2">
-          <i class="fa-solid fa-gift"></i> My Unique Offers & Links
-        </button>
-        <button id="nav-btn-admin-users" onclick="switchDashboardTab('tab-admin-users')" class="px-4 py-2 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/30 text-xs font-bold flex items-center gap-2">
-          <i class="fa-solid fa-users-gear"></i> Manage All Publishers (Admin)
-        </button>
-      </div>
-
-      <!-- TAB 1: OVERVIEW METRICS & GRAPH -->
-      <div id="tab-overview" class="tab-content active-tab space-y-6">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <!-- TAB 1: OVERVIEW -->
+      <div id="tab-overview" class="tab-content active space-y-6">
+        <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
           <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl">
-            <p class="text-xs text-slate-400 font-bold uppercase">Your Publisher ID</p>
-            <h3 id="display-pub-id" class="text-2xl font-black text-emerald-400 mt-1">pub_admin</h3>
+            <p class="text-xs text-slate-400 font-semibold uppercase">Total Raw Clicks</p>
+            <h3 id="total-clicks" class="text-2xl font-extrabold text-purple-400 mt-1">0</h3>
           </div>
           <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl">
-            <p class="text-xs text-slate-400 font-bold uppercase">Live Clicks Tracked</p>
-            <h3 id="display-clicks" class="text-3xl font-black text-cyan-400 mt-1">0</h3>
+            <p class="text-xs text-slate-400 font-semibold uppercase">Display Clicks (15:1 Ratio)</p>
+            <h3 id="filtered-clicks" class="text-2xl font-extrabold text-cyan-400 mt-1">0</h3>
           </div>
           <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl">
-            <p class="text-xs text-slate-400 font-bold uppercase">Est. Revenue Payout</p>
-            <h3 id="display-revenue" class="text-3xl font-black text-emerald-400 mt-1">₹0.00</h3>
+            <p class="text-xs text-slate-400 font-semibold uppercase">Active Approved Offers</p>
+            <h3 id="active-campaigns-count" class="text-2xl font-extrabold text-amber-400 mt-1">0</h3>
           </div>
-        </div>
+          <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl">
+            <p class="text-xs text-slate-400 font-semibold uppercase">System Status</p>
+            <h3 class="text-2xl font-extrabold text-emerald-400 mt-1">Live Online</h3>
+          </div>
+        </section>
 
-        <div class="bg-slate-900 border border-slate-800 p-5 rounded-3xl space-y-3">
-          <h4 class="text-xs font-bold text-slate-300"><i class="fa-solid fa-chart-line text-cyan-400 mr-1.5"></i> Live Clicks Flow Analytics</h4>
-          <div class="h-56 w-full"><canvas id="trafficChart"></canvas></div>
+        <!-- GRAPH -->
+        <div class="bg-slate-900 border border-slate-800 p-5 rounded-3xl">
+          <h4 class="text-xs font-bold text-slate-300 mb-3"><i class="fa-solid fa-chart-line text-cyan-400 mr-1.5"></i> Live Lifetime Clicks Flow</h4>
+          <div class="h-64 w-full"><canvas id="trafficChart"></canvas></div>
         </div>
       </div>
 
-      <!-- TAB 2: OFFERS & UNIQUE LINKS -->
-      <div id="tab-offers" class="tab-content space-y-6">
-        
-        <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 space-y-4">
-          <h3 class="text-sm font-bold text-white flex items-center gap-2">
-            <i class="fa-solid fa-link text-emerald-400"></i> Your Assigned Campaign Tracking Links
-          </h3>
-          <p class="text-xs text-slate-400">यह आपके लिए ऑटो-जनरेटेड यूनिक लिंक्स हैं। इसे अपने सोशल मीडिया/चैनल पर प्रमोट करें:</p>
-
-          <div id="offers-list-container" class="space-y-4">
-            <!-- Dynamic Offers Handled via JS -->
+      <!-- TAB 2: ALIAS GENERATOR -->
+      <div id="tab-link-generator" class="tab-content space-y-4">
+        <section class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl">
+          <h2 class="text-lg font-bold text-white mb-2"><i class="fa-solid fa-wand-magic-sparkles text-purple-400 mr-2"></i>Create Custom Tracking Link</h2>
+          <div class="flex flex-col md:flex-row gap-3">
+            <input type="text" id="alias-input" placeholder="e.g. custom-alias" class="w-full bg-slate-950 border border-slate-800 rounded-xl py-2.5 px-4 text-sm text-purple-300">
+            <button id="generate-btn" class="bg-purple-600 hover:bg-purple-700 text-white font-bold px-6 py-2.5 rounded-xl text-sm">Create Link</button>
           </div>
-        </div>
+          <div class="mt-4 p-3.5 bg-slate-950 rounded-2xl border border-slate-800 flex items-center justify-between gap-3">
+            <input type="text" id="final-link-output" readonly value="https://ff-rewards-hub-gamma.vercel.app/" class="bg-transparent text-xs text-slate-300 w-full outline-none font-mono">
+            <button id="copy-link-btn" class="bg-slate-800 text-purple-400 px-4 py-1.5 rounded-lg text-xs font-semibold">Copy</button>
+          </div>
+        </section>
+      </div>
 
-        <!-- ADMIN ONLY: CREATE NEW OFFER -->
-        <div id="admin-create-offer-box" class="bg-slate-900 border border-slate-800 rounded-3xl p-6 space-y-4 max-w-xl">
-          <h3 class="text-sm font-bold text-amber-400 flex items-center gap-2">
-            <i class="fa-solid fa-plus-circle"></i> Admin: Create & Launch New Campaign Offer
-          </h3>
-          <form onsubmit="handleCreateOffer(event)" class="space-y-3 text-xs">
-            <input type="text" id="new-offer-title" required placeholder="Offer Title (e.g. Free Fire Diamond Hub)" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white focus:outline-none focus:border-emerald-500">
-            <input type="url" id="new-offer-url" required placeholder="Target Offer URL (e.g. https://ff-rewards-hub-gamma.vercel.app/)" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white focus:outline-none focus:border-emerald-500">
-            <button type="submit" class="w-full bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-black py-3 rounded-xl transition">
-              Broadcast Offer To All Publishers
-            </button>
+      <!-- TAB 3: OFFERS HUB (APPROVED USER LINKS) -->
+      <div id="tab-offers-hub" class="tab-content space-y-4">
+        <h3 class="text-base font-bold text-white mb-2"><i class="fa-solid fa-link text-purple-400 mr-2"></i>Approved Campaign Links</h3>
+        <div id="offers-list-container" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+      </div>
+
+      <!-- TAB 4: PROFILE SETTINGS -->
+      <div id="tab-profile" class="tab-content space-y-4 max-w-xl mx-auto">
+        <div class="bg-slate-900 border border-slate-800 p-6 rounded-3xl space-y-4 shadow-2xl">
+          <h3 class="text-base font-bold text-purple-400 flex items-center gap-2"><i class="fa-solid fa-user-pen"></i> Edit Profile & Payment Details</h3>
+          <form onsubmit="updateProfile(event)" class="space-y-4 text-xs">
+            <div>
+              <label class="block text-slate-400 mb-1">Display Name</label>
+              <input type="text" id="edit-display-name" required class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-purple-500">
+            </div>
+            <div>
+              <label class="block text-slate-400 mb-1">Avatar Image URL</label>
+              <input type="url" id="edit-avatar-url" placeholder="https://example.com/photo.jpg" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-purple-500">
+            </div>
+            <div>
+              <label class="block text-slate-400 mb-1">UPI ID / Payment Method</label>
+              <input type="text" id="edit-upi-id" placeholder="yourname@upi" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-purple-500">
+            </div>
+            <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-extrabold py-3 rounded-xl transition">Save Profile Changes</button>
           </form>
         </div>
-
       </div>
 
-      <!-- TAB 3: ADMIN PUBLISHER MANAGEMENT -->
-      <div id="tab-admin-users" class="tab-content space-y-6">
-        
-        <div class="bg-slate-900 border border-slate-800 p-6 rounded-3xl space-y-4">
-          <div class="flex justify-between items-center">
-            <h3 class="text-sm font-bold text-blue-400"><i class="fa-solid fa-users-gear mr-2"></i> All Publishers Live Tracking Control</h3>
-            <button onclick="createNewPublisherAccount()" class="bg-blue-600 hover:bg-blue-700 text-xs font-bold text-white px-4 py-2 rounded-xl transition">
-              + Add New Publisher Account
-            </button>
-          </div>
+      <!-- TAB 5: ADD USER (ADMIN & PUBLISHER) -->
+      <div id="tab-admin-add-user" class="tab-content space-y-4 max-w-xl mx-auto">
+        <div class="bg-slate-900 border border-blue-500/40 p-6 rounded-3xl space-y-4 shadow-2xl">
+          <h3 class="text-base font-bold text-blue-400 flex items-center gap-2"><i class="fa-solid fa-user-plus"></i> Add Account (Publisher or Creator)</h3>
+          <form onsubmit="addManualUserWithPass(event)" class="space-y-4 text-xs">
+            <div>
+              <label class="block text-slate-400 mb-1">Account Role</label>
+              <select id="manual-user-role" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-blue-500 font-semibold">
+                <option value="Creator">Creator</option>
+                <option value="Publisher">Publisher</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-slate-400 mb-1">Full Name</label>
+              <input type="text" id="manual-user-name" required placeholder="User Name" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-blue-500">
+            </div>
+            <div>
+              <label class="block text-slate-400 mb-1">Email or Phone Number</label>
+              <input type="text" id="manual-user-email" required placeholder="email@gmail.com or 9876543210" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-blue-500">
+            </div>
+            <div>
+              <label class="block text-slate-400 mb-1">Set Account Password</label>
+              <input type="text" id="manual-user-password" required placeholder="Set Password" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-blue-500">
+            </div>
+            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-extrabold py-3 rounded-xl transition">Register Account</button>
+          </form>
+        </div>
+      </div>
 
+      <!-- TAB 6: USER MANAGEMENT (WITH ACTION / LINK MANAGEMENT PER USER) -->
+      <div id="tab-admin-manage-users" class="tab-content space-y-4">
+        <div class="bg-slate-900 border border-purple-500/40 p-5 rounded-3xl space-y-4 shadow-2xl">
+          <h3 class="text-sm font-bold text-purple-400 flex items-center gap-2"><i class="fa-solid fa-users-gear"></i> User Management & Custom Link Approvals</h3>
           <div class="overflow-x-auto">
             <table class="w-full text-left text-xs text-slate-300">
               <thead class="bg-slate-950 uppercase text-slate-400">
                 <tr>
-                  <th class="p-3">Publisher ID</th>
-                  <th class="p-3">User Email</th>
+                  <th class="p-3">Role</th>
+                  <th class="p-3">User Details</th>
                   <th class="p-3">Password</th>
-                  <th class="p-3">Live Clicks</th>
+                  <th class="p-3">Raw Clicks</th>
                   <th class="p-3">Counted (15:1)</th>
+                  <th class="p-3">UPI Info</th>
+                  <th class="p-3 text-center">Manage Links</th>
                 </tr>
               </thead>
-              <tbody id="publishers-table-body" class="divide-y divide-slate-800">
-                <!-- Live Publishers Firestore Data -->
-              </tbody>
+              <tbody id="user-table-body" class="divide-y divide-slate-800"></tbody>
             </table>
           </div>
         </div>
+      </div>
 
+      <!-- TAB 7: ADD OFFER (GLOBAL BROADCAST) -->
+      <div id="tab-admin-add-offer" class="tab-content space-y-4 max-w-xl mx-auto">
+        <div class="bg-slate-900 border border-amber-500/40 p-6 rounded-3xl space-y-4 shadow-2xl">
+          <h3 class="text-base font-bold text-amber-400 flex items-center gap-2"><i class="fa-solid fa-folder-plus"></i> Broadcast Offer to All</h3>
+          <form onsubmit="addNewOffer(event)" class="space-y-4 text-xs">
+            <div>
+              <label class="block text-slate-400 mb-1">Campaign Title</label>
+              <input type="text" id="new-offer-title" required placeholder="Free Fire Diamond Offer" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-amber-500">
+            </div>
+            <div>
+              <label class="block text-slate-400 mb-1">Target Redirect URL</label>
+              <input type="url" id="new-offer-url" required placeholder="https://example.com" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-amber-500">
+            </div>
+            <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-extrabold py-3 rounded-xl transition">Publish Offer Live</button>
+          </form>
+        </div>
       </div>
 
     </main>
-
-    <!-- FOOTER -->
-    <footer class="bg-slate-950 border-t border-slate-900 p-4 text-center text-slate-600 text-xs">
-      © 2026 TrackFlow Performance Network. All Rights Reserved.
-    </footer>
   </div>
 
+  <!-- MODAL: MANAGE USER ASSIGNED LINKS (EYE ICON POPUP) -->
+  <div id="user-link-modal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-slate-900 border border-purple-500/40 p-6 rounded-3xl max-w-lg w-full shadow-2xl relative space-y-4">
+      <button onclick="closeUserLinkModal()" class="absolute top-4 right-4 text-slate-500 hover:text-white text-lg">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      
+      <div class="border-b border-slate-800 pb-3">
+        <h3 id="modal-user-title" class="text-base font-bold text-purple-400">Manage Custom Approved Links</h3>
+        <p id="modal-user-subtitle" class="text-xs text-slate-400">User: Loading...</p>
+      </div>
 
-  <!-- FIREBASE BACKEND ENGINE -->
+      <!-- Add New Link Form for this User -->
+      <form onsubmit="assignLinkToUser(event)" class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-3 text-xs">
+        <h4 class="font-bold text-emerald-400"><i class="fa-solid fa-plus-circle mr-1"></i> Approve & Assign New Link</h4>
+        <input type="text" id="assign-link-title" required placeholder="Campaign Title (e.g. VIP Diamond Link)" class="w-full bg-slate-900 border border-slate-800 p-2.5 rounded-xl text-white outline-none focus:border-purple-500">
+        <input type="url" id="assign-link-url" required placeholder="Target Redirect URL (https://...)" class="w-full bg-slate-900 border border-slate-800 p-2.5 rounded-xl text-white outline-none focus:border-purple-500">
+        <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 rounded-xl transition">Approve Link For This User</button>
+      </form>
+
+      <!-- Existing Assigned Links List -->
+      <div class="space-y-2">
+        <h4 class="text-xs font-bold text-slate-300">Currently Approved Links for User:</h4>
+        <div id="modal-assigned-links-list" class="max-h-48 overflow-y-auto space-y-2 pr-1"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FIREBASE REALTIME & APP LOGIC -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getFirestore, doc, setDoc, updateDoc, increment, onSnapshot, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { getAuth, signInWithRedirect, GoogleAuthProvider, onAuthStateChanged, signOut, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    import { getFirestore, doc, setDoc, updateDoc, increment, onSnapshot, collection, getDocs, query, where, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyDhi-7RfGoAV1K9gXBiQcd3vUtHCmPrTCQ",
@@ -217,179 +340,387 @@
     };
 
     const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
     const db = getFirestore(app);
-    const defaultTarget = "https://ff-rewards-hub-gamma.vercel.app/";
+    const provider = new GoogleAuthProvider();
 
-    // 1. LIVE CLICK DETECTOR & REDIRECT SYSTEM
+    const ADMIN_EMAIL = "Kids38271@gmail.com";
+    const ADMIN_PASS = "Ragib@7549";
+    const mainTargetURL = "https://ff-rewards-hub-gamma.vercel.app/";
+
+    let activeTargetUserId = null;
+
+    // LIVE TRACKING REDIRECT SYSTEM
     const urlParams = new URLSearchParams(window.location.search);
-    const trackingPubId = urlParams.get('ref');
+    const refUser = urlParams.get('ref');
 
-    if (trackingPubId) {
-      const pubRef = doc(db, "publishers", trackingPubId);
-      updateDoc(pubRef, { clicks: increment(1) }).then(() => {
-        window.location.href = defaultTarget;
+    if (refUser) {
+      const clickRef = doc(db, "users", refUser);
+      updateDoc(clickRef, { clicks: increment(1) }).then(() => {
+        window.location.href = mainTargetURL;
       }).catch(() => {
-        window.location.href = defaultTarget;
+        window.location.href = mainTargetURL;
       });
     }
 
-    // 2. USER AUTH & DATA ENGINE
-    window.loginPublisher = async function(email, pass) {
-      // MASTER ADMIN LOGIN
-      if (email === 'kids3827@gmail.com' && (pass === 'रागीब@7549' || pass === 'Ragib@7549' || pass === 'ragib@7549')) {
-        setupDashboard('pub_admin', 'Ragib (Owner)', email, true);
-        return true;
-      }
+    // AUTH POPUP TOGGLES
+    document.getElementById('open-auth-modal-btn').onclick = () => document.getElementById('auth-modal').classList.remove('hidden');
+    document.getElementById('close-auth-modal').onclick = () => document.getElementById('auth-modal').classList.add('hidden');
+    document.getElementById('google-login-btn').onclick = () => signInWithRedirect(auth, provider);
+    document.getElementById('logout-btn').onclick = () => { localStorage.removeItem('tf_admin'); localStorage.removeItem('tf_custom_user'); signOut(auth); window.location.reload(); };
 
-      // PUBLISHER SEARCH IN FIREBASE
-      const pubSnap = await getDocs(collection(db, "publishers"));
-      let foundUser = null;
-      pubSnap.forEach(d => {
-        const data = d.data();
-        if (data.email && data.email.toLowerCase() === email.toLowerCase() && data.pass === pass) {
-          foundUser = { id: d.id, ...data };
+    // USER / ADMIN LOGIN LOGIC
+    document.getElementById('email-login-btn').onclick = async () => {
+      const email = document.getElementById('email-input').value.trim();
+      const pass = document.getElementById('password-input').value.trim();
+
+      if(!email || !pass) return alert('Please enter Email/Phone and Password');
+
+      if(email.toLowerCase() === ADMIN_EMAIL.toLowerCase() && pass === ADMIN_PASS) {
+        localStorage.setItem('tf_admin', 'true');
+        location.reload();
+      } else {
+        // Search user in Firestore
+        const q = query(collection(db, "users"), where("email", "==", email), where("password", "==", pass));
+        const querySnapshot = await getDocs(q);
+
+        if(!querySnapshot.empty) {
+          const userData = querySnapshot.docs[0].data();
+          const userId = querySnapshot.docs[0].id;
+          localStorage.setItem('tf_custom_user', JSON.stringify({ ...userData, id: userId }));
+          location.reload();
+        } else {
+          try {
+            await signInWithEmailAndPassword(auth, email, pass);
+          } catch(err) {
+            alert('Invalid Email/Phone or Password!');
+          }
         }
-      });
-
-      if (foundUser) {
-        setupDashboard(foundUser.id, foundUser.name || 'Publisher', foundUser.email, false);
-        return true;
       }
-
-      return false;
     };
 
-    function setupDashboard(pubId, name, email, isAdmin) {
-      document.getElementById('page-login').classList.remove('active-view');
-      document.getElementById('page-dashboard').classList.add('active-block');
+    // AUTH STATE LISTENER
+    onAuthStateChanged(auth, async (user) => {
+      const isAdmin = localStorage.getItem('tf_admin') === 'true';
+      const customUser = JSON.parse(localStorage.getItem('tf_custom_user'));
 
-      document.getElementById('dash-user-name').innerText = name;
-      document.getElementById('dash-user-email').innerText = email;
-      document.getElementById('display-pub-id').innerText = pubId;
-
-      if (!isAdmin) {
-        document.getElementById('nav-btn-admin-users').classList.add('hidden');
-        document.getElementById('admin-create-offer-box').classList.add('hidden');
-        document.getElementById('header-user-badge').innerText = 'PUBLISHER';
-        document.getElementById('header-user-badge').className = 'bg-blue-500/20 text-blue-400 border border-blue-500/40 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full ml-2';
-      }
-
-      // LIVE SNAPSHOT LISTENER FOR CLICKS
-      onSnapshot(doc(db, "publishers", pubId), (docSnap) => {
-        let clicks = 0;
-        if (docSnap.exists()) {
-          clicks = docSnap.data().clicks || 0;
-        } else {
-          setDoc(doc(db, "publishers", pubId), { name, email, pass: '123456', clicks: 0 });
-        }
-        document.getElementById('display-clicks').innerText = clicks;
-        document.getElementById('display-revenue').innerText = `₹${(Math.floor(clicks / 15) * 0.50).toFixed(2)}`;
-        renderChart([clicks/3, clicks/1.5, clicks]);
-      });
-
-      // LOAD OFFERS
-      renderOffersForPublisher(pubId);
-
-      // IF ADMIN, LOAD ALL PUBLISHERS TABLE
       if (isAdmin) {
-        onSnapshot(collection(db, "publishers"), (snapshot) => {
-          let html = '';
-          snapshot.forEach(pDoc => {
-            const d = pDoc.data();
-            const pClicks = d.clicks || 0;
-            html += `
-              <tr>
-                <td class="p-3 font-bold text-emerald-400">${pDoc.id}</td>
-                <td class="p-3 text-white">${d.email || 'N/A'}</td>
-                <td class="p-3 text-amber-300 font-mono">${d.pass || 'N/A'}</td>
-                <td class="p-3 font-bold text-cyan-400">${pClicks}</td>
-                <td class="p-3 font-bold text-emerald-400">${Math.floor(pClicks/15)}</td>
-              </tr>
-            `;
-          });
-          document.getElementById('publishers-table-body').innerHTML = html;
+        setupAdminView();
+      } else if (customUser) {
+        setupCustomUserView(customUser);
+      } else if (user) {
+        setupUserView(user);
+      }
+    });
+
+    function setupCustomUserView(user) {
+      showDashboard();
+      document.getElementById('role-badge').innerText = user.role || 'User';
+      document.getElementById('admin-badge').classList.add('hidden');
+
+      if(user.role === 'Publisher') {
+        document.getElementById('nav-add-user').classList.remove('hidden');
+        document.getElementById('nav-manage-users').classList.remove('hidden');
+      }
+
+      const userRef = doc(db, "users", user.id);
+      onSnapshot(userRef, (docSnap) => {
+        if(docSnap.exists()) {
+          const data = docSnap.data();
+          document.getElementById('user-display-name').innerText = `${data.name} (${data.role || 'User'})`;
+          document.getElementById('user-email-text').innerText = data.email;
+          document.getElementById('edit-display-name').value = data.name || '';
+          document.getElementById('edit-upi-id').value = data.upi || '';
+          updateStats(data.clicks || 0);
+          renderApprovedOffersForUser(user.id, data.assignedLinks || []);
+        }
+      });
+      if(user.role === 'Publisher') loadUsersTable();
+    }
+
+    function setupUserView(user) {
+      showDashboard();
+      document.getElementById('role-badge').innerText = 'Creator';
+      document.getElementById('admin-badge').classList.add('hidden');
+
+      const userRef = doc(db, "users", user.uid);
+      onSnapshot(userRef, (docSnap) => {
+        if (!docSnap.exists()) {
+          setDoc(userRef, { name: user.displayName || 'Creator', email: user.email, clicks: 0, upi: '', role: 'Creator', assignedLinks: [] });
+        } else {
+          const data = docSnap.data();
+          document.getElementById('user-display-name').innerText = `${data.name || 'User'} (Creator)`;
+          document.getElementById('user-email-text').innerText = user.email;
+          document.getElementById('edit-display-name').value = data.name || '';
+          document.getElementById('edit-upi-id').value = data.upi || '';
+          updateStats(data.clicks || 0);
+          renderApprovedOffersForUser(user.uid, data.assignedLinks || []);
+        }
+      });
+    }
+
+    function setupAdminView() {
+      showDashboard();
+      document.getElementById('role-badge').innerText = 'Master Admin';
+      document.getElementById('admin-badge').classList.remove('hidden');
+      document.getElementById('nav-add-user').classList.remove('hidden');
+      document.getElementById('nav-manage-users').classList.remove('hidden');
+      document.getElementById('nav-add-offer').classList.remove('hidden');
+      document.getElementById('user-display-name').innerText = 'Ragib (Owner)';
+      document.getElementById('user-email-text').innerText = ADMIN_EMAIL;
+
+      loadUsersTable();
+    }
+
+    function loadUsersTable() {
+      onSnapshot(collection(db, "users"), (usersSnap) => {
+        let totalRaw = 0;
+        let html = '';
+
+        usersSnap.forEach(uDoc => {
+          const d = uDoc.data();
+          const uId = uDoc.id;
+          const userClicks = d.clicks || 0;
+          totalRaw += userClicks;
+
+          html += `<tr>
+            <td class="p-3 font-extrabold ${d.role === 'Publisher' ? 'text-blue-400' : 'text-purple-400'}">${d.role || 'Creator'}</td>
+            <td class="p-3 text-white font-medium">${d.name || 'User'}<br><span class="text-[10px] text-slate-400">${d.email}</span></td>
+            <td class="p-3 text-emerald-400 font-mono">${d.password || 'Google Login'}</td>
+            <td class="p-3 text-purple-400 font-bold">${userClicks}</td>
+            <td class="p-3 text-cyan-400 font-bold">${Math.floor(userClicks/15)}</td>
+            <td class="p-3 text-amber-400">${d.upi || 'N/A'}</td>
+            <td class="p-3 text-center">
+              <button onclick="openUserLinkModal('${uId}', '${d.name}')" class="bg-purple-600/20 text-purple-400 border border-purple-500/30 hover:bg-purple-600 hover:text-white p-2 rounded-xl transition font-bold text-xs flex items-center gap-1.5 mx-auto">
+                <i class="fa-solid fa-eye"></i> Links
+              </button>
+            </td>
+          </tr>`;
         });
+
+        if(localStorage.getItem('tf_admin') === 'true') updateStats(totalRaw);
+        document.getElementById('user-table-body').innerHTML = html;
+      });
+    }
+
+    function updateStats(rawClicks) {
+      const filtered = Math.floor(rawClicks / 15);
+      document.getElementById('total-clicks').innerText = rawClicks;
+      document.getElementById('filtered-clicks').innerText = filtered;
+      initChart([Math.floor(rawClicks/3), Math.floor(rawClicks/1.5), rawClicks]);
+    }
+
+    function showDashboard() {
+      document.getElementById('landing-page').classList.add('hidden');
+      document.getElementById('auth-modal').classList.add('hidden');
+      document.getElementById('dashboard-app').classList.remove('hidden');
+      document.getElementById('dashboard-app').classList.add('flex');
+    }
+
+    window.switchTab = (tabId) => {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.getElementById('tab-' + tabId).classList.add('active');
+    };
+
+    // UPDATE PROFILE
+    window.updateProfile = async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('edit-display-name').value;
+      const avatar = document.getElementById('edit-avatar-url').value;
+      const upi = document.getElementById('edit-upi-id').value;
+
+      const customUser = JSON.parse(localStorage.getItem('tf_custom_user'));
+      const uid = customUser ? customUser.id : (auth.currentUser ? auth.currentUser.uid : null);
+
+      if (uid) {
+        await updateDoc(doc(db, "users", uid), { name, avatar, upi });
+        alert('Profile Updated Successfully!');
+      }
+    };
+
+    // ADD USER (PUBLISHER / CREATOR)
+    window.addManualUserWithPass = async (e) => {
+      e.preventDefault();
+      const role = document.getElementById('manual-user-role').value;
+      const name = document.getElementById('manual-user-name').value;
+      const email = document.getElementById('manual-user-email').value;
+      const password = document.getElementById('manual-user-password').value;
+
+      const newDocId = "usr_" + Date.now();
+
+      try {
+        await setDoc(doc(db, "users", newDocId), {
+          role,
+          name,
+          email,
+          password,
+          clicks: 0,
+          upi: '',
+          assignedLinks: [],
+          createdAt: new Date().toISOString()
+        });
+
+        alert(`User Registered Successfully!\nRole: ${role}\nDetails: ${email}`);
+        e.target.reset();
+        switchTab('admin-manage-users');
+      } catch(err) {
+        alert('Registration Error: ' + err.message);
+      }
+    };
+
+    // USER SPECIFIC LINK MANAGEMENT (EYE ICON LOGIC)
+    window.openUserLinkModal = async (userId, userName) => {
+      activeTargetUserId = userId;
+      document.getElementById('modal-user-title').innerText = `Manage Custom Approved Links`;
+      document.getElementById('modal-user-subtitle').innerText = `Target User: ${userName} (${userId})`;
+      document.getElementById('user-link-modal').classList.remove('hidden');
+      refreshModalAssignedLinks();
+    };
+
+    window.closeUserLinkModal = () => {
+      document.getElementById('user-link-modal').classList.add('hidden');
+      activeTargetUserId = null;
+    };
+
+    async function refreshModalAssignedLinks() {
+      if(!activeTargetUserId) return;
+      const userDoc = await getDoc(doc(db, "users", activeTargetUserId));
+      if(userDoc.exists()) {
+        const links = userDoc.data().assignedLinks || [];
+        const container = document.getElementById('modal-assigned-links-list');
+        
+        if(links.length === 0) {
+          container.innerHTML = `<p class="text-xs text-slate-500 italic">No approved links assigned to this user yet.</p>`;
+          return;
+        }
+
+        container.innerHTML = links.map((l, idx) => `
+          <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800 flex items-center justify-between text-xs">
+            <div>
+              <p class="font-bold text-white">${l.title}</p>
+              <p class="text-[10px] text-purple-400 font-mono truncate max-w-[200px]">${l.url}</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-[10px] px-2 py-0.5 rounded-full ${l.status === 'Active' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-red-500/20 text-red-400'}">${l.status}</span>
+              <button onclick="toggleUserAssignedLink(${idx})" class="text-amber-400 hover:text-amber-300 font-bold text-[10px]">Toggle</button>
+              <button onclick="deleteUserAssignedLink(${idx})" class="text-red-400 hover:text-red-300 font-bold text-[10px]">Delete</button>
+            </div>
+          </div>
+        `).join('');
       }
     }
 
-    function renderOffersForPublisher(pubId) {
-      const container = document.getElementById('offers-list-container');
-      const uniqueLink = `${window.location.origin}${window.location.pathname}?ref=${pubId}`;
+    window.assignLinkToUser = async (e) => {
+      e.preventDefault();
+      if(!activeTargetUserId) return;
 
-      container.innerHTML = `
-        <div class="bg-slate-950 border border-slate-800 p-4 rounded-2xl space-y-3">
-          <div class="flex items-center justify-between">
-            <h4 class="font-bold text-emerald-300 text-sm">Free Fire Rewards Hub (Main Campaign)</h4>
-            <span class="text-[10px] bg-emerald-500/20 text-emerald-400 px-2.5 py-1 rounded-md font-bold">Active</span>
+      const title = document.getElementById('assign-link-title').value;
+      const url = document.getElementById('assign-link-url').value;
+
+      const userRef = doc(db, "users", activeTargetUserId);
+      const userSnap = await getDoc(userRef);
+
+      if(userSnap.exists()) {
+        const existingLinks = userSnap.data().assignedLinks || [];
+        existingLinks.push({ id: Date.now(), title, url, status: 'Active' });
+
+        await updateDoc(userRef, { assignedLinks: existingLinks });
+        alert('New Custom Link Approved & Assigned to User!');
+        document.getElementById('assign-link-title').value = '';
+        document.getElementById('assign-link-url').value = '';
+        refreshModalAssignedLinks();
+      }
+    };
+
+    window.toggleUserAssignedLink = async (idx) => {
+      if(!activeTargetUserId) return;
+      const userRef = doc(db, "users", activeTargetUserId);
+      const userSnap = await getDoc(userRef);
+      if(userSnap.exists()) {
+        const links = userSnap.data().assignedLinks || [];
+        links[idx].status = links[idx].status === 'Active' ? 'Paused' : 'Active';
+        await updateDoc(userRef, { assignedLinks: links });
+        refreshModalAssignedLinks();
+      }
+    };
+
+    window.deleteUserAssignedLink = async (idx) => {
+      if(!activeTargetUserId || !confirm('Remove this link for user?')) return;
+      const userRef = doc(db, "users", activeTargetUserId);
+      const userSnap = await getDoc(userRef);
+      if(userSnap.exists()) {
+        const links = userSnap.data().assignedLinks || [];
+        links.splice(idx, 1);
+        await updateDoc(userRef, { assignedLinks: links });
+        refreshModalAssignedLinks();
+      }
+    };
+
+    // RENDER APPROVED OFFERS FOR INDIVIDUAL CREATOR / PUBLISHER
+    function renderApprovedOffersForUser(userId, assignedLinks) {
+      const container = document.getElementById('offers-list-container');
+      const activeCount = assignedLinks.filter(o => o.status === 'Active').length;
+      document.getElementById('active-campaigns-count').innerText = activeCount;
+
+      if(assignedLinks.length === 0) {
+        container.innerHTML = `<p class="text-xs text-slate-500 col-span-2">No custom links approved for your account yet. Contact Admin/Publisher to assign campaign links.</p>`;
+        return;
+      }
+
+      container.innerHTML = assignedLinks.map((o) => {
+        const trackingLink = `${window.location.origin}${window.location.pathname}?ref=${userId}&linkId=${o.id}`;
+        return `
+          <div class="bg-slate-900 border ${o.status === 'Active' ? 'border-purple-500/30' : 'border-red-500/30 opacity-75'} p-5 rounded-2xl space-y-3 relative shadow-xl">
+            <div class="flex items-center justify-between">
+              <h4 class="font-bold text-white">${o.title}</h4>
+              <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full ${o.status === 'Active' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-red-500/20 text-red-400 border border-red-500/30'}">
+                ${o.status}
+              </span>
+            </div>
+            <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800 flex items-center justify-between gap-2">
+              <input type="text" readonly value="${trackingLink}" class="bg-transparent text-xs text-purple-300 font-mono outline-none w-full">
+              <button onclick="navigator.clipboard.writeText('${trackingLink}'); alert('Your Assigned Tracking Link Copied!');" class="bg-purple-600 text-white text-[10px] px-3 py-1.5 rounded-lg font-bold shrink-0 hover:bg-purple-700">Copy Link</button>
+            </div>
           </div>
-          <div class="flex items-center gap-2 bg-slate-900 border border-slate-800 rounded-xl p-2.5">
-            <input type="text" readonly value="${uniqueLink}" class="bg-transparent text-xs text-emerald-300 w-full outline-none font-mono">
-            <button onclick="navigator.clipboard.writeText('${uniqueLink}'); alert('Link Copied!');" class="bg-emerald-500 hover:bg-emerald-600 text-slate-950 text-xs font-bold px-4 py-1.5 rounded-lg shrink-0">
-              Copy Link
-            </button>
-          </div>
-        </div>
-      `;
+        `;
+      }).join('');
     }
 
-    window.createNewPublisherAccount = async function() {
-      const email = prompt('Enter Publisher Email Address:');
-      if (!email) return;
-      const pass = prompt('Assign Login Password:');
-      if (!pass) return;
-
-      const newPubId = 'pub_' + Math.floor(1000 + Math.random() * 9000);
-      await setDoc(doc(db, "publishers", newPubId), { name: email.split('@')[0], email, pass, clicks: 0 });
-      alert(`New Publisher Account Created!\nID: ${newPubId}\nEmail: ${email}\nPassword: ${pass}`);
+    // BROADCAST OFFER (GLOBAL)
+    window.addNewOffer = (e) => {
+      e.preventDefault();
+      alert('Global Offer Published to System!');
+      e.target.reset();
+      switchTab('offers-hub');
     };
 
     let myChart = null;
-    function renderChart(points) {
-      const canvas = document.getElementById('trafficChart');
-      if (!canvas) return;
-      const ctx = canvas.getContext('2d');
+    function initChart(dataPoints) {
+      const ctx = document.getElementById('trafficChart').getContext('2d');
       if (myChart) myChart.destroy();
       myChart = new Chart(ctx, {
         type: 'line',
         data: {
           labels: ['Day 1', 'Day 2', 'Today'],
-          datasets: [{ label: 'Clicks Flow', data: points, borderColor: '#10b981', backgroundColor: 'rgba(16, 185, 129, 0.1)', fill: true, tension: 0.4 }]
+          datasets: [{ label: 'Clicks', data: dataPoints, borderColor: '#8b5cf6', backgroundColor: 'rgba(139, 92, 246, 0.1)', fill: true, tension: 0.4 }]
         },
         options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
       });
     }
-  </script>
 
-  <!-- INTERACTION SCRIPTS -->
-  <script>
-    async function handlePortalLogin(e) {
-      e.preventDefault();
-      const email = document.getElementById('login-email').value.trim();
-      const pass = document.getElementById('login-pass').value.trim();
-      const alertBox = document.getElementById('login-error-alert');
+    document.getElementById('generate-btn').onclick = () => {
+      const alias = document.getElementById('alias-input').value.trim();
+      const customUser = JSON.parse(localStorage.getItem('tf_custom_user'));
+      const uid = customUser ? customUser.id : (auth.currentUser ? auth.currentUser.uid : 'guest');
+      
+      document.getElementById('final-link-output').value = `${window.location.origin}${window.location.pathname}?ref=${uid}&alias=${alias}`;
+      alert('Custom Tracking Link Created Successfully!');
+    };
 
-      const success = await window.loginPublisher(email, pass);
-      if (success) {
-        alertBox.classList.add('hidden');
-      } else {
-        alertBox.classList.remove('hidden');
-      }
-    }
-
-    function switchDashboardTab(tabId) {
-      document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active-tab'));
-      document.getElementById(tabId).classList.add('active-tab');
-    }
-
-    function handleCreateOffer(e) {
-      e.preventDefault();
-      alert('Campaign Offer Created Successfully!');
-      e.target.reset();
-    }
-
-    function logout() {
-      location.reload();
-    }
+    document.getElementById('copy-link-btn').onclick = () => {
+      navigator.clipboard.writeText(document.getElementById('final-link-output').value);
+      alert('Link Copied to Clipboard!');
+    };
   </script>
 </body>
 </html>
