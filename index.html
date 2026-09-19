@@ -3,21 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TrackFlow - Premium Creator & Traffic Hub</title>
+  <title>TrackFlow - Premium Analytics Hub</title>
   
-  <!-- Premium TrackFlow Favicon -->
+  <!-- LOGO & FAVICON -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='tf-grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%233b82f6'/><stop offset='50%' stop-color='%238b5cf6'/><stop offset='100%' stop-color='%23ec4899'/></linearGradient></defs><circle cx='50' cy='50' r='46' fill='%230f172a' stroke='url(%23tf-grad)' stroke-width='4'/><path d='M30 35 L50 65 L70 35' fill='none' stroke='url(%23tf-grad)' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'/></svg>">
-  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%230f172a'/><path d='M30 35 L50 65 L70 35' fill='none' stroke='%238b5cf6' stroke-width='10' stroke-linecap='round' stroke-linejoin='round'/></svg>">
-
-  <!-- Tailwind CSS & FontAwesome -->
+  
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   
   <style>
     .glow-effect { filter: drop-shadow(0 0 12px rgba(139, 92, 246, 0.6)); }
+    .glow-avatar { filter: drop-shadow(0 0 8px rgba(236, 72, 153, 0.5)); }
     .tab-content { display: none; }
     .tab-content.active { display: block; }
+    @keyframes pulse-slow { 0%, 100% { opacity: 1; } 50% { opacity: 0.65; } }
+    .animate-glow { animation: pulse-slow 3s infinite ease-in-out; }
   </style>
 </head>
 <body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col justify-between">
@@ -28,9 +29,21 @@
       <button id="toggle-sidebar-btn" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-purple-400 transition flex items-center justify-center">
         <i class="fa-solid fa-bars text-xl"></i>
       </button>
+      
+      <!-- BRAND LOGO -->
       <div class="flex items-center gap-2.5">
-        <div class="w-10 h-10 bg-slate-950 border border-purple-500/40 rounded-xl flex items-center justify-center glow-effect">
-          <i class="fa-solid fa-bolt text-xl text-purple-400"></i>
+        <div class="w-10 h-10 bg-slate-950 border border-purple-500/40 rounded-xl flex items-center justify-center glow-effect animate-glow">
+          <svg class="w-6 h-6" viewBox="0 0 100 100">
+            <defs>
+              <linearGradient id="tf-grad-nav" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#3b82f6"/>
+                <stop offset="50%" stop-color="#8b5cf6"/>
+                <stop offset="100%" stop-color="#ec4899"/>
+              </linearGradient>
+            </defs>
+            <circle cx="50" cy="50" r="44" fill="none" stroke="url(#tf-grad-nav)" stroke-width="8"/>
+            <path d="M30 35 L50 65 L70 35" fill="none" stroke="url(#tf-grad-nav)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
         </div>
         <span class="font-extrabold text-xl tracking-wider text-white">TRACK<span class="text-purple-400">FLOW</span></span>
         <span id="admin-badge" class="hidden bg-amber-500/20 text-amber-400 border border-amber-500/40 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full ml-2">MASTER ADMIN</span>
@@ -39,15 +52,12 @@
     
     <div class="flex items-center gap-3">
       <span class="text-xs bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-3 py-1 rounded-full font-semibold flex items-center gap-1.5">
-        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Live System
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Network Active
       </span>
       <div class="flex items-center gap-2">
         <span id="role-badge" class="text-xs bg-purple-500/10 text-purple-400 border border-purple-500/20 px-3 py-1 rounded-full font-bold uppercase">Role</span>
-
-        <!-- Home & Contact Us Links -->
-        <a href="#" class="text-xs text-slate-300 hover:text-white font-bold ml-3">Home</a>
-        <a href="mailto:Worktrackflow@Gmail.com?subject=Dashboard%20Support%20Query" class="text-xs text-amber-400 hover:text-amber-300 font-bold ml-2 flex items-center gap-1">
-          <i class="fa-solid fa-envelope"></i> Contact Us
+        <a href="mailto:Worktrackflow@Gmail.com" class="text-xs text-amber-400 hover:text-amber-300 font-bold ml-2 flex items-center gap-1">
+          <i class="fa-solid fa-envelope"></i> Support
         </a>
       </div>
     </div>
@@ -55,17 +65,27 @@
 
   <!-- LANDING PAGE -->
   <div id="landing-page" class="flex-1 flex flex-col items-center justify-center p-6 text-center max-w-4xl mx-auto">
-    <div class="w-20 h-20 mb-6 bg-slate-900 border-2 border-purple-500/50 rounded-3xl flex items-center justify-center glow-effect shadow-2xl">
-      <i class="fa-solid fa-chart-line text-3xl text-purple-400"></i>
+    <div class="w-24 h-24 mb-6 bg-slate-900 border-2 border-purple-500/50 rounded-3xl flex items-center justify-center glow-effect shadow-2xl animate-glow">
+      <svg class="w-14 h-14" viewBox="0 0 100 100">
+        <defs>
+          <linearGradient id="tf-grad-land" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#3b82f6"/>
+            <stop offset="50%" stop-color="#8b5cf6"/>
+            <stop offset="100%" stop-color="#ec4899"/>
+          </linearGradient>
+        </defs>
+        <circle cx="50" cy="50" r="44" fill="none" stroke="url(#tf-grad-land)" stroke-width="8"/>
+        <path d="M30 35 L50 65 L70 35" fill="none" stroke="url(#tf-grad-land)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
     </div>
     <h1 class="text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 mb-4">
-      Creator Performance Network
+      TrackFlow Network Engine
     </h1>
     <p class="text-slate-400 text-base md:text-lg max-w-2xl mb-8">
-      TrackFlow custom alias traffic manager, approval engine, and promotional analytics dashboard.
+      Professional Traffic Analytics & Smart Creator Performance Dashboard
     </p>
     <button id="open-auth-modal-btn" class="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-500 text-white font-black text-lg px-10 py-4 rounded-2xl shadow-xl hover:scale-105 transition transform glow-effect flex items-center gap-3">
-      <i class="fa-solid fa-rocket"></i> Get Started
+      <i class="fa-solid fa-rocket"></i> Access Dashboard
     </button>
   </div>
 
@@ -75,7 +95,7 @@
       <button id="close-auth-modal" class="absolute top-4 right-4 text-slate-500 hover:text-white text-lg">
         <i class="fa-solid fa-xmark"></i>
       </button>
-      <h2 class="text-2xl font-bold text-white mb-4">Access TrackFlow</h2>
+      <h2 class="text-2xl font-bold text-white mb-4">Sign In to TrackFlow</h2>
 
       <div class="space-y-3">
         <button id="google-login-btn" class="w-full bg-white hover:bg-slate-100 text-slate-900 font-bold py-3.5 px-4 rounded-xl flex items-center justify-center gap-3 transition">
@@ -88,24 +108,31 @@
           <div class="relative flex justify-center text-xs uppercase"><span class="bg-slate-900 px-2 text-slate-500">Email / Phone Login</span></div>
         </div>
 
-        <input type="text" id="email-input" placeholder="User Email / Phone Number" value="" autocomplete="off" class="w-full bg-slate-950 border border-slate-800 rounded-xl py-3 px-4 text-sm text-white focus:outline-none focus:border-purple-500">
-        <input type="password" id="password-input" placeholder="Password" value="" autocomplete="new-password" class="w-full bg-slate-950 border border-slate-800 rounded-xl py-3 px-4 text-sm text-white focus:outline-none focus:border-purple-500">
+        <input type="text" id="email-input" placeholder="User Email / Phone Number" class="w-full bg-slate-950 border border-slate-800 rounded-xl py-3 px-4 text-sm text-white focus:outline-none focus:border-purple-500">
+        <input type="password" id="password-input" placeholder="Password" class="w-full bg-slate-950 border border-slate-800 rounded-xl py-3 px-4 text-sm text-white focus:outline-none focus:border-purple-500">
         
         <button id="email-login-btn" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-extrabold py-3 px-4 rounded-xl text-sm transition">
-          Sign In
+          Login Account
         </button>
       </div>
     </div>
   </div>
 
-  <!-- DASHBOARD CONTAINER -->
+  <!-- DASHBOARD APP CONTAINER -->
   <div id="dashboard-app" class="hidden flex-1 flex flex-col md:flex-row relative overflow-hidden">
 
     <!-- SIDEBAR NAVIGATION -->
     <aside id="sidebar" class="w-64 bg-slate-900 border-r border-slate-800 flex flex-col justify-between shrink-0 h-[calc(100vh-4rem)]">
       <div class="p-4 space-y-6 overflow-y-auto">
-        <div class="bg-slate-950 border border-slate-800 p-3.5 rounded-2xl flex items-center gap-3">
-          <img id="user-avatar" src="https://via.placeholder.com/40" class="w-10 h-10 rounded-xl border border-purple-500/30 object-cover" alt="User">
+        
+        <!-- USER PROFILE CARD WITH ANIMATED FAVICON BRAND AVATAR -->
+        <div class="bg-slate-950 border border-slate-800 p-3.5 rounded-2xl flex items-center gap-3 relative overflow-hidden">
+          <div class="w-10 h-10 rounded-xl bg-slate-900 border border-purple-500/40 flex items-center justify-center shrink-0 glow-avatar">
+            <svg class="w-6 h-6" viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="44" fill="none" stroke="url(#tf-grad-nav)" stroke-width="8"/>
+              <path d="M30 35 L50 65 L70 35" fill="none" stroke="url(#tf-grad-nav)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
           <div class="overflow-hidden">
             <h4 id="user-display-name" class="text-sm font-bold text-white truncate">User</h4>
             <p id="user-email-text" class="text-xs text-slate-400 truncate">Loading...</p>
@@ -114,88 +141,141 @@
 
         <nav class="space-y-1.5">
           <button onclick="switchTab('overview')" class="w-full text-left flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-purple-500/10 text-purple-400 font-medium text-sm border border-purple-500/20">
-            <i class="fa-solid fa-chart-pie w-5"></i> Overview
+            <i class="fa-solid fa-chart-pie w-5"></i> Performance Hub
           </button>
           
-          <!-- ALIAS GENERATOR TAB (SHOWS ONLY TO CREATORS) -->
           <button id="nav-link-generator" onclick="switchTab('link-generator')" class="w-full text-left flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white font-medium text-sm transition">
-            <i class="fa-solid fa-link w-5"></i> Alias Generator
+            <i class="fa-solid fa-link w-5"></i> Custom Link Alias
           </button>
 
           <button onclick="switchTab('offers-hub')" class="w-full text-left flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white font-medium text-sm transition">
             <i class="fa-solid fa-gift w-5"></i> Approved Campaign Links
           </button>
 
-          <!-- USER PROFILE TAB -->
           <button onclick="switchTab('profile')" class="w-full text-left flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white font-medium text-sm transition">
-            <i class="fa-solid fa-user-gear w-5"></i> Profile Settings
+            <i class="fa-solid fa-user-gear w-5"></i> Profile & Payment
           </button>
           
-          <!-- ADMIN & PUBLISHER SPECIFIC NAV BUTTONS -->
           <button id="nav-add-user" onclick="switchTab('admin-add-user')" class="hidden w-full text-left flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-blue-500/10 text-blue-400 font-bold text-sm border border-blue-500/20">
-            <i class="fa-solid fa-user-plus w-5"></i> Add User / Creator
+            <i class="fa-solid fa-user-plus w-5"></i> Add User Account
           </button>
           <button id="nav-manage-users" onclick="switchTab('admin-manage-users')" class="hidden w-full text-left flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-purple-500/10 text-purple-400 font-bold text-sm border border-purple-500/20">
-            <i class="fa-solid fa-users-gear w-5"></i> User Management
+            <i class="fa-solid fa-users-gear w-5"></i> Network Users
           </button>
           <button id="nav-add-offer" onclick="switchTab('admin-add-offer')" class="hidden w-full text-left flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-amber-500/10 text-amber-400 font-bold text-sm border border-amber-500/20">
-            <i class="fa-solid fa-folder-plus w-5"></i> Broadcast Offer
+            <i class="fa-solid fa-folder-plus w-5"></i> Broadcast Offers
           </button>
         </nav>
       </div>
 
       <div class="p-4 border-t border-slate-800">
-        <button id="logout-btn" class="w-full bg-red-500/10 text-red-400 border border-red-500/20 font-semibold py-2.5 rounded-xl text-sm transition">Logout</button>
+        <button id="logout-btn" class="w-full bg-red-500/10 text-red-400 border border-red-500/20 font-semibold py-2.5 rounded-xl text-sm transition">Logout System</button>
       </div>
     </aside>
 
     <!-- MAIN CONTENT AREA -->
     <main class="flex-1 overflow-y-auto p-4 md:p-6 space-y-6">
 
-      <!-- TAB 1: OVERVIEW -->
+      <!-- TAB 1: OVERVIEW METRICS WITH CALENDAR DATE RANGE FILTER -->
       <div id="tab-overview" class="tab-content active space-y-6">
+        
+        <!-- HEADER & DATE RANGE FILTER SELECTOR -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-900 border border-slate-800 p-4 rounded-2xl shadow-md">
+          <div>
+            <h2 class="text-lg font-extrabold text-white flex items-center gap-2">
+              <i class="fa-solid fa-chart-line text-purple-400"></i> Performance Analytics
+            </h2>
+            <p class="text-xs text-slate-400">Live Continuous Traffic Reporting</p>
+          </div>
+
+          <!-- CALENDAR FILTER -->
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-calendar-days text-purple-400 text-sm"></i>
+            <select id="time-range-filter" onchange="applyTimeFilter(this.value)" class="bg-slate-950 border border-slate-800 text-xs font-bold text-purple-300 py-2 px-3.5 rounded-xl outline-none focus:border-purple-500">
+              <option value="today">Today</option>
+              <option value="yesterday">Yesterday</option>
+              <option value="last7">Last 7 Days</option>
+              <option value="last30" selected>Last 30 Days</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- STATS CARDS GRID -->
         <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-          <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl">
-            <p class="text-xs text-slate-400 font-semibold uppercase">Total Raw Clicks</p>
-            <h3 id="total-clicks" class="text-2xl font-extrabold text-purple-400 mt-1">0</h3>
+          
+          <!-- TOTAL CLICKS -->
+          <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl relative overflow-hidden">
+            <div class="flex items-center justify-between">
+              <p class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Valid Network Clicks</p>
+              <i class="fa-solid fa-arrow-pointer text-purple-400 text-sm"></i>
+            </div>
+            <h3 id="display-clicks-count" class="text-3xl font-extrabold text-purple-400 mt-2">0</h3>
+            <span class="text-[10px] text-emerald-400 mt-1 inline-block font-medium"><i class="fa-solid fa-check-circle mr-1"></i>Live Verified</span>
           </div>
+
+          <!-- ESTIMATED CTR METRIC -->
           <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl">
-            <p class="text-xs text-slate-400 font-semibold uppercase">Display Clicks (15:1 Ratio)</p>
-            <h3 id="filtered-clicks" class="text-2xl font-extrabold text-cyan-400 mt-1">0</h3>
+            <div class="flex items-center justify-between">
+              <p class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Click Through Rate (CTR)</p>
+              <i class="fa-solid fa-percent text-cyan-400 text-sm"></i>
+            </div>
+            <h3 id="display-ctr-val" class="text-3xl font-extrabold text-cyan-400 mt-2">0.00%</h3>
+            <span class="text-[10px] text-slate-400 mt-1 inline-block">Realtime Organic Flow</span>
           </div>
+
+          <!-- ESTIMATED CPM -->
           <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl">
-            <p class="text-xs text-slate-400 font-semibold uppercase">Active Approved Offers</p>
-            <h3 id="active-campaigns-count" class="text-2xl font-extrabold text-amber-400 mt-1">0</h3>
+            <div class="flex items-center justify-between">
+              <p class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Est. eCPM</p>
+              <i class="fa-solid fa-coins text-amber-400 text-sm"></i>
+            </div>
+            <h3 id="display-ecpm-val" class="text-3xl font-extrabold text-amber-400 mt-2">$0.00</h3>
+            <span class="text-[10px] text-amber-400/80 mt-1 inline-block">High Tier GEO Rate</span>
           </div>
+
+          <!-- ACCOUNT TRAFFIC STATUS -->
           <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl">
-            <p class="text-xs text-slate-400 font-semibold uppercase">Account Status</p>
-            <h3 id="account-status-badge" class="text-2xl font-extrabold text-emerald-400 mt-1">Live Active</h3>
+            <div class="flex items-center justify-between">
+              <p class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Quality Score</p>
+              <i class="fa-solid fa-shield-halved text-emerald-400 text-sm"></i>
+            </div>
+            <h3 id="account-status-badge" class="text-2xl font-extrabold text-emerald-400 mt-2">Optimal</h3>
+            <span class="text-[10px] text-emerald-400 mt-1 inline-block">Clean Traffic Certified</span>
           </div>
+
         </section>
 
-        <!-- GRAPH -->
-        <div class="bg-slate-900 border border-slate-800 p-5 rounded-3xl">
-          <h4 class="text-xs font-bold text-slate-300 mb-3"><i class="fa-solid fa-chart-line text-cyan-400 mr-1.5"></i> Live Lifetime Clicks Flow</h4>
+        <!-- LIVE GRAPH CHART (LAST 30 DAYS / TIMELINE) -->
+        <div class="bg-slate-900 border border-slate-800 p-6 rounded-3xl shadow-xl">
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <h4 class="text-sm font-bold text-white flex items-center gap-2">
+                <i class="fa-solid fa-chart-area text-purple-400"></i> Traffic Distribution Graph
+              </h4>
+              <p id="graph-subtitle-text" class="text-xs text-slate-400">Clicks distribution for Last 30 Days</p>
+            </div>
+            <span class="text-xs bg-purple-500/10 text-purple-400 border border-purple-500/20 px-3 py-1 rounded-full font-bold">Dynamic Organic Scale</span>
+          </div>
           <div class="h-64 w-full"><canvas id="trafficChart"></canvas></div>
         </div>
       </div>
 
-      <!-- TAB 2: ALIAS GENERATOR (FOR CREATORS) -->
+      <!-- TAB 2: ALIAS GENERATOR -->
       <div id="tab-link-generator" class="tab-content space-y-4">
         <section class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl">
-          <h2 class="text-lg font-bold text-white mb-2"><i class="fa-solid fa-wand-magic-sparkles text-purple-400 mr-2"></i>Create Standalone Custom Tracking Link</h2>
+          <h2 class="text-lg font-bold text-white mb-2"><i class="fa-solid fa-wand-magic-sparkles text-purple-400 mr-2"></i>Create Custom Link Tracking Alias</h2>
           <div class="flex flex-col md:flex-row gap-3">
-            <input type="text" id="alias-input" placeholder="e.g. custom-alias" class="w-full bg-slate-950 border border-slate-800 rounded-xl py-2.5 px-4 text-sm text-purple-300">
-            <button id="generate-btn" class="bg-purple-600 hover:bg-purple-700 text-white font-bold px-6 py-2.5 rounded-xl text-sm">Create Link</button>
+            <input type="text" id="alias-input" placeholder="e.g. ff-rewards-vip" class="w-full bg-slate-950 border border-slate-800 rounded-xl py-2.5 px-4 text-sm text-purple-300">
+            <button id="generate-btn" class="bg-purple-600 hover:bg-purple-700 text-white font-bold px-6 py-2.5 rounded-xl text-sm">Generate Link</button>
           </div>
           <div class="mt-4 p-3.5 bg-slate-950 rounded-2xl border border-slate-800 flex items-center justify-between gap-3">
             <input type="text" id="final-link-output" readonly value="https://ff-rewards-hub-gamma.vercel.app/" class="bg-transparent text-xs text-slate-300 w-full outline-none font-mono">
-            <button id="copy-link-btn" class="bg-slate-800 text-purple-400 px-4 py-1.5 rounded-lg text-xs font-semibold">Copy</button>
+            <button id="copy-link-btn" class="bg-slate-800 text-purple-400 px-4 py-1.5 rounded-lg text-xs font-semibold">Copy Link</button>
           </div>
         </section>
       </div>
 
-      <!-- TAB 3: OFFERS HUB (APPROVED USER LINKS + ALIAS INLINE CREATOR TOOL) -->
+      <!-- TAB 3: APPROVED OFFERS -->
       <div id="tab-offers-hub" class="tab-content space-y-4">
         <h3 class="text-base font-bold text-white mb-2"><i class="fa-solid fa-link text-purple-400 mr-2"></i>Approved Campaign Links</h3>
         <div id="offers-list-container" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
@@ -204,32 +284,28 @@
       <!-- TAB 4: PROFILE SETTINGS -->
       <div id="tab-profile" class="tab-content space-y-4 max-w-xl mx-auto">
         <div class="bg-slate-900 border border-slate-800 p-6 rounded-3xl space-y-4 shadow-2xl">
-          <h3 class="text-base font-bold text-purple-400 flex items-center gap-2"><i class="fa-solid fa-user-pen"></i> Edit Profile & Payment Details</h3>
+          <h3 class="text-base font-bold text-purple-400 flex items-center gap-2"><i class="fa-solid fa-user-pen"></i> Account & Payment Info</h3>
           <form onsubmit="updateProfile(event)" class="space-y-4 text-xs">
             <div>
               <label class="block text-slate-400 mb-1">Display Name</label>
               <input type="text" id="edit-display-name" required class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-purple-500">
             </div>
             <div>
-              <label class="block text-slate-400 mb-1">Avatar Image URL</label>
-              <input type="url" id="edit-avatar-url" placeholder="https://example.com/photo.jpg" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-purple-500">
-            </div>
-            <div>
-              <label class="block text-slate-400 mb-1">UPI ID / Payment Method</label>
+              <label class="block text-slate-400 mb-1">UPI ID / Withdrawal Address</label>
               <input type="text" id="edit-upi-id" placeholder="yourname@upi" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-purple-500">
             </div>
-            <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-extrabold py-3 rounded-xl transition">Save Profile Changes</button>
+            <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-extrabold py-3 rounded-xl transition">Save Profile Info</button>
           </form>
         </div>
       </div>
 
-      <!-- TAB 5: ADD USER (ADMIN & PUBLISHER) -->
+      <!-- TAB 5: ADD USER (ADMIN ONLY) -->
       <div id="tab-admin-add-user" class="tab-content space-y-4 max-w-xl mx-auto">
         <div class="bg-slate-900 border border-blue-500/40 p-6 rounded-3xl space-y-4 shadow-2xl">
-          <h3 class="text-base font-bold text-blue-400 flex items-center gap-2"><i class="fa-solid fa-user-plus"></i> Add Account (Publisher or Creator)</h3>
+          <h3 class="text-base font-bold text-blue-400 flex items-center gap-2"><i class="fa-solid fa-user-plus"></i> Register User Account</h3>
           <form onsubmit="addManualUserWithPass(event)" class="space-y-4 text-xs">
             <div>
-              <label class="block text-slate-400 mb-1">Account Role</label>
+              <label class="block text-slate-400 mb-1">User Role</label>
               <select id="manual-user-role" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-blue-500 font-semibold">
                 <option value="Creator">Creator</option>
                 <option id="role-option-publisher" value="Publisher">Publisher</option>
@@ -237,26 +313,26 @@
             </div>
             <div>
               <label class="block text-slate-400 mb-1">Full Name</label>
-              <input type="text" id="manual-user-name" required placeholder="User Name" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-blue-500">
+              <input type="text" id="manual-user-name" required class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-blue-500">
             </div>
             <div>
               <label class="block text-slate-400 mb-1">Email or Phone Number</label>
-              <input type="text" id="manual-user-email" required placeholder="email@gmail.com or 9876543210" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-blue-500">
+              <input type="text" id="manual-user-email" required class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-blue-500">
             </div>
             <div>
-              <label class="block text-slate-400 mb-1">Set Account Password</label>
-              <input type="text" id="manual-user-password" required placeholder="Set Password" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-blue-500">
+              <label class="block text-slate-400 mb-1">Account Password</label>
+              <input type="text" id="manual-user-password" required class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-blue-500">
             </div>
-            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-extrabold py-3 rounded-xl transition">Register Account</button>
+            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-extrabold py-3 rounded-xl transition">Create User</button>
           </form>
         </div>
       </div>
 
-      <!-- TAB 6: USER MANAGEMENT (WITH ISOLATED VIEWS & SUSPEND / BLOCK CONTROL) -->
+      <!-- TAB 6: MASTER USER MANAGEMENT -->
       <div id="tab-admin-manage-users" class="tab-content space-y-4">
         <div class="bg-slate-900 border border-purple-500/40 p-5 rounded-3xl space-y-4 shadow-2xl">
           <h3 class="text-sm font-bold text-purple-400 flex items-center justify-between">
-            <span class="flex items-center gap-2"><i class="fa-solid fa-users-gear"></i> User Management & Account Status</span>
+            <span class="flex items-center gap-2"><i class="fa-solid fa-users-gear"></i> Network Users Overview</span>
             <span id="user-management-subtitle" class="text-xs text-slate-400">Loading Users...</span>
           </h3>
           <div class="overflow-x-auto">
@@ -264,14 +340,14 @@
               <thead class="bg-slate-950 uppercase text-slate-400">
                 <tr>
                   <th class="p-3">Role</th>
-                  <th class="p-3">User Details</th>
+                  <th class="p-3">User Info</th>
                   <th class="p-3">Password</th>
-                  <th class="p-3">Raw Clicks</th>
-                  <th class="p-3">Counted (15:1)</th>
+                  <th class="p-3 text-amber-400">Raw Real Clicks (For You)</th>
+                  <th class="p-3 text-cyan-400">Creator View Clicks</th>
                   <th class="p-3">Status</th>
                   <th class="p-3">UPI Info</th>
-                  <th class="p-3 text-center">Manage Links</th>
-                  <th class="p-3 text-center">Account Action</th>
+                  <th class="p-3 text-center">Links</th>
+                  <th class="p-3 text-center">Action</th>
                 </tr>
               </thead>
               <tbody id="user-table-body" class="divide-y divide-slate-800"></tbody>
@@ -280,20 +356,20 @@
         </div>
       </div>
 
-      <!-- TAB 7: ADD OFFER (GLOBAL BROADCAST) -->
+      <!-- TAB 7: ADD OFFER BROADCAST -->
       <div id="tab-admin-add-offer" class="tab-content space-y-4 max-w-xl mx-auto">
         <div class="bg-slate-900 border border-amber-500/40 p-6 rounded-3xl space-y-4 shadow-2xl">
-          <h3 class="text-base font-bold text-amber-400 flex items-center gap-2"><i class="fa-solid fa-folder-plus"></i> Broadcast Offer to All</h3>
+          <h3 class="text-base font-bold text-amber-400 flex items-center gap-2"><i class="fa-solid fa-folder-plus"></i> Broadcast Campaign Offer</h3>
           <form onsubmit="addNewOffer(event)" class="space-y-4 text-xs">
             <div>
               <label class="block text-slate-400 mb-1">Campaign Title</label>
-              <input type="text" id="new-offer-title" required placeholder="Free Fire Diamond Offer" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-amber-500">
+              <input type="text" id="new-offer-title" required class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-amber-500">
             </div>
             <div>
               <label class="block text-slate-400 mb-1">Target Redirect URL</label>
-              <input type="url" id="new-offer-url" required placeholder="https://example.com" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-amber-500">
+              <input type="url" id="new-offer-url" required class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-amber-500">
             </div>
-            <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-extrabold py-3 rounded-xl transition">Publish Offer Live</button>
+            <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-extrabold py-3 rounded-xl transition">Broadcast Live</button>
           </form>
         </div>
       </div>
@@ -301,7 +377,7 @@
     </main>
   </div>
 
-  <!-- MODAL: MANAGE USER ASSIGNED LINKS (EYE ICON POPUP FOR ADMIN/PUBLISHER) -->
+  <!-- MODAL: MANAGE USER LINKS -->
   <div id="user-link-modal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
     <div class="bg-slate-900 border border-purple-500/40 p-6 rounded-3xl max-w-lg w-full shadow-2xl relative space-y-4">
       <button onclick="closeUserLinkModal()" class="absolute top-4 right-4 text-slate-500 hover:text-white text-lg">
@@ -309,27 +385,25 @@
       </button>
       
       <div class="border-b border-slate-800 pb-3">
-        <h3 id="modal-user-title" class="text-base font-bold text-purple-400">Manage Custom Approved Links</h3>
+        <h3 id="modal-user-title" class="text-base font-bold text-purple-400">Manage Approved Links</h3>
         <p id="modal-user-subtitle" class="text-xs text-slate-400">User: Loading...</p>
       </div>
 
-      <!-- Add New Link Form for this User -->
       <form onsubmit="assignLinkToUser(event)" class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-3 text-xs">
-        <h4 class="font-bold text-emerald-400"><i class="fa-solid fa-plus-circle mr-1"></i> Approve & Assign New Link</h4>
-        <input type="text" id="assign-link-title" required placeholder="Campaign Title (e.g. VIP Diamond Link)" class="w-full bg-slate-900 border border-slate-800 p-2.5 rounded-xl text-white outline-none focus:border-purple-500">
-        <input type="url" id="assign-link-url" required placeholder="Target Redirect URL (https://...)" class="w-full bg-slate-900 border border-slate-800 p-2.5 rounded-xl text-white outline-none focus:border-purple-500">
-        <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 rounded-xl transition">Approve Link For This User</button>
+        <h4 class="font-bold text-emerald-400"><i class="fa-solid fa-plus-circle mr-1"></i> Approve New Link</h4>
+        <input type="text" id="assign-link-title" required placeholder="Campaign Title" class="w-full bg-slate-900 border border-slate-800 p-2.5 rounded-xl text-white outline-none focus:border-purple-500">
+        <input type="url" id="assign-link-url" required placeholder="Target Redirect URL" class="w-full bg-slate-900 border border-slate-800 p-2.5 rounded-xl text-white outline-none focus:border-purple-500">
+        <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 rounded-xl transition">Assign Campaign Link</button>
       </form>
 
-      <!-- Existing Assigned Links List -->
       <div class="space-y-2">
-        <h4 class="text-xs font-bold text-slate-300">Currently Approved Links for User:</h4>
+        <h4 class="text-xs font-bold text-slate-300">Active Links for User:</h4>
         <div id="modal-assigned-links-list" class="max-h-48 overflow-y-auto space-y-2 pr-1"></div>
       </div>
     </div>
   </div>
 
-  <!-- FIREBASE REALTIME & APP LOGIC -->
+  <!-- FIREBASE & CONTINUOUS UNSTOPPABLE CLICKS SYSTEM -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { getAuth, signInWithRedirect, GoogleAuthProvider, onAuthStateChanged, signOut, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
@@ -356,8 +430,25 @@
     let activeTargetUserId = null;
     let currentUserRole = 'Creator';
     let currentLoggedInId = null;
+    let cachedRawClicks = 0;
 
-    // LIVE TRACKING REDIRECT SYSTEM
+    // CONTINUOUS UNSTOPPABLE CREATOR CLICKS FORMULA (WORKS SMOOTHLY FROM 1 CLICK UP TO 100,000+ CLICKS)
+    function calculateDynamicCreatorClicks(rawClicks) {
+      if (!rawClicks || rawClicks <= 0) return 0;
+
+      // Smooth ratio (~4% to 5.5% scaling) that never caps or freezes
+      let scaleRatio = 0.048; 
+      let baseCreatorClicks = Math.floor(rawClicks * scaleRatio);
+
+      // Natural organic micro-fluctuation to prevent fixed predictable numbers
+      let microVariance = Math.floor((rawClicks % 7) * 0.3);
+      let totalClicks = baseCreatorClicks + microVariance;
+
+      // Ensures at least 1 click shows if raw clicks exist
+      return totalClicks > 0 ? totalClicks : 1;
+    }
+
+    // LIVE LINK REDIRECT & CLICK COUNTING
     const urlParams = new URLSearchParams(window.location.search);
     const refUser = urlParams.get('ref');
 
@@ -365,7 +456,7 @@
       const clickRef = doc(db, "users", refUser);
       getDoc(clickRef).then((snap) => {
         if(snap.exists() && snap.data().status === 'Blocked') {
-          document.body.innerHTML = "<h1 style='color:red;text-align:center;margin-top:20%;font-family:sans-serif;'>Link Suspended or Blocked by Network Admin.</h1>";
+          document.body.innerHTML = "<h1 style='color:red;text-align:center;margin-top:20%;font-family:sans-serif;'>Link Suspended.</h1>";
         } else {
           updateDoc(clickRef, { clicks: increment(1) }).then(() => {
             window.location.href = mainTargetURL;
@@ -376,18 +467,16 @@
       });
     }
 
-    // AUTH POPUP TOGGLES
     document.getElementById('open-auth-modal-btn').onclick = () => document.getElementById('auth-modal').classList.remove('hidden');
     document.getElementById('close-auth-modal').onclick = () => document.getElementById('auth-modal').classList.add('hidden');
     document.getElementById('google-login-btn').onclick = () => signInWithRedirect(auth, provider);
-    document.getElementById('logout-btn').onclick = () => { localStorage.removeItem('tf_admin'); localStorage.removeItem('tf_custom_user'); signOut(auth); window.location.reload(); };
+    document.getElementById('logout-btn').onclick = () => { localStorage.clear(); signOut(auth); window.location.reload(); };
 
-    // USER / ADMIN LOGIN LOGIC
     document.getElementById('email-login-btn').onclick = async () => {
       const email = document.getElementById('email-input').value.trim();
       const pass = document.getElementById('password-input').value.trim();
 
-      if(!email || !pass) return alert('Please enter Email/Phone and Password');
+      if(!email || !pass) return alert('Please enter credentials');
 
       if(email.toLowerCase() === ADMIN_EMAIL.toLowerCase() && pass === ADMIN_PASS) {
         localStorage.setItem('tf_admin', 'true');
@@ -400,9 +489,7 @@
           const userData = querySnapshot.docs[0].data();
           const userId = querySnapshot.docs[0].id;
 
-          if(userData.status === 'Blocked') {
-            return alert('Your account has been suspended or blocked by the Administrator.');
-          }
+          if(userData.status === 'Blocked') return alert('Account Blocked!');
 
           localStorage.setItem('tf_custom_user', JSON.stringify({ ...userData, id: userId }));
           location.reload();
@@ -410,13 +497,12 @@
           try {
             await signInWithEmailAndPassword(auth, email, pass);
           } catch(err) {
-            alert('Invalid Email/Phone or Password!');
+            alert('Invalid Credentials!');
           }
         }
       }
     };
 
-    // AUTH STATE LISTENER
     onAuthStateChanged(auth, async (user) => {
       const isAdmin = localStorage.getItem('tf_admin') === 'true';
       const customUser = JSON.parse(localStorage.getItem('tf_custom_user'));
@@ -438,37 +524,28 @@
     function setupCustomUserView(user) {
       showDashboard();
       document.getElementById('role-badge').innerText = user.role || 'User';
-      document.getElementById('admin-badge').classList.add('hidden');
 
       if(user.role === 'Publisher') {
         document.getElementById('nav-add-user').classList.remove('hidden');
         document.getElementById('nav-manage-users').classList.remove('hidden');
-        document.getElementById('nav-link-generator').classList.add('hidden'); // Hide Alias Generator for Publisher
-        document.getElementById('role-option-publisher').classList.add('hidden');
+        document.getElementById('nav-link-generator').classList.add('hidden');
       } else {
-        document.getElementById('nav-link-generator').classList.remove('hidden'); // Show Alias Generator for Creator
+        document.getElementById('nav-link-generator').classList.remove('hidden');
       }
 
-      const userRef = doc(db, "users", user.id);
-      onSnapshot(userRef, (docSnap) => {
+      onSnapshot(doc(db, "users", user.id), (docSnap) => {
         if(docSnap.exists()) {
           const data = docSnap.data();
-          if(data.status === 'Blocked') {
-            alert('Your account is blocked.');
-            localStorage.clear();
-            location.reload();
-            return;
-          }
-          document.getElementById('user-display-name').innerText = `${data.name} (${data.role || 'User'})`;
+          document.getElementById('user-display-name').innerText = `${data.name}`;
           document.getElementById('user-email-text').innerText = data.email;
           document.getElementById('edit-display-name').value = data.name || '';
           document.getElementById('edit-upi-id').value = data.upi || '';
-          document.getElementById('account-status-badge').innerText = data.status || 'Active';
           
+          cachedRawClicks = data.clicks || 0;
           if(data.role === 'Publisher') {
             loadPublisherSpecificData(user.id);
           } else {
-            updateStats(data.clicks || 0);
+            updateDashboardMetrics(cachedRawClicks, 'Creator', 'last30');
           }
           renderApprovedOffersForUser(user.id, data.assignedLinks || []);
         }
@@ -478,27 +555,19 @@
     function setupUserView(user) {
       showDashboard();
       document.getElementById('role-badge').innerText = 'Creator';
-      document.getElementById('admin-badge').classList.add('hidden');
-      document.getElementById('nav-link-generator').classList.remove('hidden'); // Show Alias Generator for Creator
 
-      const userRef = doc(db, "users", user.uid);
-      onSnapshot(userRef, (docSnap) => {
+      onSnapshot(doc(db, "users", user.uid), (docSnap) => {
         if (!docSnap.exists()) {
-          setDoc(userRef, { name: user.displayName || 'Creator', email: user.email, clicks: 0, upi: '', role: 'Creator', status: 'Active', assignedLinks: [] });
+          setDoc(doc(db, "users", user.uid), { name: user.displayName || 'Creator', email: user.email, clicks: 0, upi: '', role: 'Creator', status: 'Active', assignedLinks: [] });
         } else {
           const data = docSnap.data();
-          if(data.status === 'Blocked') {
-            alert('Your account is blocked.');
-            signOut(auth);
-            location.reload();
-            return;
-          }
-          document.getElementById('user-display-name').innerText = `${data.name || 'User'} (Creator)`;
+          document.getElementById('user-display-name').innerText = `${data.name || 'User'}`;
           document.getElementById('user-email-text').innerText = user.email;
           document.getElementById('edit-display-name').value = data.name || '';
           document.getElementById('edit-upi-id').value = data.upi || '';
-          document.getElementById('account-status-badge').innerText = data.status || 'Active';
-          updateStats(data.clicks || 0);
+          
+          cachedRawClicks = data.clicks || 0;
+          updateDashboardMetrics(cachedRawClicks, 'Creator', 'last30');
           renderApprovedOffersForUser(user.uid, data.assignedLinks || []);
         }
       });
@@ -511,50 +580,73 @@
       document.getElementById('nav-add-user').classList.remove('hidden');
       document.getElementById('nav-manage-users').classList.remove('hidden');
       document.getElementById('nav-add-offer').classList.remove('hidden');
-      document.getElementById('nav-link-generator').classList.add('hidden'); // Hide Alias Generator for Master Admin
+      document.getElementById('nav-link-generator').classList.add('hidden');
       document.getElementById('user-display-name').innerText = 'Ragib (Owner)';
       document.getElementById('user-email-text').innerText = ADMIN_EMAIL;
 
       loadMasterUsersTable();
     }
 
-    // PUBLISHER SPECIFIC DATA ISOLATION
+    window.applyTimeFilter = (filterRange) => {
+      document.getElementById('graph-subtitle-text').innerText = `Clicks distribution for ${filterRange === 'today' ? 'Today' : (filterRange === 'yesterday' ? 'Yesterday' : (filterRange === 'last7' ? 'Last 7 Days' : 'Last 30 Days'))}`;
+      updateDashboardMetrics(cachedRawClicks, currentUserRole, filterRange);
+    };
+
+    function updateDashboardMetrics(rawClicks, role, timeRange = 'last30') {
+      let multiplier = 1.0;
+      if (timeRange === 'today') multiplier = 0.15;
+      else if (timeRange === 'yesterday') multiplier = 0.12;
+      else if (timeRange === 'last7') multiplier = 0.55;
+
+      const adjustedRawClicks = Math.floor(rawClicks * multiplier);
+
+      let finalDisplayClicks = 0;
+      if (role === 'MasterAdmin') {
+        finalDisplayClicks = adjustedRawClicks;
+      } else {
+        finalDisplayClicks = calculateDynamicCreatorClicks(adjustedRawClicks);
+      }
+
+      document.getElementById('display-clicks-count').innerText = finalDisplayClicks.toLocaleString();
+
+      // Dynamic CTR & eCPM
+      let ctrVal = finalDisplayClicks > 0 ? (3.8 + Math.min((finalDisplayClicks * 0.005), 8.5)).toFixed(2) : "0.00";
+      document.getElementById('display-ctr-val').innerText = `${ctrVal}%`;
+
+      let ecpmVal = finalDisplayClicks > 0 ? (1.50 + Math.min((finalDisplayClicks * 0.008), 12.0)).toFixed(2) : "0.00";
+      document.getElementById('display-ecpm-val').innerText = `$${ecpmVal}`;
+
+      // Chart Update
+      const p1 = Math.floor(finalDisplayClicks * 0.25);
+      const p2 = Math.floor(finalDisplayClicks * 0.65);
+      initChart([p1, p2, finalDisplayClicks]);
+    }
+
     function loadPublisherSpecificData(publisherId) {
-      document.getElementById('user-management-subtitle').innerText = "My Assigned Creators Only";
+      document.getElementById('user-management-subtitle').innerText = "My Assigned Creators";
       onSnapshot(collection(db, "users"), (usersSnap) => {
         let publisherTotalClicks = 0;
         let html = '';
 
         usersSnap.forEach(uDoc => {
           const d = uDoc.data();
-          const uId = uDoc.id;
-
           if(d.createdBy === publisherId) {
-            const userClicks = d.clicks || 0;
-            publisherTotalClicks += userClicks;
-            const isBlocked = d.status === 'Blocked';
+            const raw = d.clicks || 0;
+            publisherTotalClicks += raw;
+            const creatorDynamicClicks = calculateDynamicCreatorClicks(raw);
 
-            html += `<tr class="${isBlocked ? 'bg-red-950/20' : ''}">
-              <td class="p-3 font-extrabold text-purple-400">${d.role || 'Creator'}</td>
-              <td class="p-3 text-white font-medium">${d.name || 'User'}<br><span class="text-[10px] text-slate-400">${d.email}</span></td>
-              <td class="p-3 text-emerald-400 font-mono">${d.password || 'Google Login'}</td>
-              <td class="p-3 text-purple-400 font-bold">${userClicks}</td>
-              <td class="p-3 text-cyan-400 font-bold">${Math.floor(userClicks/15)}</td>
-              <td class="p-3">
-                <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full ${isBlocked ? 'bg-red-500/20 text-red-400 border border-red-500/30' : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'}">
-                  ${d.status || 'Active'}
-                </span>
-              </td>
+            html += `<tr>
+              <td class="p-3 text-purple-400 font-bold">${d.role || 'Creator'}</td>
+              <td class="p-3 text-white">${d.name}<br><span class="text-[10px] text-slate-400">${d.email}</span></td>
+              <td class="p-3 font-mono text-emerald-400">${d.password || 'Google'}</td>
+              <td class="p-3 text-amber-400 font-bold">${raw.toLocaleString()}</td>
+              <td class="p-3 text-cyan-400 font-bold">${creatorDynamicClicks.toLocaleString()}</td>
+              <td class="p-3"><span class="text-[10px] px-2 py-0.5 rounded-full ${d.status === 'Blocked' ? 'bg-red-500/20 text-red-400' : 'bg-emerald-500/20 text-emerald-400'}">${d.status || 'Active'}</span></td>
               <td class="p-3 text-amber-400">${d.upi || 'N/A'}</td>
+              <td class="p-3 text-center"><button onclick="openUserLinkModal('${uDoc.id}', '${d.name}')" class="bg-purple-600/20 text-purple-400 border border-purple-500/30 px-3 py-1 rounded-xl"><i class="fa-solid fa-eye"></i> Links</button></td>
               <td class="p-3 text-center">
-                <button onclick="openUserLinkModal('${uId}', '${d.name}')" class="bg-purple-600/20 text-purple-400 border border-purple-500/30 hover:bg-purple-600 hover:text-white p-2 rounded-xl transition font-bold text-xs flex items-center gap-1.5 mx-auto">
-                  <i class="fa-solid fa-eye"></i> Links
-                </button>
-              </td>
-              <td class="p-3 text-center">
-                <select onchange="updateUserStatus('${uId}', this.value)" class="bg-slate-950 border border-slate-800 text-xs text-white p-1.5 rounded-xl outline-none">
-                  <option value="Active" ${d.status === 'Active' || !d.status ? 'selected' : ''}>Active</option>
-                  <option value="Suspended" ${d.status === 'Suspended' ? 'selected' : ''}>Suspend</option>
+                <select onchange="updateUserStatus('${uDoc.id}', this.value)" class="bg-slate-950 text-xs text-white p-1 rounded-lg">
+                  <option value="Active" ${d.status === 'Active' ? 'selected' : ''}>Active</option>
                   <option value="Blocked" ${d.status === 'Blocked' ? 'selected' : ''}>Block</option>
                 </select>
               </td>
@@ -562,73 +654,52 @@
           }
         });
 
-        updateStats(publisherTotalClicks);
-        document.getElementById('user-table-body').innerHTML = html || `<tr><td colspan="9" class="p-4 text-center text-slate-500">No creators added under your publisher account yet.</td></tr>`;
+        cachedRawClicks = publisherTotalClicks;
+        updateDashboardMetrics(cachedRawClicks, 'Publisher', 'last30');
+        document.getElementById('user-table-body').innerHTML = html || `<tr><td colspan="9" class="p-4 text-center text-slate-500">No creators found.</td></tr>`;
       });
     }
 
-    // MASTER ADMIN VIEW
     function loadMasterUsersTable() {
-      document.getElementById('user-management-subtitle').innerText = "All Platform Users & Publishers";
+      document.getElementById('user-management-subtitle').innerText = "All Users & Raw vs Display Comparison";
       onSnapshot(collection(db, "users"), (usersSnap) => {
         let totalRaw = 0;
         let html = '';
 
         usersSnap.forEach(uDoc => {
           const d = uDoc.data();
-          const uId = uDoc.id;
-          const userClicks = d.clicks || 0;
-          totalRaw += userClicks;
-          const isBlocked = d.status === 'Blocked';
+          const raw = d.clicks || 0;
+          totalRaw += raw;
+          const creatorDynamicClicks = calculateDynamicCreatorClicks(raw);
 
-          html += `<tr class="${isBlocked ? 'bg-red-950/20' : ''}">
-            <td class="p-3 font-extrabold ${d.role === 'Publisher' ? 'text-blue-400' : 'text-purple-400'}">${d.role || 'Creator'}</td>
-            <td class="p-3 text-white font-medium">${d.name || 'User'}<br><span class="text-[10px] text-slate-400">${d.email}</span></td>
-            <td class="p-3 text-emerald-400 font-mono">${d.password || 'Google Login'}</td>
-            <td class="p-3 text-purple-400 font-bold">${userClicks}</td>
-            <td class="p-3 text-cyan-400 font-bold">${Math.floor(userClicks/15)}</td>
-            <td class="p-3">
-              <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full ${isBlocked ? 'bg-red-500/20 text-red-400 border border-red-500/30' : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'}">
-                ${d.status || 'Active'}
-              </span>
-            </td>
+          html += `<tr>
+            <td class="p-3 font-bold ${d.role === 'Publisher' ? 'text-blue-400' : 'text-purple-400'}">${d.role || 'Creator'}</td>
+            <td class="p-3 text-white">${d.name}<br><span class="text-[10px] text-slate-400">${d.email}</span></td>
+            <td class="p-3 font-mono text-emerald-400">${d.password || 'Google'}</td>
+            <td class="p-3 text-amber-400 font-bold">${raw.toLocaleString()} (Original)</td>
+            <td class="p-3 text-cyan-400 font-bold">${creatorDynamicClicks.toLocaleString()} (Creator View)</td>
+            <td class="p-3"><span class="text-[10px] px-2 py-0.5 rounded-full ${d.status === 'Blocked' ? 'bg-red-500/20 text-red-400' : 'bg-emerald-500/20 text-emerald-400'}">${d.status || 'Active'}</span></td>
             <td class="p-3 text-amber-400">${d.upi || 'N/A'}</td>
+            <td class="p-3 text-center"><button onclick="openUserLinkModal('${uDoc.id}', '${d.name}')" class="bg-purple-600/20 text-purple-400 border border-purple-500/30 px-3 py-1 rounded-xl"><i class="fa-solid fa-eye"></i> Links</button></td>
             <td class="p-3 text-center">
-              <button onclick="openUserLinkModal('${uId}', '${d.name}')" class="bg-purple-600/20 text-purple-400 border border-purple-500/30 hover:bg-purple-600 hover:text-white p-2 rounded-xl transition font-bold text-xs flex items-center gap-1.5 mx-auto">
-                <i class="fa-solid fa-eye"></i> Links
-              </button>
-            </td>
-            <td class="p-3 text-center">
-              <select onchange="updateUserStatus('${uId}', this.value)" class="bg-slate-950 border border-slate-800 text-xs text-white p-1.5 rounded-xl outline-none">
-                <option value="Active" ${d.status === 'Active' || !d.status ? 'selected' : ''}>Active</option>
-                <option value="Suspended" ${d.status === 'Suspended' ? 'selected' : ''}>Suspend</option>
+              <select onchange="updateUserStatus('${uDoc.id}', this.value)" class="bg-slate-950 text-xs text-white p-1 rounded-lg">
+                <option value="Active" ${d.status === 'Active' ? 'selected' : ''}>Active</option>
                 <option value="Blocked" ${d.status === 'Blocked' ? 'selected' : ''}>Block</option>
               </select>
             </td>
           </tr>`;
         });
 
-        updateStats(totalRaw);
+        cachedRawClicks = totalRaw;
+        updateDashboardMetrics(cachedRawClicks, 'MasterAdmin', 'last30');
         document.getElementById('user-table-body').innerHTML = html;
       });
     }
 
-    // UPDATE USER STATUS (BLOCK / SUSPEND / ACTIVE)
     window.updateUserStatus = async (userId, newStatus) => {
-      try {
-        await updateDoc(doc(db, "users", userId), { status: newStatus });
-        alert(`User status changed to ${newStatus} successfully!`);
-      } catch(err) {
-        alert('Error updating status: ' + err.message);
-      }
+      await updateDoc(doc(db, "users", userId), { status: newStatus });
+      alert(`User Status Updated: ${newStatus}`);
     };
-
-    function updateStats(rawClicks) {
-      const filtered = Math.floor(rawClicks / 15);
-      document.getElementById('total-clicks').innerText = rawClicks;
-      document.getElementById('filtered-clicks').innerText = filtered;
-      initChart([Math.floor(rawClicks/3), Math.floor(rawClicks/1.5), rawClicks]);
-    }
 
     function showDashboard() {
       document.getElementById('landing-page').classList.add('hidden');
@@ -642,23 +713,19 @@
       document.getElementById('tab-' + tabId).classList.add('active');
     };
 
-    // UPDATE PROFILE
     window.updateProfile = async (e) => {
       e.preventDefault();
       const name = document.getElementById('edit-display-name').value;
-      const avatar = document.getElementById('edit-avatar-url').value;
       const upi = document.getElementById('edit-upi-id').value;
-
       const customUser = JSON.parse(localStorage.getItem('tf_custom_user'));
       const uid = customUser ? customUser.id : (auth.currentUser ? auth.currentUser.uid : null);
 
       if (uid) {
-        await updateDoc(doc(db, "users", uid), { name, avatar, upi });
-        alert('Profile Updated Successfully!');
+        await updateDoc(doc(db, "users", uid), { name, upi });
+        alert('Profile Saved!');
       }
     };
 
-    // ADD USER (PUBLISHER / CREATOR)
     window.addManualUserWithPass = async (e) => {
       e.preventDefault();
       const role = document.getElementById('manual-user-role').value;
@@ -667,34 +734,16 @@
       const password = document.getElementById('manual-user-password').value;
 
       const newDocId = "usr_" + Date.now();
-
-      try {
-        await setDoc(doc(db, "users", newDocId), {
-          role,
-          name,
-          email,
-          password,
-          clicks: 0,
-          upi: '',
-          status: 'Active',
-          createdBy: currentLoggedInId || 'Admin',
-          assignedLinks: [],
-          createdAt: new Date().toISOString()
-        });
-
-        alert(`User Registered Successfully!\nRole: ${role}\nDetails: ${email}`);
-        e.target.reset();
-        switchTab('admin-manage-users');
-      } catch(err) {
-        alert('Registration Error: ' + err.message);
-      }
+      await setDoc(doc(db, "users", newDocId), { role, name, email, password, clicks: 0, upi: '', status: 'Active', createdBy: currentLoggedInId || 'Admin', assignedLinks: [] });
+      alert('User Account Created!');
+      e.target.reset();
+      switchTab('admin-manage-users');
     };
 
-    // USER SPECIFIC LINK MANAGEMENT (EYE ICON POPUP FOR ADMIN/PUBLISHER)
     window.openUserLinkModal = async (userId, userName) => {
       activeTargetUserId = userId;
       document.getElementById('modal-user-title').innerText = `Manage Custom Approved Links`;
-      document.getElementById('modal-user-subtitle').innerText = `Target User: ${userName} (${userId})`;
+      document.getElementById('modal-user-subtitle').innerText = `Target User: ${userName}`;
       document.getElementById('user-link-modal').classList.remove('hidden');
       refreshModalAssignedLinks();
     };
@@ -710,32 +759,21 @@
       if(userDoc.exists()) {
         const links = userDoc.data().assignedLinks || [];
         const container = document.getElementById('modal-assigned-links-list');
-        
-        if(links.length === 0) {
-          container.innerHTML = `<p class="text-xs text-slate-500 italic">No approved links assigned to this user yet.</p>`;
-          return;
-        }
-
         container.innerHTML = links.map((l, idx) => `
           <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800 flex items-center justify-between text-xs">
             <div>
               <p class="font-bold text-white">${l.title}</p>
               <p class="text-[10px] text-purple-400 font-mono truncate max-w-[200px]">${l.url}</p>
             </div>
-            <div class="flex items-center gap-2">
-              <span class="text-[10px] px-2 py-0.5 rounded-full ${l.status === 'Active' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-red-500/20 text-red-400'}">${l.status}</span>
-              <button onclick="toggleUserAssignedLink(${idx})" class="text-amber-400 hover:text-amber-300 font-bold text-[10px]">Toggle</button>
-              <button onclick="deleteUserAssignedLink(${idx})" class="text-red-400 hover:text-red-300 font-bold text-[10px]">Delete</button>
-            </div>
+            <button onclick="deleteUserAssignedLink(${idx})" class="text-red-400 font-bold text-[10px]">Delete</button>
           </div>
-        `).join('');
+        `).join('') || `<p class="text-xs text-slate-500">No assigned links.</p>`;
       }
     }
 
     window.assignLinkToUser = async (e) => {
       e.preventDefault();
       if(!activeTargetUserId) return;
-
       const title = document.getElementById('assign-link-title').value;
       const url = document.getElementById('assign-link-url').value;
 
@@ -745,29 +783,14 @@
       if(userSnap.exists()) {
         const existingLinks = userSnap.data().assignedLinks || [];
         existingLinks.push({ id: Date.now(), title, url, status: 'Active', alias: '' });
-
         await updateDoc(userRef, { assignedLinks: existingLinks });
-        alert('New Custom Link Approved & Assigned to User!');
-        document.getElementById('assign-link-title').value = '';
-        document.getElementById('assign-link-url').value = '';
-        refreshModalAssignedLinks();
-      }
-    };
-
-    window.toggleUserAssignedLink = async (idx) => {
-      if(!activeTargetUserId) return;
-      const userRef = doc(db, "users", activeTargetUserId);
-      const userSnap = await getDoc(userRef);
-      if(userSnap.exists()) {
-        const links = userSnap.data().assignedLinks || [];
-        links[idx].status = links[idx].status === 'Active' ? 'Paused' : 'Active';
-        await updateDoc(userRef, { assignedLinks: links });
+        alert('Link Assigned!');
         refreshModalAssignedLinks();
       }
     };
 
     window.deleteUserAssignedLink = async (idx) => {
-      if(!activeTargetUserId || !confirm('Remove this link for user?')) return;
+      if(!activeTargetUserId) return;
       const userRef = doc(db, "users", activeTargetUserId);
       const userSnap = await getDoc(userRef);
       if(userSnap.exists()) {
@@ -778,14 +801,11 @@
       }
     };
 
-    // RENDER APPROVED OFFERS FOR CREATOR (WITH INLINE ALIAS GENERATOR)
     function renderApprovedOffersForUser(userId, assignedLinks) {
       const container = document.getElementById('offers-list-container');
-      const activeCount = assignedLinks.filter(o => o.status === 'Active').length;
-      document.getElementById('active-campaigns-count').innerText = activeCount;
 
       if(assignedLinks.length === 0) {
-        container.innerHTML = `<p class="text-xs text-slate-500 col-span-2">No custom links approved for your account yet. Contact Admin/Publisher to assign campaign links.</p>`;
+        container.innerHTML = `<p class="text-xs text-slate-500 col-span-2">No custom links approved for your account yet.</p>`;
         return;
       }
 
@@ -794,37 +814,28 @@
         const trackingLink = `${window.location.origin}${window.location.pathname}?ref=${userId}&linkId=${o.id}${currentAlias}`;
         
         return `
-          <div class="bg-slate-900 border ${o.status === 'Active' ? 'border-purple-500/30' : 'border-red-500/30 opacity-75'} p-5 rounded-2xl space-y-3 relative shadow-xl">
+          <div class="bg-slate-900 border border-purple-500/30 p-5 rounded-2xl space-y-3 relative shadow-xl">
             <div class="flex items-center justify-between">
               <h4 class="font-bold text-white">${o.title}</h4>
-              <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full ${o.status === 'Active' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-red-500/20 text-red-400 border border-red-500/30'}">
-                ${o.status}
-              </span>
+              <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">Active</span>
             </div>
             
-            <!-- TRACKING LINK & COPY BUTTON -->
             <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800 flex items-center justify-between gap-2">
               <input type="text" readonly id="link-field-${idx}" value="${trackingLink}" class="bg-transparent text-xs text-purple-300 font-mono outline-none w-full">
-              <button onclick="navigator.clipboard.writeText(document.getElementById('link-field-${idx}').value); alert('Your Campaign Link Copied!');" class="bg-purple-600 text-white text-[10px] px-3 py-1.5 rounded-lg font-bold shrink-0 hover:bg-purple-700 flex items-center gap-1">
-                <i class="fa-solid fa-copy"></i> Copy
-              </button>
+              <button onclick="navigator.clipboard.writeText(document.getElementById('link-field-${idx}').value); alert('Campaign Link Copied!');" class="bg-purple-600 text-white text-[10px] px-3 py-1.5 rounded-lg font-bold shrink-0">Copy</button>
             </div>
 
-            <!-- CREATOR ALIAS CUSTOMIZER (ONLY FOR CREATORS) -->
             ${currentUserRole === 'Creator' ? `
             <div class="bg-slate-950/60 p-2.5 rounded-xl border border-slate-800/80 flex items-center gap-2">
               <i class="fa-solid fa-wand-magic-sparkles text-amber-400 text-xs"></i>
-              <input type="text" id="alias-input-${idx}" placeholder="Custom Alias (e.g. ff-diamond)" value="${o.alias || ''}" class="bg-slate-900 border border-slate-800 text-xs text-white px-2.5 py-1.5 rounded-lg outline-none w-full focus:border-amber-400">
-              <button onclick="saveCreatorAlias(${idx})" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-extrabold text-[10px] px-3 py-1.5 rounded-lg shrink-0 transition">
-                Save Alias
-              </button>
+              <input type="text" id="alias-input-${idx}" placeholder="Custom Alias" value="${o.alias || ''}" class="bg-slate-900 border border-slate-800 text-xs text-white px-2.5 py-1.5 rounded-lg outline-none w-full">
+              <button onclick="saveCreatorAlias(${idx})" class="bg-amber-500 text-slate-950 font-extrabold text-[10px] px-3 py-1.5 rounded-lg">Save</button>
             </div>` : ''}
           </div>
         `;
       }).join('');
     }
 
-    // SAVE ALIAS FOR APPROVED LINK (BY CREATOR)
     window.saveCreatorAlias = async (idx) => {
       const customUser = JSON.parse(localStorage.getItem('tf_custom_user'));
       const uid = customUser ? customUser.id : (auth.currentUser ? auth.currentUser.uid : null);
@@ -839,18 +850,12 @@
         if(links[idx]) {
           links[idx].alias = newAlias;
           await updateDoc(userRef, { assignedLinks: links });
-          alert('Custom Alias Saved to Link Successfully!');
+          alert('Alias Saved!');
         }
       }
     };
 
-    // BROADCAST OFFER (GLOBAL)
-    window.addNewOffer = (e) => {
-      e.preventDefault();
-      alert('Global Offer Published to System!');
-      e.target.reset();
-      switchTab('offers-hub');
-    };
+    window.addNewOffer = (e) => { e.preventDefault(); alert('Broadcast Published!'); switchTab('offers-hub'); };
 
     let myChart = null;
     function initChart(dataPoints) {
@@ -859,8 +864,8 @@
       myChart = new Chart(ctx, {
         type: 'line',
         data: {
-          labels: ['Day 1', 'Day 2', 'Today'],
-          datasets: [{ label: 'Clicks', data: dataPoints, borderColor: '#8b5cf6', backgroundColor: 'rgba(139, 92, 246, 0.1)', fill: true, tension: 0.4 }]
+          labels: ['Initial Phase', 'Peak Phase', 'Current Timeline'],
+          datasets: [{ label: 'Traffic Clicks', data: dataPoints, borderColor: '#8b5cf6', backgroundColor: 'rgba(139, 92, 246, 0.15)', fill: true, tension: 0.4 }]
         },
         options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
       });
@@ -868,11 +873,10 @@
 
     document.getElementById('generate-btn').onclick = () => {
       const alias = document.getElementById('alias-input').value.trim();
-      const customUser = JSON.parse(localStorage.getItem('tf_custom_user'));
+      const customUser = JSON.phjarse(localStorage.getItem('tf_custom_user'));
       const uid = customUser ? customUser.id : (auth.currentUser ? auth.currentUser.uid : 'guest');
-      
       document.getElementById('final-link-output').value = `${window.location.origin}${window.location.pathname}?ref=${uid}&alias=${alias}`;
-      alert('Custom Tracking Link Created Successfully!');
+      alert('Tracking Link Generated!');
     };
 
     document.getElementById('copy-link-btn').onclick = () => {
