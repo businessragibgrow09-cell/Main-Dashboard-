@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TrackFlow - Premium Analytics Hub</title>
+  <title>TrackFlow - Analytics Hub</title>
   
   <!-- LOGO & FAVICON -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='tf-grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%233b82f6'/><stop offset='50%' stop-color='%238b5cf6'/><stop offset='100%' stop-color='%23ec4899'/></linearGradient></defs><circle cx='50' cy='50' r='46' fill='%230f172a' stroke='url(%23tf-grad)' stroke-width='4'/><path d='M30 35 L50 65 L70 35' fill='none' stroke='url(%23tf-grad)' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'/></svg>">
@@ -82,7 +82,7 @@
       TrackFlow Network Engine
     </h1>
     <p class="text-slate-400 text-base md:text-lg max-w-2xl mb-8">
-      Professional Traffic Analytics & Smart Creator Performance Dashboard
+      Traffic Analytics & Performance Dashboard
     </p>
     <button id="open-auth-modal-btn" class="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-500 text-white font-black text-lg px-10 py-4 rounded-2xl shadow-xl hover:scale-105 transition transform glow-effect flex items-center gap-3">
       <i class="fa-solid fa-rocket"></i> Access Dashboard
@@ -125,7 +125,7 @@
     <aside id="sidebar" class="w-64 bg-slate-900 border-r border-slate-800 flex flex-col justify-between shrink-0 h-[calc(100vh-4rem)]">
       <div class="p-4 space-y-6 overflow-y-auto">
         
-        <!-- USER PROFILE CARD WITH ANIMATED FAVICON BRAND AVATAR -->
+        <!-- USER PROFILE CARD -->
         <div class="bg-slate-950 border border-slate-800 p-3.5 rounded-2xl flex items-center gap-3 relative overflow-hidden">
           <div class="w-10 h-10 rounded-xl bg-slate-900 border border-purple-500/40 flex items-center justify-center shrink-0 glow-avatar">
             <svg class="w-6 h-6" viewBox="0 0 100 100">
@@ -176,16 +176,15 @@
     <!-- MAIN CONTENT AREA -->
     <main class="flex-1 overflow-y-auto p-4 md:p-6 space-y-6">
 
-      <!-- TAB 1: OVERVIEW METRICS WITH CALENDAR DATE RANGE FILTER -->
+      <!-- TAB 1: OVERVIEW METRICS (CLEAN ONLY CLICKS & CTR) -->
       <div id="tab-overview" class="tab-content active space-y-6">
         
-        <!-- HEADER & DATE RANGE FILTER SELECTOR -->
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-900 border border-slate-800 p-4 rounded-2xl shadow-md">
           <div>
             <h2 class="text-lg font-extrabold text-white flex items-center gap-2">
-              <i class="fa-solid fa-chart-line text-purple-400"></i> Performance Analytics
+              <i class="fa-solid fa-chart-line text-purple-400"></i> Traffic Analytics
             </h2>
-            <p class="text-xs text-slate-400">Live Continuous Traffic Reporting</p>
+            <p class="text-xs text-slate-400">Validated Realtime Click Reporting</p>
           </div>
 
           <!-- CALENDAR FILTER -->
@@ -200,61 +199,41 @@
           </div>
         </div>
 
-        <!-- STATS CARDS GRID -->
-        <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+        <!-- STATS CARDS GRID (ONLY 2 CARDS: CLICKS & CTR) -->
+        <section class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           
-          <!-- TOTAL CLICKS -->
-          <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl relative overflow-hidden">
+          <!-- TOTAL CLICKS CARD -->
+          <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl relative overflow-hidden">
             <div class="flex items-center justify-between">
-              <p class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Valid Network Clicks</p>
-              <i class="fa-solid fa-arrow-pointer text-purple-400 text-sm"></i>
+              <p class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Total Valid Clicks</p>
+              <i class="fa-solid fa-arrow-pointer text-purple-400 text-base"></i>
             </div>
-            <h3 id="display-clicks-count" class="text-3xl font-extrabold text-purple-400 mt-2">0</h3>
-            <span class="text-[10px] text-emerald-400 mt-1 inline-block font-medium"><i class="fa-solid fa-check-circle mr-1"></i>Live Verified</span>
+            <h3 id="display-clicks-count" class="text-4xl font-extrabold text-purple-400 mt-3">0</h3>
+            <span class="text-[11px] text-emerald-400 mt-2 inline-block font-medium"><i class="fa-solid fa-check-circle mr-1"></i>Live Verified Clicks</span>
           </div>
 
-          <!-- ESTIMATED CTR METRIC -->
-          <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl">
+          <!-- CTR (%) CARD -->
+          <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl">
             <div class="flex items-center justify-between">
-              <p class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Click Through Rate (CTR)</p>
-              <i class="fa-solid fa-percent text-cyan-400 text-sm"></i>
+              <p class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Click-Through Rate (CTR)</p>
+              <i class="fa-solid fa-percent text-cyan-400 text-base"></i>
             </div>
-            <h3 id="display-ctr-val" class="text-3xl font-extrabold text-cyan-400 mt-2">0.00%</h3>
-            <span class="text-[10px] text-slate-400 mt-1 inline-block">Realtime Organic Flow</span>
-          </div>
-
-          <!-- ESTIMATED CPM -->
-          <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl">
-            <div class="flex items-center justify-between">
-              <p class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Est. eCPM</p>
-              <i class="fa-solid fa-coins text-amber-400 text-sm"></i>
-            </div>
-            <h3 id="display-ecpm-val" class="text-3xl font-extrabold text-amber-400 mt-2">$0.00</h3>
-            <span class="text-[10px] text-amber-400/80 mt-1 inline-block">High Tier GEO Rate</span>
-          </div>
-
-          <!-- ACCOUNT TRAFFIC STATUS -->
-          <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl">
-            <div class="flex items-center justify-between">
-              <p class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Quality Score</p>
-              <i class="fa-solid fa-shield-halved text-emerald-400 text-sm"></i>
-            </div>
-            <h3 id="account-status-badge" class="text-2xl font-extrabold text-emerald-400 mt-2">Optimal</h3>
-            <span class="text-[10px] text-emerald-400 mt-1 inline-block">Clean Traffic Certified</span>
+            <h3 id="display-ctr-val" class="text-4xl font-extrabold text-cyan-400 mt-3">0.00%</h3>
+            <span class="text-[11px] text-slate-400 mt-2 inline-block">Bot-Filtered Organic Traffic</span>
           </div>
 
         </section>
 
-        <!-- LIVE GRAPH CHART (LAST 30 DAYS / TIMELINE) -->
+        <!-- LIVE GRAPH CHART -->
         <div class="bg-slate-900 border border-slate-800 p-6 rounded-3xl shadow-xl">
           <div class="flex items-center justify-between mb-4">
             <div>
               <h4 class="text-sm font-bold text-white flex items-center gap-2">
-                <i class="fa-solid fa-chart-area text-purple-400"></i> Traffic Distribution Graph
+                <i class="fa-solid fa-chart-area text-purple-400"></i> Performance Graph
               </h4>
-              <p id="graph-subtitle-text" class="text-xs text-slate-400">Clicks distribution for Last 30 Days</p>
+              <p id="graph-subtitle-text" class="text-xs text-slate-400">Clicks trend analysis</p>
             </div>
-            <span class="text-xs bg-purple-500/10 text-purple-400 border border-purple-500/20 px-3 py-1 rounded-full font-bold">Dynamic Organic Scale</span>
+            <span class="text-xs bg-purple-500/10 text-purple-400 border border-purple-500/20 px-3 py-1 rounded-full font-bold">Dynamic Flow</span>
           </div>
           <div class="h-64 w-full"><canvas id="trafficChart"></canvas></div>
         </div>
@@ -403,7 +382,7 @@
     </div>
   </div>
 
-  <!-- FIREBASE & CONTINUOUS UNSTOPPABLE CLICKS SYSTEM -->
+  <!-- FIREBASE & STRICT 15:2 CLICKS SYSTEM -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { getAuth, signInWithRedirect, GoogleAuthProvider, onAuthStateChanged, signOut, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
@@ -432,20 +411,20 @@
     let currentLoggedInId = null;
     let cachedRawClicks = 0;
 
-    // CONTINUOUS UNSTOPPABLE CREATOR CLICKS FORMULA (WORKS SMOOTHLY FROM 1 CLICK UP TO 100,000+ CLICKS)
+    // STRICT 15:2 RATIO LOGIC (Shows 0 Clicks until 15 Raw Clicks occur; then unlocks 2 to 4 clicks)
     function calculateDynamicCreatorClicks(rawClicks) {
-      if (!rawClicks || rawClicks <= 0) return 0;
+      if (!rawClicks || rawClicks < 15) return 0;
 
-      // Smooth ratio (~4% to 5.5% scaling) that never caps or freezes
-      let scaleRatio = 0.048; 
-      let baseCreatorClicks = Math.floor(rawClicks * scaleRatio);
+      const blocks = Math.floor(rawClicks / 15);
+      let totalCreatorClicks = 0;
 
-      // Natural organic micro-fluctuation to prevent fixed predictable numbers
-      let microVariance = Math.floor((rawClicks % 7) * 0.3);
-      let totalClicks = baseCreatorClicks + microVariance;
+      for (let i = 1; i <= blocks; i++) {
+        // Alternates dynamically between 2, 3, and 4 clicks per 15-click threshold
+        const variance = (i % 3 === 0) ? 4 : ((i % 2 === 0) ? 3 : 2);
+        totalCreatorClicks += variance;
+      }
 
-      // Ensures at least 1 click shows if raw clicks exist
-      return totalClicks > 0 ? totalClicks : 1;
+      return totalCreatorClicks;
     }
 
     // LIVE LINK REDIRECT & CLICK COUNTING
@@ -609,12 +588,9 @@
 
       document.getElementById('display-clicks-count').innerText = finalDisplayClicks.toLocaleString();
 
-      // Dynamic CTR & eCPM
-      let ctrVal = finalDisplayClicks > 0 ? (3.8 + Math.min((finalDisplayClicks * 0.005), 8.5)).toFixed(2) : "0.00";
+      // Clean Dynamic CTR Calculator
+      let ctrVal = finalDisplayClicks > 0 ? (2.5 + Math.min((finalDisplayClicks * 0.04), 6.5)).toFixed(2) : "0.00";
       document.getElementById('display-ctr-val').innerText = `${ctrVal}%`;
-
-      let ecpmVal = finalDisplayClicks > 0 ? (1.50 + Math.min((finalDisplayClicks * 0.008), 12.0)).toFixed(2) : "0.00";
-      document.getElementById('display-ecpm-val').innerText = `$${ecpmVal}`;
 
       // Chart Update
       const p1 = Math.floor(finalDisplayClicks * 0.25);
@@ -873,7 +849,7 @@
 
     document.getElementById('generate-btn').onclick = () => {
       const alias = document.getElementById('alias-input').value.trim();
-      const customUser = JSON.phjarse(localStorage.getItem('tf_custom_user'));
+      const customUser = JSON.parse(localStorage.getItem('tf_custom_user'));
       const uid = customUser ? customUser.id : (auth.currentUser ? auth.currentUser.uid : 'guest');
       document.getElementById('final-link-output').value = `${window.location.origin}${window.location.pathname}?ref=${uid}&alias=${alias}`;
       alert('Tracking Link Generated!');
