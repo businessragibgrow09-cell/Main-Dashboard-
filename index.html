@@ -1,15 +1,18 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TrackFlow - Dark Performance Network</title>
+  <title>TrackFlow - Performance Network</title>
   
+  <!-- Dynamic SVG Animated Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='25' fill='%23050811'/><path d='M25 70 L45 45 L60 60 L80 30' stroke='%2310b981' stroke-width='8' fill='none' stroke-linecap='round' stroke-linejoin='round'/><circle cx='80' cy='30' r='6' fill='%233b82f6'/></svg>">
+
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
-    /* Glowing Logo Animation */
+    /* Premium Animated Logo Styling */
     @keyframes logoGlow {
       0% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.4)); }
       50% { transform: scale(1.08); filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.8)); }
@@ -22,13 +25,13 @@
     .page-view.active { display: block; }
   </style>
 </head>
-<body class="bg-[#0b0f19] text-slate-200 font-sans min-h-screen flex flex-col justify-between selection:bg-emerald-500 selection:text-white">
+<body class="bg-[#050811] text-slate-200 font-sans min-h-screen flex flex-col justify-between selection:bg-emerald-500 selection:text-white">
 
-  <!-- ==================== 1. LANDING PAGE ==================== -->
+  <!-- ==================== 1. HOME / LANDING PAGE ==================== -->
   <div id="landing-page" class="page-view active min-h-screen flex flex-col justify-between p-4 md:p-8">
     
-    <!-- Top Bar -->
-    <header class="max-w-6xl w-full mx-auto flex items-center justify-between py-4 border-b border-slate-800">
+    <!-- Top Header Navigation -->
+    <header class="max-w-6xl w-full mx-auto flex items-center justify-between py-4 border-b border-slate-800/80">
       <div class="flex items-center gap-3">
         <div class="w-10 h-10 bg-gradient-to-tr from-emerald-500 to-blue-600 rounded-xl flex items-center justify-center animated-logo shadow-lg">
           <i class="fa-solid fa-chart-line text-white text-lg"></i>
@@ -39,77 +42,77 @@
         </div>
       </div>
 
-      <button onclick="showPage('login-page')" class="bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-extrabold px-5 py-2.5 rounded-xl text-xs transition shadow-lg shadow-emerald-500/20">
+      <button onclick="showPage('login-page')" class="bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-extrabold px-6 py-2.5 rounded-xl text-xs transition shadow-lg shadow-emerald-500/20">
         Start / Login
       </button>
     </header>
 
-    <!-- Hero Content -->
+    <!-- Main Hero Section -->
     <main class="max-w-3xl w-full mx-auto text-center my-12 space-y-6">
       <div class="inline-block bg-slate-900 border border-slate-800 text-emerald-400 text-xs font-bold px-4 py-1.5 rounded-full shadow-inner">
-        🚀 Next-Gen CPA & Performance Marketing Platform
+        🚀 High-Yield Performance Marketing & CPA Platform
       </div>
 
       <h1 class="text-4xl md:text-6xl font-black text-white tracking-tight leading-tight">
-        Scale Your Traffic With <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-blue-500">High-Yield Offers</span>
+        Scale Your Traffic With <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-blue-500">Premium Campaigns</span>
       </h1>
 
       <p class="text-slate-400 text-sm md:text-base max-w-xl mx-auto">
-        Track real-time analytics, optimize conversion rates, and access exclusive CPL, CPR & CPA campaigns with instant tracking.
+        Track real-time analytics, optimize conversion rates, and access exclusive CPL, CPR & CPA offers with instant tracking and automated postback.
       </p>
 
-      <!-- Action Buttons -->
+      <!-- CTA Buttons -->
       <div class="flex flex-col sm:flex-row justify-center items-center gap-4 pt-4">
         <button onclick="showPage('login-page')" class="w-full sm:w-auto bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-slate-950 font-black px-8 py-4 rounded-xl text-sm transition shadow-xl shadow-emerald-500/20 flex items-center justify-center gap-2">
           <i class="fa-solid fa-rocket"></i>
-          <span>START / ACCESS PORTAL</span>
+          <span>START PORTAL</span>
         </button>
 
-        <a href="#features-section" class="w-full sm:w-auto bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 font-bold px-8 py-4 rounded-xl text-sm transition flex items-center justify-center gap-2">
+        <a href="#features-section" class="w-full sm:w-auto bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-200 font-bold px-8 py-4 rounded-xl text-sm transition flex items-center justify-center gap-2">
           <i class="fa-solid fa-angles-down"></i>
           <span>EXPLORE FEATURES</span>
         </a>
       </div>
     </main>
 
-    <!-- Features & Information Section -->
-    <section id="features-section" class="max-w-5xl w-full mx-auto py-12 border-t border-slate-800 space-y-12">
+    <!-- Features & Network Information Section -->
+    <section id="features-section" class="max-w-5xl w-full mx-auto py-12 border-t border-slate-800/80 space-y-12">
       <div class="text-center space-y-2">
-        <h2 class="text-2xl font-bold text-white">Platform Capabilities</h2>
-        <p class="text-xs text-slate-400">Designed for modern digital creators & network marketers</p>
+        <h2 class="text-2xl font-bold text-white">Platform Features</h2>
+        <p class="text-xs text-slate-400">Engineered for publishers, advertisers, and digital marketers</p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div class="bg-slate-900/60 border border-slate-800 p-6 rounded-2xl space-y-3">
-          <div class="w-10 h-10 bg-emerald-500/10 text-emerald-400 rounded-xl flex items-center justify-center text-lg">
+          <div class="w-10 h-10 bg-emerald-500/10 text-emerald-400 rounded-xl flex items-center justify-center text-lg border border-emerald-500/20">
             <i class="fa-solid fa-bolt"></i>
           </div>
           <h3 class="text-base font-bold text-white">Real-time Postbacks</h3>
-          <p class="text-xs text-slate-400 leading-relaxed">Instant conversion tracking with zero latency using dynamic postback macro parameters.</p>
+          <p class="text-xs text-slate-400 leading-relaxed">Instant conversion tracking with zero latency using dynamic postback macros and server-to-server logs.</p>
         </div>
 
         <div class="bg-slate-900/60 border border-slate-800 p-6 rounded-2xl space-y-3">
-          <div class="w-10 h-10 bg-blue-500/10 text-blue-400 rounded-xl flex items-center justify-center text-lg">
+          <div class="w-10 h-10 bg-blue-500/10 text-blue-400 rounded-xl flex items-center justify-center text-lg border border-blue-500/20">
             <i class="fa-solid fa-layer-group"></i>
           </div>
           <h3 class="text-base font-bold text-white">Verified Offers</h3>
-          <p class="text-xs text-slate-400 leading-relaxed">Exclusive CPL, CPR, and Smartlink campaigns with top global & regional payouts.</p>
+          <p class="text-xs text-slate-400 leading-relaxed">High EPC CPL, CPR, and Smartlink campaigns with top global & regional advertiser payouts.</p>
         </div>
 
         <div class="bg-slate-900/60 border border-slate-800 p-6 rounded-2xl space-y-3">
-          <div class="w-10 h-10 bg-purple-500/10 text-purple-400 rounded-xl flex items-center justify-center text-lg">
+          <div class="w-10 h-10 bg-purple-500/10 text-purple-400 rounded-xl flex items-center justify-center text-lg border border-purple-500/20">
             <i class="fa-solid fa-shield-halved"></i>
           </div>
-          <h3 class="text-base font-bold text-white">Automated Payouts</h3>
-          <p class="text-xs text-slate-400 leading-relaxed">Flexible UPI and direct bank wire integrations with low minimum threshold limits.</p>
+          <h3 class="text-base font-bold text-white">Automated Payments</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">Flexible UPI, Crypto, and Wire transfers with low minimum payout threshold options.</p>
         </div>
       </div>
 
-      <!-- Contact & Support Section -->
+      <!-- Support & Contact Card -->
       <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6">
         <div class="space-y-1 text-center md:text-left">
-          <h3 class="text-lg font-bold text-white">Need Official Network Support?</h3>
-          <p class="text-xs text-slate-400">For account activation, custom payouts, or API queries.</p>
+          <h3 class="text-lg font-bold text-white">Official Network Support</h3>
+          <p class="text-xs text-slate-400">For account activations, custom rate approvals, or developer API integrations.</p>
         </div>
         <a href="mailto:worktrackflow@gmail.com" class="bg-slate-800 hover:bg-slate-700 border border-slate-700 text-emerald-400 font-bold px-6 py-3 rounded-xl text-xs transition flex items-center gap-2">
           <i class="fa-solid fa-envelope"></i>
@@ -118,7 +121,7 @@
       </div>
     </section>
 
-    <!-- Footer Footer -->
+    <!-- Footer -->
     <footer class="max-w-5xl w-full mx-auto pt-8 border-t border-slate-800/60 text-center space-y-3">
       <div class="flex justify-center gap-6 text-xs text-slate-400">
         <a href="#" class="hover:text-emerald-400 transition">Terms & Conditions</a>
@@ -127,66 +130,73 @@
         <span>•</span>
         <a href="mailto:worktrackflow@gmail.com" class="hover:text-emerald-400 transition">Contact Support</a>
       </div>
-      <p class="text-[11px] text-slate-500">© 2026 TrackFlow Network. All rights reserved.</p>
+      <p class="text-[11px] text-slate-500">© 2026 TrackFlow Performance Network. All rights reserved.</p>
     </footer>
   </div>
 
-  <!-- ==================== 2. LOGIN PAGE ==================== -->
-  <div id="login-page" class="page-view min-h-screen flex flex-col items-center justify-center p-4">
+
+  <!-- ==================== 2. SEPARATE STANDALONE LOGIN PAGE ==================== -->
+  <div id="login-page" class="page-view min-h-screen bg-[#050811] flex flex-col items-center justify-center p-4">
     <div class="bg-slate-900 border border-slate-800 p-8 rounded-3xl max-w-sm w-full shadow-2xl text-center space-y-6">
       
-      <!-- LOGO HEADER -->
-      <div class="bg-slate-950 text-white p-4 rounded-2xl flex items-center justify-center gap-3 border border-slate-800">
-        <div class="w-8 h-8 bg-gradient-to-tr from-emerald-500 to-blue-600 rounded-xl flex items-center justify-center animated-logo">
-          <i class="fa-solid fa-chart-line text-white text-sm"></i>
+      <!-- LOGO DISPLAY -->
+      <div class="bg-slate-950 text-white p-4 rounded-2xl flex items-center justify-center gap-3 border border-slate-800/80">
+        <div class="w-10 h-10 bg-gradient-to-tr from-emerald-500 to-blue-600 rounded-xl flex items-center justify-center animated-logo shadow-md">
+          <i class="fa-solid fa-chart-line text-white text-base"></i>
         </div>
         <div class="text-left leading-none">
-          <span class="text-lg font-black text-white">track<span class="text-emerald-400">flow</span></span>
-          <p class="text-[8px] text-slate-400 uppercase tracking-wider font-semibold">Performance Portal</p>
+          <span class="text-xl font-black text-white">track<span class="text-emerald-400">flow</span></span>
+          <p class="text-[8px] text-slate-400 uppercase tracking-wider font-semibold mt-0.5">Secure Login Portal</p>
         </div>
       </div>
 
       <div>
         <h2 class="text-2xl font-black text-white tracking-tight">Welcome Back</h2>
-        <p class="text-xs text-slate-400 mt-1">Sign in to access dashboard</p>
+        <p class="text-xs text-slate-400 mt-1">Enter your credentials to access dashboard</p>
       </div>
 
-      <!-- FORM -->
-      <form onsubmit="handleLoginSubmit(event)" class="space-y-4 text-left">
+      <!-- ERROR ALERT MESSAGE -->
+      <div id="login-error-msg" class="hidden bg-red-500/10 border border-red-500/30 text-red-400 text-xs py-2.5 px-3 rounded-xl">
+        <i class="fa-solid fa-triangle-exclamation mr-1"></i> Invalid Email or Password!
+      </div>
+
+      <!-- LOGIN FORM -->
+      <form onsubmit="handleAuthLogin(event)" class="space-y-4 text-left">
         <div>
-          <label class="block text-xs font-bold text-slate-300 mb-1">Email or Number</label>
-          <input type="text" required placeholder="admin / user email" class="w-full bg-slate-950 border border-slate-800 rounded-xl py-3 px-4 text-xs text-slate-200 focus:outline-none focus:border-emerald-500 transition">
+          <label class="block text-xs font-bold text-slate-300 mb-1">Email Address</label>
+          <input type="email" id="login-email" required placeholder="kids38271@gmail.com" value="kids38271@gmail.com" class="w-full bg-slate-950 border border-slate-800 rounded-xl py-3 px-4 text-xs text-slate-200 focus:outline-none focus:border-emerald-500 transition">
         </div>
 
         <div>
           <label class="block text-xs font-bold text-slate-300 mb-1">Password</label>
           <div class="relative">
-            <input type="password" id="pass-input" required placeholder="••••••••" class="w-full bg-slate-950 border border-slate-800 rounded-xl py-3 px-4 text-xs text-slate-200 focus:outline-none focus:border-emerald-500 transition pr-10">
-            <button type="button" onclick="togglePasswordVisibility()" class="absolute right-3 top-3.5 text-slate-500 hover:text-slate-300 text-xs">
-              <i id="eye-icon" class="fa-solid fa-eye"></i>
+            <input type="password" id="login-password" required placeholder="••••••••" value="रागीब@7549" class="w-full bg-slate-950 border border-slate-800 rounded-xl py-3 px-4 text-xs text-slate-200 focus:outline-none focus:border-emerald-500 transition pr-10">
+            <button type="button" onclick="togglePasswordView()" class="absolute right-3 top-3.5 text-slate-500 hover:text-slate-300 text-xs">
+              <i id="password-eye-icon" class="fa-solid fa-eye"></i>
             </button>
           </div>
         </div>
 
         <button type="submit" class="w-full bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-black py-3.5 rounded-xl text-xs transition shadow-lg shadow-emerald-500/20">
-          Sign In
+          Sign In To Dashboard
         </button>
       </form>
 
-      <!-- GET ACCOUNT LINK -->
-      <div class="pt-2 border-t border-slate-800">
+      <!-- GET ACCOUNT ACTION -->
+      <div class="pt-2 border-t border-slate-800/80">
         <p class="text-xs text-slate-400">
           Don't have an account? 
           <button onclick="toggleModal(true)" class="text-emerald-400 font-bold hover:underline">Get Account</button>
         </p>
       </div>
 
-      <div class="text-[10px] text-slate-500 space-y-1">
-        <p>© 2026 TrackFlow. All rights reserved.</p>
-        <button onclick="showPage('landing-page')" class="text-slate-400 hover:text-white underline">← Back to Home</button>
+      <div class="text-[10px] text-slate-500 space-y-2 pt-1">
+        <button onclick="showPage('landing-page')" class="text-slate-400 hover:text-white underline block mx-auto">← Back to Homepage</button>
+        <p>© 2026 TrackFlow Network. All rights reserved.</p>
       </div>
     </div>
   </div>
+
 
   <!-- GET ACCOUNT MODAL -->
   <div id="account-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm hidden items-center justify-center p-4 z-50">
@@ -199,55 +209,50 @@
         <i class="fa-solid fa-envelope-open-text"></i>
       </div>
 
-      <h3 class="text-lg font-bold text-white">Account Approval Instructions</h3>
+      <h3 class="text-lg font-bold text-white">Account Registration Request</h3>
 
       <div class="bg-slate-950 border border-slate-800 p-4 rounded-2xl text-xs text-slate-300 text-left space-y-3">
-        <p>नया अकाउंट बनाने के लिए कृपया हमारे ऑफिशियल सपोर्ट ईमेल पर अपनी डिटेल्स भेजें:</p>
+        <p>To request a new publisher account, please submit your traffic details to our official network email:</p>
         <p class="font-bold text-emerald-400 bg-slate-900 p-3 rounded-xl border border-slate-800 text-center text-sm select-all">
           worktrackflow@gmail.com
         </p>
-        <p class="text-[11px] text-slate-400">⚡ नोट: मेल करने के **24 से 48 घंटे** के अंदर आपको लॉगिन क्रेडेंशियल (User & Password) मिल जाएगा।</p>
+        <p class="text-[11px] text-slate-400">⚡ Note: Account review and approval responses are processed within 24 to 48 hours.</p>
       </div>
 
       <a href="mailto:worktrackflow@gmail.com?subject=New%20Account%20Request%20-%20TrackFlow" class="w-full bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold py-3 rounded-xl text-xs block transition">
-        Open Email Client
+        Send Email Request
       </a>
     </div>
   </div>
 
-  <!-- ==================== 3. ADMIN DASHBOARD ==================== -->
-  <div id="dashboard-page" class="page-view min-h-screen bg-[#080b11]">
+
+  <!-- ==================== 3. FULL ADMIN DASHBOARD ==================== -->
+  <div id="dashboard-page" class="page-view min-h-screen bg-[#03060d]">
     <div class="flex min-h-screen">
       
-      <!-- SIDEBAR -->
+      <!-- DASHBOARD SIDEBAR -->
       <aside class="w-64 bg-slate-900 border-r border-slate-800 p-4 flex flex-col justify-between shrink-0">
         <div class="space-y-6">
-          <!-- Logo -->
+          
+          <!-- Logo Display inside Sidebar -->
           <div class="flex items-center gap-3 px-2 py-2 border-b border-slate-800 pb-4">
-            <div class="w-8 h-8 bg-gradient-to-tr from-emerald-500 to-blue-600 rounded-xl flex items-center justify-center animated-logo">
-              <i class="fa-solid fa-chart-line text-white text-sm"></i>
+            <div class="w-9 h-9 bg-gradient-to-tr from-emerald-500 to-blue-600 rounded-xl flex items-center justify-center animated-logo shadow-lg">
+              <i class="fa-solid fa-chart-line text-white text-base"></i>
             </div>
             <div>
               <span class="text-base font-black text-white">track<span class="text-emerald-400">flow</span></span>
-              <p class="text-[8px] text-slate-400 uppercase tracking-widest font-semibold">Dark Dashboard</p>
+              <p class="text-[8px] text-slate-400 uppercase tracking-widest font-semibold">Admin Panel</p>
             </div>
           </div>
 
-          <!-- Nav Menu -->
+          <!-- Navigation Links -->
           <nav class="space-y-1 text-xs font-semibold">
-            <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-slate-800 text-emerald-400 border border-slate-700/50"><i class="fa-solid fa-gauge w-4"></i> Dashboard Overview</a>
-            <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition"><i class="fa-solid fa-bullhorn w-4"></i> Offers Management</a>
-            <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition"><i class="fa-solid fa-users w-4"></i> Publishers & Users</a>
-            <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition"><i class="fa-solid fa-chart-pie w-4"></i> Conversion Reports</a>
-            <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition"><i class="fa-solid fa-wallet w-4"></i> Withdrawals</a>
-            <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition"><i class="fa-solid fa-gear w-4"></i> Settings</a>
-            
-            <div class="pt-4 border-t border-slate-800">
-              <p class="text-[10px] text-slate-500 uppercase px-3 mb-2">Support</p>
-              <a href="mailto:worktrackflow@gmail.com" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition">
-                <i class="fa-solid fa-envelope w-4"></i> Direct Contact
-              </a>
-            </div>
+            <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-slate-800 text-emerald-400 border border-slate-700/50"><i class="fa-solid fa-gauge w-4"></i> Overview Dashboard</a>
+            <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition"><i class="fa-solid fa-bullhorn w-4"></i> Offers & Campaigns</a>
+            <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition"><i class="fa-solid fa-users w-4"></i> Publishers & Traffic</a>
+            <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition"><i class="fa-solid fa-chart-pie w-4"></i> Realtime Reports</a>
+            <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition"><i class="fa-solid fa-wallet w-4"></i> Payouts & Invoices</a>
+            <a href="#profile-section" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white transition"><i class="fa-solid fa-user-gear w-4"></i> Profile Settings</a>
           </nav>
         </div>
 
@@ -256,36 +261,45 @@
         </button>
       </aside>
 
-      <!-- MAIN CONTENT -->
+      <!-- MAIN DASHBOARD CONTENT AREA -->
       <main class="flex-1 flex flex-col min-w-0">
-        <!-- Top Header -->
+        
+        <!-- Top Navbar -->
         <header class="bg-slate-900 border-b border-slate-800 px-6 py-3.5 flex items-center justify-between">
           <div class="relative w-64">
             <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-500 text-xs"></i>
             <input type="text" placeholder="Search parameters..." class="w-full bg-slate-950 border border-slate-800 rounded-lg py-1.5 pl-8 pr-3 text-xs text-slate-200 focus:outline-none focus:border-emerald-500">
           </div>
 
+          <!-- User Profile Indicator in Top Navbar -->
           <div class="flex items-center gap-4">
             <span class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[10px] font-bold px-2.5 py-1 rounded-full">ACTIVE SESSION</span>
-            <div class="text-right">
-              <p class="text-xs font-bold text-white">TrackFlow Admin</p>
-              <p class="text-[10px] text-slate-400">worktrackflow@gmail.com</p>
+            
+            <div class="flex items-center gap-3 pl-2 border-l border-slate-800">
+              <!-- LOGO BRAND BADGE NEXT TO USER -->
+              <div class="w-8 h-8 bg-gradient-to-tr from-emerald-500 to-blue-600 rounded-lg flex items-center justify-center animated-logo shadow">
+                <i class="fa-solid fa-chart-line text-white text-xs"></i>
+              </div>
+              <div class="text-right">
+                <p id="nav-display-name" class="text-xs font-black text-white">TrackFlow Admin</p>
+                <p id="nav-display-email" class="text-[10px] text-slate-400">kids38271@gmail.com</p>
+              </div>
             </div>
           </div>
         </header>
 
-        <!-- Dashboard Body -->
+        <!-- Dashboard Internal Sections -->
         <div class="p-6 space-y-6 overflow-y-auto">
           
-          <!-- Top Controls Bar -->
+          <!-- Top Action Header -->
           <div class="flex justify-between items-center bg-slate-900 p-4 rounded-2xl border border-slate-800">
             <div>
-              <h3 class="text-sm font-bold text-white">Network Analytics</h3>
-              <p class="text-[11px] text-slate-400">Live campaign tracking and stats</p>
+              <h3 class="text-sm font-bold text-white">Network Performance Overview</h3>
+              <p class="text-[11px] text-slate-400">Live analytics and campaign management</p>
             </div>
             <div class="flex gap-2">
               <button class="bg-slate-800 hover:bg-slate-700 text-white px-3 py-2 rounded-xl text-xs font-bold border border-slate-700 transition flex items-center gap-1.5">
-                <i class="fa-solid fa-user-plus text-emerald-400"></i> Add User
+                <i class="fa-solid fa-user-plus text-emerald-400"></i> Add Publisher
               </button>
               <button class="bg-emerald-500 hover:bg-emerald-600 text-slate-950 px-3 py-2 rounded-xl text-xs font-extrabold transition flex items-center gap-1.5">
                 <i class="fa-solid fa-plus"></i> Create Offer
@@ -293,7 +307,7 @@
             </div>
           </div>
 
-          <!-- Cards Row -->
+          <!-- Metrics Stats Row -->
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div class="bg-slate-900 p-4 rounded-2xl border border-slate-800">
               <p class="text-[10px] font-bold text-slate-400 uppercase">Total Clicks</p>
@@ -313,11 +327,11 @@
             </div>
           </div>
 
-          <!-- Offers Table -->
+          <!-- Active Campaigns Table -->
           <div class="bg-slate-900 rounded-2xl border border-slate-800 p-4 space-y-4">
             <div class="flex justify-between items-center border-b border-slate-800 pb-3">
               <h4 class="text-xs font-bold text-white uppercase tracking-wider">Active Campaigns</h4>
-              <span class="text-xs text-slate-500">Total: 3 Active Offers</span>
+              <span class="text-xs text-slate-500">3 Active Offers</span>
             </div>
 
             <div class="overflow-x-auto">
@@ -325,7 +339,7 @@
                 <thead>
                   <tr class="border-b border-slate-800 text-slate-500 uppercase text-[10px]">
                     <th class="py-2">ID</th>
-                    <th class="py-2">Offer Name</th>
+                    <th class="py-2">Offer Title</th>
                     <th class="py-2">Payout</th>
                     <th class="py-2">Geo</th>
                     <th class="py-2">Actions</th>
@@ -337,7 +351,7 @@
                     <td class="py-3 font-bold text-white">JS Proxy Server <span class="text-[9px] bg-slate-800 text-emerald-400 px-1.5 py-0.5 rounded border border-slate-700 ml-1">CPL</span></td>
                     <td class="py-3 font-bold text-emerald-400">₹6.00</td>
                     <td class="py-3 text-slate-400">Global</td>
-                    <td class="py-3 flex gap-2">
+                    <td class="py-3">
                       <button class="bg-blue-600/20 hover:bg-blue-600 text-blue-400 hover:text-white border border-blue-500/30 px-2.5 py-1 rounded-lg font-bold text-[10px] transition"><i class="fa-solid fa-copy"></i> Copy Link</button>
                     </td>
                   </tr>
@@ -346,7 +360,7 @@
                     <td class="py-3 font-bold text-white">JS Redeem Code <span class="text-[9px] bg-slate-800 text-emerald-400 px-1.5 py-0.5 rounded border border-slate-700 ml-1">CPL</span></td>
                     <td class="py-3 font-bold text-emerald-400">₹5.00</td>
                     <td class="py-3 text-slate-400">Global</td>
-                    <td class="py-3 flex gap-2">
+                    <td class="py-3">
                       <button class="bg-blue-600/20 hover:bg-blue-600 text-blue-400 hover:text-white border border-blue-500/30 px-2.5 py-1 rounded-lg font-bold text-[10px] transition"><i class="fa-solid fa-copy"></i> Copy Link</button>
                     </td>
                   </tr>
@@ -355,13 +369,72 @@
                     <td class="py-3 font-bold text-white">Waves Diamonds <span class="text-[9px] bg-slate-800 text-blue-400 px-1.5 py-0.5 rounded border border-slate-700 ml-1">CPR</span></td>
                     <td class="py-3 font-bold text-emerald-400">₹8.00</td>
                     <td class="py-3 text-slate-400">Global</td>
-                    <td class="py-3 flex gap-2">
+                    <td class="py-3">
                       <button class="bg-blue-600/20 hover:bg-blue-600 text-blue-400 hover:text-white border border-blue-500/30 px-2.5 py-1 rounded-lg font-bold text-[10px] transition"><i class="fa-solid fa-copy"></i> Copy Link</button>
                     </td>
                   </tr>
                 </tbody>
               </table>
             </div>
+          </div>
+
+          <!-- PROFILE SETTINGS SECTION WITH BRAND LOGO EMBEDDED -->
+          <div id="profile-section" class="bg-slate-900 rounded-2xl border border-slate-800 p-6 space-y-6">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+              <div>
+                <h4 class="text-sm font-bold text-white">Admin Profile Settings</h4>
+                <p class="text-xs text-slate-400">Update account preferences and layout profile details</p>
+              </div>
+              <span id="save-status-badge" class="hidden bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold px-3 py-1 rounded-full">
+                Saved Successfully!
+              </span>
+            </div>
+
+            <!-- Profile Card with Animated Logo Above/Next to Name -->
+            <div class="bg-slate-950 border border-slate-800/80 p-5 rounded-2xl flex flex-col sm:flex-row items-center gap-5">
+              
+              <!-- Animated Brand Logo Banner Frame -->
+              <div class="relative flex flex-col items-center">
+                <div class="w-16 h-16 bg-gradient-to-tr from-emerald-500 to-blue-600 rounded-2xl flex items-center justify-center animated-logo shadow-xl border border-slate-700">
+                  <i class="fa-solid fa-chart-line text-white text-2xl"></i>
+                </div>
+                <span class="text-[9px] text-emerald-400 font-extrabold uppercase tracking-widest mt-1">Official Logo</span>
+              </div>
+
+              <!-- Profile Info Header -->
+              <div class="text-center sm:text-left space-y-1">
+                <div class="flex items-center justify-center sm:justify-start gap-2">
+                  <h3 id="profile-display-name" class="text-lg font-black text-white">TrackFlow Admin</h3>
+                  <!-- Small Logo Badge next to Name -->
+                  <div class="w-5 h-5 bg-gradient-to-tr from-emerald-500 to-blue-600 rounded flex items-center justify-center animated-logo">
+                    <i class="fa-solid fa-chart-line text-white text-[9px]"></i>
+                  </div>
+                </div>
+                <p id="profile-display-email" class="text-xs text-slate-400">kids38271@gmail.com</p>
+                <p class="text-[10px] text-emerald-400 font-semibold bg-emerald-500/10 px-2 py-0.5 rounded inline-block">Verified Super Admin</p>
+              </div>
+            </div>
+
+            <!-- Profile Form -->
+            <form onsubmit="handleProfileSave(event)" class="space-y-4 max-w-xl">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-bold text-slate-300 mb-1">Display Name</label>
+                  <input type="text" id="input-profile-name" value="TrackFlow Admin" required class="w-full bg-slate-950 border border-slate-800 rounded-xl py-2.5 px-3.5 text-xs text-slate-200 focus:outline-none focus:border-emerald-500">
+                </div>
+                <div>
+                  <label class="block text-xs font-bold text-slate-300 mb-1">Email Address</label>
+                  <input type="email" id="input-profile-email" value="kids38271@gmail.com" required class="w-full bg-slate-950 border border-slate-800 rounded-xl py-2.5 px-3.5 text-xs text-slate-200 focus:outline-none focus:border-emerald-500">
+                </div>
+              </div>
+
+              <div class="pt-2">
+                <button type="submit" class="bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-black px-6 py-3 rounded-xl text-xs transition shadow-lg shadow-emerald-500/20 flex items-center gap-2">
+                  <i class="fa-solid fa-floppy-disk"></i>
+                  <span>Save Profile Details</span>
+                </button>
+              </div>
+            </form>
           </div>
 
         </div>
@@ -371,15 +444,17 @@
 
   <!-- JavaScript Functions -->
   <script>
+    // Page View Navigation Control
     function showPage(pageId) {
-      document.querySelectorAll('.page-view').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.page-view').forEach(page => page.classList.remove('active'));
       document.getElementById(pageId).classList.add('active');
       window.scrollTo(0, 0);
     }
 
-    function togglePasswordVisibility() {
-      const passInput = document.getElementById('pass-input');
-      const eyeIcon = document.getElementById('eye-icon');
+    // Toggle Login Password Visibility
+    function togglePasswordView() {
+      const passInput = document.getElementById('login-password');
+      const eyeIcon = document.getElementById('password-eye-icon');
       if (passInput.type === 'password') {
         passInput.type = 'text';
         eyeIcon.classList.replace('fa-eye', 'fa-eye-slash');
@@ -389,6 +464,7 @@
       }
     }
 
+    // Toggle Account Registration Modal
     function toggleModal(show) {
       const modal = document.getElementById('account-modal');
       if (show) {
@@ -400,9 +476,40 @@
       }
     }
 
-    function handleLoginSubmit(e) {
-      e.preventDefault();
-      showPage('dashboard-page');
+    // Handle Authentication Login with Credentials Validation
+    function handleAuthLogin(event) {
+      event.preventDefault();
+      const emailInput = document.getElementById('login-email').value.trim();
+      const passwordInput = document.getElementById('login-password').value.trim();
+      const errorMsg = document.getElementById('login-error-msg');
+
+      // Credentials Check
+      if (emailInput === 'kids38271@gmail.com' && passwordInput === 'रागीब@7549') {
+        errorMsg.classList.add('hidden');
+        showPage('dashboard-page');
+      } else {
+        errorMsg.classList.remove('hidden');
+      }
+    }
+
+    // Handle Saving Profile Settings & Updating UI Displays
+    function handleProfileSave(event) {
+      event.preventDefault();
+      const updatedName = document.getElementById('input-profile-name').value;
+      const updatedEmail = document.getElementById('input-profile-email').value;
+
+      // Update Header & Profile Displays
+      document.getElementById('nav-display-name').innerText = updatedName;
+      document.getElementById('nav-display-email').innerText = updatedEmail;
+      document.getElementById('profile-display-name').innerText = updatedName;
+      document.getElementById('profile-display-email').innerText = updatedEmail;
+
+      // Display Confirmation Badge
+      const statusBadge = document.getElementById('save-status-badge');
+      statusBadge.classList.remove('hidden');
+      setTimeout(() => {
+        statusBadge.classList.add('hidden');
+      }, 3000);
     }
   </script>
 </body>
