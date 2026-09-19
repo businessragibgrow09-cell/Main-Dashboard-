@@ -76,10 +76,10 @@
 
         <div class="relative my-4">
           <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-slate-800"></div></div>
-          <div class="relative flex justify-center text-xs uppercase"><span class="bg-slate-900 px-2 text-slate-500">Email Login</span></div>
+          <div class="relative flex justify-center text-xs uppercase"><span class="bg-slate-900 px-2 text-slate-500">Email / ID Login</span></div>
         </div>
 
-        <input type="email" id="email-input" placeholder="User / Admin Email" class="w-full bg-slate-950 border border-slate-800 rounded-xl py-3 px-4 text-sm text-white focus:outline-none focus:border-purple-500">
+        <input type="text" id="email-input" placeholder="User Email / Phone Number" class="w-full bg-slate-950 border border-slate-800 rounded-xl py-3 px-4 text-sm text-white focus:outline-none focus:border-purple-500">
         <input type="password" id="password-input" placeholder="Password" class="w-full bg-slate-950 border border-slate-800 rounded-xl py-3 px-4 text-sm text-white focus:outline-none focus:border-purple-500">
         
         <button id="email-login-btn" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-extrabold py-3 px-4 rounded-xl text-sm transition">
@@ -108,7 +108,7 @@
             <i class="fa-solid fa-chart-pie w-5"></i> Overview
           </button>
           
-          <!-- CREATOR ONLY TAB -->
+          <!-- CREATOR/PUBLISHER TAB -->
           <button id="nav-link-generator" onclick="switchTab('link-generator')" class="w-full text-left flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white font-medium text-sm transition">
             <i class="fa-solid fa-link w-5"></i> Alias Generator
           </button>
@@ -171,7 +171,7 @@
         </div>
       </div>
 
-      <!-- TAB 2: ALIAS GENERATOR (ONLY CREATORS) -->
+      <!-- TAB 2: ALIAS GENERATOR (FOR CREATORS & PUBLISHERS) -->
       <div id="tab-link-generator" class="tab-content space-y-4">
         <section class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl">
           <h2 class="text-lg font-bold text-white mb-2"><i class="fa-solid fa-wand-magic-sparkles text-purple-400 mr-2"></i>Create Custom Tracking Link</h2>
@@ -213,24 +213,31 @@
         </div>
       </div>
 
-      <!-- TAB 4: ADD USER (ADMIN ONLY) -->
+      <!-- TAB 4: ADD USER (ADMIN ONLY WITH PUBLISHER & CREATOR ROLE) -->
       <div id="tab-admin-add-user" class="tab-content space-y-4 max-w-xl mx-auto">
         <div class="bg-slate-900 border border-blue-500/40 p-6 rounded-3xl space-y-4 shadow-2xl">
-          <h3 class="text-base font-bold text-blue-400 flex items-center gap-2"><i class="fa-solid fa-user-plus"></i> Create User with Email & Password</h3>
+          <h3 class="text-base font-bold text-blue-400 flex items-center gap-2"><i class="fa-solid fa-user-plus"></i> Add Publisher or Creator Account</h3>
           <form onsubmit="addManualUserWithPass(event)" class="space-y-4 text-xs">
             <div>
-              <label class="block text-slate-400 mb-1">Full Name / Creator Name</label>
-              <input type="text" id="manual-user-name" required placeholder="John Doe" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-blue-500">
+              <label class="block text-slate-400 mb-1">Account Role</label>
+              <select id="manual-user-role" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-blue-500 font-semibold">
+                <option value="Creator">Creator</option>
+                <option value="Publisher">Publisher</option>
+              </select>
             </div>
             <div>
-              <label class="block text-slate-400 mb-1">Email Address</label>
-              <input type="email" id="manual-user-email" required placeholder="user@gmail.com" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-blue-500">
+              <label class="block text-slate-400 mb-1">Full Name</label>
+              <input type="text" id="manual-user-name" required placeholder="User Name" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-blue-500">
             </div>
             <div>
-              <label class="block text-slate-400 mb-1">Assign Login Password</label>
-              <input type="text" id="manual-user-password" required placeholder="Set Password (e.g. Creator@123)" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-blue-500">
+              <label class="block text-slate-400 mb-1">Email or Phone Number</label>
+              <input type="text" id="manual-user-email" required placeholder="email@gmail.com or 9876543210" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-blue-500">
             </div>
-            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-extrabold py-3 rounded-xl transition">Register Account</button>
+            <div>
+              <label class="block text-slate-400 mb-1">Set Account Password</label>
+              <input type="text" id="manual-user-password" required placeholder="Set Password" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-blue-500">
+            </div>
+            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-extrabold py-3 rounded-xl transition">Register User Account</button>
           </form>
         </div>
       </div>
@@ -238,11 +245,11 @@
       <!-- TAB 5: USER MANAGEMENT (ADMIN ONLY) -->
       <div id="tab-admin-manage-users" class="tab-content space-y-4">
         <div class="bg-slate-900 border border-purple-500/40 p-5 rounded-3xl space-y-4 shadow-2xl">
-          <h3 class="text-sm font-bold text-purple-400 flex items-center gap-2"><i class="fa-solid fa-users-gear"></i> User Management & Live Clicks</h3>
+          <h3 class="text-sm font-bold text-purple-400 flex items-center gap-2"><i class="fa-solid fa-users-gear"></i> Registered Users & Clicks Management</h3>
           <div class="overflow-x-auto">
             <table class="w-full text-left text-xs text-slate-300">
               <thead class="bg-slate-950 uppercase text-slate-400">
-                <tr><th class="p-3">User Email/Name</th><th class="p-3">Real Lifetime Clicks</th><th class="p-3">Counted (15:1)</th><th class="p-3">UPI Info</th></tr>
+                <tr><th class="p-3">Role</th><th class="p-3">User Details</th><th class="p-3">Password</th><th class="p-3">Raw Clicks</th><th class="p-3">Counted (15:1)</th><th class="p-3">UPI Info</th></tr>
               </thead>
               <tbody id="user-table-body" class="divide-y divide-slate-800"></tbody>
             </table>
@@ -274,8 +281,8 @@
   <!-- FIREBASE REALTIME LOGIC -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getAuth, signInWithRedirect, GoogleAuthProvider, onAuthStateChanged, signOut, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-    import { getFirestore, doc, setDoc, updateDoc, increment, onSnapshot, collection } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { getAuth, signInWithRedirect, GoogleAuthProvider, onAuthStateChanged, signOut, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    import { getFirestore, doc, setDoc, updateDoc, increment, onSnapshot, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyDhi-7RfGoAV1K9gXBiQcd3vUtHCmPrTCQ",
@@ -295,7 +302,7 @@
     const ADMIN_PASS = "Ragib@7549";
     const mainTargetURL = "https://ff-rewards-hub-gamma.vercel.app/";
 
-    // LIVE VISITOR CLICK TRACKER & REDIRECT
+    // LIVE TRACKING REDIRECT SYSTEM
     const urlParams = new URLSearchParams(window.location.search);
     const refUser = urlParams.get('ref');
 
@@ -312,23 +319,34 @@
     document.getElementById('open-auth-modal-btn').onclick = () => document.getElementById('auth-modal').classList.remove('hidden');
     document.getElementById('close-auth-modal').onclick = () => document.getElementById('auth-modal').classList.add('hidden');
     document.getElementById('google-login-btn').onclick = () => signInWithRedirect(auth, provider);
-    document.getElementById('logout-btn').onclick = () => { localStorage.removeItem('tf_admin'); signOut(auth); window.location.reload(); };
+    document.getElementById('logout-btn').onclick = () => { localStorage.removeItem('tf_admin'); localStorage.removeItem('tf_custom_user'); signOut(auth); window.location.reload(); };
 
-    // EMAIL LOGIN (HANDLES BOTH ADMIN & CREATOR ACCOUNTS)
+    // USER / ADMIN LOGIN LOGIC
     document.getElementById('email-login-btn').onclick = async () => {
       const email = document.getElementById('email-input').value.trim();
       const pass = document.getElementById('password-input').value.trim();
 
-      if(!email || !pass) return alert('Please enter both Email and Password');
+      if(!email || !pass) return alert('Please enter Email/Phone and Password');
 
       if(email.toLowerCase() === ADMIN_EMAIL.toLowerCase() && pass === ADMIN_PASS) {
         localStorage.setItem('tf_admin', 'true');
         location.reload();
       } else {
-        try {
-          await signInWithEmailAndPassword(auth, email, pass);
-        } catch(err) {
-          alert('Login Failed: ' + err.message);
+        // Search user in database
+        const q = query(collection(db, "users"), where("email", "==", email), where("password", "==", pass));
+        const querySnapshot = await getDocs(q);
+
+        if(!querySnapshot.empty) {
+          const userData = querySnapshot.docs[0].data();
+          const userId = querySnapshot.docs[0].id;
+          localStorage.setItem('tf_custom_user', JSON.stringify({ ...userData, id: userId }));
+          location.reload();
+        } else {
+          try {
+            await signInWithEmailAndPassword(auth, email, pass);
+          } catch(err) {
+            alert('Invalid Email/Phone or Password!');
+          }
         }
       }
     };
@@ -336,38 +354,52 @@
     // AUTH LISTENER
     onAuthStateChanged(auth, async (user) => {
       const isAdmin = localStorage.getItem('tf_admin') === 'true';
+      const customUser = JSON.parse(localStorage.getItem('tf_custom_user'));
 
       if (isAdmin) {
         setupAdminView();
+      } else if (customUser) {
+        setupCustomUserView(customUser);
       } else if (user) {
         setupUserView(user);
       }
     });
 
+    function setupCustomUserView(user) {
+      showDashboard();
+      document.getElementById('nav-link-generator').classList.remove('hidden');
+      document.getElementById('admin-badge').classList.add('hidden');
+
+      const userRef = doc(db, "users", user.id);
+      onSnapshot(userRef, (docSnap) => {
+        if(docSnap.exists()) {
+          const data = docSnap.data();
+          document.getElementById('user-display-name').innerText = `${data.name} (${data.role || 'User'})`;
+          document.getElementById('user-email-text').innerText = data.email;
+          document.getElementById('edit-display-name').value = data.name || '';
+          document.getElementById('edit-upi-id').value = data.upi || '';
+          updateStats(data.clicks || 0);
+        }
+      });
+      renderOffers();
+    }
+
     function setupUserView(user) {
       showDashboard();
-      
-      // Ensure Creator sees Link Generator & hide Admin Tabs
       document.getElementById('nav-link-generator').classList.remove('hidden');
       document.getElementById('admin-badge').classList.add('hidden');
 
       const userRef = doc(db, "users", user.uid);
       onSnapshot(userRef, (docSnap) => {
         if (!docSnap.exists()) {
-          setDoc(userRef, { name: user.displayName || 'Creator', email: user.email, clicks: 0, upi: '' });
+          setDoc(userRef, { name: user.displayName || 'Creator', email: user.email, clicks: 0, upi: '', role: 'Creator' });
         } else {
           const data = docSnap.data();
-          document.getElementById('user-display-name').innerText = data.name || user.displayName || 'Publisher';
+          document.getElementById('user-display-name').innerText = `${data.name || 'User'} (${data.role || 'Creator'})`;
           document.getElementById('user-email-text').innerText = user.email;
           document.getElementById('edit-display-name').value = data.name || '';
-          document.getElementById('edit-avatar-url').value = data.avatar || user.photoURL || '';
           document.getElementById('edit-upi-id').value = data.upi || '';
-          
-          if (data.avatar) document.getElementById('user-avatar').src = data.avatar;
-          else if (user.photoURL) document.getElementById('user-avatar').src = user.photoURL;
-
-          const rawClicks = data.clicks || 0;
-          updateStats(rawClicks);
+          updateStats(data.clicks || 0);
         }
       });
       renderOffers();
@@ -375,8 +407,6 @@
 
     function setupAdminView() {
       showDashboard();
-      
-      // Hide Alias Generator for Admin and show Admin Tabs
       document.getElementById('nav-link-generator').classList.add('hidden');
       document.getElementById('admin-badge').classList.remove('hidden');
       document.getElementById('nav-add-user').classList.remove('hidden');
@@ -393,7 +423,14 @@
           const d = uDoc.data();
           const userClicks = d.clicks || 0;
           totalRaw += userClicks;
-          html += `<tr><td class="p-3 text-white font-medium">${d.email || d.name || 'User'}</td><td class="p-3 text-purple-400 font-bold">${userClicks}</td><td class="p-3 text-cyan-400 font-bold">${Math.floor(userClicks/15)}</td><td class="p-3 text-amber-400">${d.upi || 'N/A'}</td></tr>`;
+          html += `<tr>
+            <td class="p-3 font-extrabold ${d.role === 'Publisher' ? 'text-blue-400' : 'text-purple-400'}">${d.role || 'Creator'}</td>
+            <td class="p-3 text-white font-medium">${d.name || 'User'}<br><span class="text-[10px] text-slate-400">${d.email}</span></td>
+            <td class="p-3 text-emerald-400 font-mono">${d.password || 'Google Login'}</td>
+            <td class="p-3 text-purple-400 font-bold">${userClicks}</td>
+            <td class="p-3 text-cyan-400 font-bold">${Math.floor(userClicks/15)}</td>
+            <td class="p-3 text-amber-400">${d.upi || 'N/A'}</td>
+          </tr>`;
         });
 
         updateStats(totalRaw);
@@ -422,21 +459,52 @@
       document.getElementById('tab-' + tabId).classList.add('active');
     };
 
-    // UPDATE PROFILE LOGIC
+    // UPDATE PROFILE
     window.updateProfile = async (e) => {
       e.preventDefault();
       const name = document.getElementById('edit-display-name').value;
       const avatar = document.getElementById('edit-avatar-url').value;
       const upi = document.getElementById('edit-upi-id').value;
 
-      if (auth.currentUser) {
-        const userRef = doc(db, "users", auth.currentUser.uid);
-        await updateDoc(userRef, { name, avatar, upi });
+      const customUser = JSON.parse(localStorage.getItem('tf_custom_user'));
+      const uid = customUser ? customUser.id : (auth.currentUser ? auth.currentUser.uid : null);
+
+      if (uid) {
+        await updateDoc(doc(db, "users", uid), { name, avatar, upi });
         alert('Profile Updated Successfully!');
       }
     };
 
-    // OFFERS MANAGEMENT WITH STATUS & DELETE CONTROL
+    // ADD USER (PUBLISHER / CREATOR) BY ADMIN NO AUTH LOCKOUT
+    window.addManualUserWithPass = async (e) => {
+      e.preventDefault();
+      const role = document.getElementById('manual-user-role').value;
+      const name = document.getElementById('manual-user-name').value;
+      const email = document.getElementById('manual-user-email').value;
+      const password = document.getElementById('manual-user-password').value;
+
+      const newDocId = "usr_" + Date.now();
+
+      try {
+        await setDoc(doc(db, "users", newDocId), {
+          role,
+          name,
+          email,
+          password,
+          clicks: 0,
+          upi: '',
+          createdAt: new Date().toISOString()
+        });
+
+        alert(`User Registered Successfully!\nRole: ${role}\nDetails: ${email}`);
+        e.target.reset();
+        switchTab('admin-manage-users');
+      } catch(err) {
+        alert('Registration Error: ' + err.message);
+      }
+    };
+
+    // OFFERS MANAGEMENT
     let globalOffers = JSON.parse(localStorage.getItem('tf_offers')) || [
       { id: 1, title: 'Free Fire Reward Hub', url: mainTargetURL, status: 'Active' }
     ];
@@ -481,7 +549,7 @@
     };
 
     window.deleteOffer = (idx) => {
-      if(confirm('Are you sure you want to delete this offer?')) {
+      if(confirm('Are you sure?')) {
         globalOffers.splice(idx, 1);
         localStorage.setItem('tf_offers', JSON.stringify(globalOffers));
         renderOffers();
@@ -503,24 +571,6 @@
       switchTab('offers-hub');
     };
 
-    // MANUAL USER CREATION WITH PASSWORD BY ADMIN
-    window.addManualUserWithPass = async (e) => {
-      e.preventDefault();
-      const name = document.getElementById('manual-user-name').value;
-      const email = document.getElementById('manual-user-email').value;
-      const password = document.getElementById('manual-user-password').value;
-
-      try {
-        const userCred = await createUserWithEmailAndPassword(auth, email, password);
-        await setDoc(doc(db, "users", userCred.user.uid), { name, email, clicks: 0, upi: '' });
-        alert(`User Account Created Successfully!\nEmail: ${email}\nPassword: ${password}`);
-        e.target.reset();
-        switchTab('admin-manage-users');
-      } catch(err) {
-        alert('Failed to Create User: ' + err.message);
-      }
-    };
-
     let myChart = null;
     function initChart(dataPoints) {
       const ctx = document.getElementById('trafficChart').getContext('2d');
@@ -537,14 +587,16 @@
 
     document.getElementById('generate-btn').onclick = () => {
       const alias = document.getElementById('alias-input').value.trim();
-      const uid = auth.currentUser ? auth.currentUser.uid : 'guest';
+      const customUser = JSON.parse(localStorage.getItem('tf_custom_user'));
+      const uid = customUser ? customUser.id : (auth.currentUser ? auth.currentUser.uid : 'guest');
+      
       document.getElementById('final-link-output').value = `${window.location.origin}${window.location.pathname}?ref=${uid}&alias=${alias}`;
-      alert('Custom Alias Link Created!');
+      alert('Custom Tracking Link Created Successfully!');
     };
 
     document.getElementById('copy-link-btn').onclick = () => {
       navigator.clipboard.writeText(document.getElementById('final-link-output').value);
-      alert('Link Copied!');
+      alert('Link Copied to Clipboard!');
     };
   </script>
 </body>
