@@ -69,7 +69,7 @@
     </button>
   </div>
 
-  <!-- AUTH POPUP MODAL (CLEARED / NO AUTO-FILL) -->
+  <!-- AUTH POPUP MODAL -->
   <div id="auth-modal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
     <div class="bg-slate-900 border border-slate-800 p-8 rounded-3xl max-w-md w-full text-center shadow-2xl relative">
       <button id="close-auth-modal" class="absolute top-4 right-4 text-slate-500 hover:text-white text-lg">
@@ -117,7 +117,7 @@
             <i class="fa-solid fa-chart-pie w-5"></i> Overview
           </button>
           
-          <!-- ALIAS GENERATOR TAB -->
+          <!-- ALIAS GENERATOR TAB (SHOWS ONLY TO CREATORS) -->
           <button id="nav-link-generator" onclick="switchTab('link-generator')" class="w-full text-left flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white font-medium text-sm transition">
             <i class="fa-solid fa-link w-5"></i> Alias Generator
           </button>
@@ -168,8 +168,8 @@
             <h3 id="active-campaigns-count" class="text-2xl font-extrabold text-amber-400 mt-1">0</h3>
           </div>
           <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl">
-            <p class="text-xs text-slate-400 font-semibold uppercase">System Status</p>
-            <h3 class="text-2xl font-extrabold text-emerald-400 mt-1">Live Online</h3>
+            <p class="text-xs text-slate-400 font-semibold uppercase">Account Status</p>
+            <h3 id="account-status-badge" class="text-2xl font-extrabold text-emerald-400 mt-1">Live Active</h3>
           </div>
         </section>
 
@@ -180,10 +180,10 @@
         </div>
       </div>
 
-      <!-- TAB 2: ALIAS GENERATOR -->
+      <!-- TAB 2: ALIAS GENERATOR (FOR CREATORS) -->
       <div id="tab-link-generator" class="tab-content space-y-4">
         <section class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl">
-          <h2 class="text-lg font-bold text-white mb-2"><i class="fa-solid fa-wand-magic-sparkles text-purple-400 mr-2"></i>Create Custom Tracking Link</h2>
+          <h2 class="text-lg font-bold text-white mb-2"><i class="fa-solid fa-wand-magic-sparkles text-purple-400 mr-2"></i>Create Standalone Custom Tracking Link</h2>
           <div class="flex flex-col md:flex-row gap-3">
             <input type="text" id="alias-input" placeholder="e.g. custom-alias" class="w-full bg-slate-950 border border-slate-800 rounded-xl py-2.5 px-4 text-sm text-purple-300">
             <button id="generate-btn" class="bg-purple-600 hover:bg-purple-700 text-white font-bold px-6 py-2.5 rounded-xl text-sm">Create Link</button>
@@ -195,7 +195,7 @@
         </section>
       </div>
 
-      <!-- TAB 3: OFFERS HUB (APPROVED USER LINKS) -->
+      <!-- TAB 3: OFFERS HUB (APPROVED USER LINKS + ALIAS INLINE CREATOR TOOL) -->
       <div id="tab-offers-hub" class="tab-content space-y-4">
         <h3 class="text-base font-bold text-white mb-2"><i class="fa-solid fa-link text-purple-400 mr-2"></i>Approved Campaign Links</h3>
         <div id="offers-list-container" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
@@ -232,7 +232,7 @@
               <label class="block text-slate-400 mb-1">Account Role</label>
               <select id="manual-user-role" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-blue-500 font-semibold">
                 <option value="Creator">Creator</option>
-                <option value="Publisher">Publisher</option>
+                <option id="role-option-publisher" value="Publisher">Publisher</option>
               </select>
             </div>
             <div>
@@ -252,10 +252,13 @@
         </div>
       </div>
 
-      <!-- TAB 6: USER MANAGEMENT (WITH ACTION / LINK MANAGEMENT PER USER) -->
+      <!-- TAB 6: USER MANAGEMENT (WITH ISOLATED VIEWS & SUSPEND / BLOCK CONTROL) -->
       <div id="tab-admin-manage-users" class="tab-content space-y-4">
         <div class="bg-slate-900 border border-purple-500/40 p-5 rounded-3xl space-y-4 shadow-2xl">
-          <h3 class="text-sm font-bold text-purple-400 flex items-center gap-2"><i class="fa-solid fa-users-gear"></i> User Management & Custom Link Approvals</h3>
+          <h3 class="text-sm font-bold text-purple-400 flex items-center justify-between">
+            <span class="flex items-center gap-2"><i class="fa-solid fa-users-gear"></i> User Management & Account Status</span>
+            <span id="user-management-subtitle" class="text-xs text-slate-400">Loading Users...</span>
+          </h3>
           <div class="overflow-x-auto">
             <table class="w-full text-left text-xs text-slate-300">
               <thead class="bg-slate-950 uppercase text-slate-400">
@@ -265,8 +268,10 @@
                   <th class="p-3">Password</th>
                   <th class="p-3">Raw Clicks</th>
                   <th class="p-3">Counted (15:1)</th>
+                  <th class="p-3">Status</th>
                   <th class="p-3">UPI Info</th>
                   <th class="p-3 text-center">Manage Links</th>
+                  <th class="p-3 text-center">Account Action</th>
                 </tr>
               </thead>
               <tbody id="user-table-body" class="divide-y divide-slate-800"></tbody>
@@ -296,7 +301,7 @@
     </main>
   </div>
 
-  <!-- MODAL: MANAGE USER ASSIGNED LINKS (EYE ICON POPUP) -->
+  <!-- MODAL: MANAGE USER ASSIGNED LINKS (EYE ICON POPUP FOR ADMIN/PUBLISHER) -->
   <div id="user-link-modal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
     <div class="bg-slate-900 border border-purple-500/40 p-6 rounded-3xl max-w-lg w-full shadow-2xl relative space-y-4">
       <button onclick="closeUserLinkModal()" class="absolute top-4 right-4 text-slate-500 hover:text-white text-lg">
@@ -349,6 +354,8 @@
     const mainTargetURL = "https://ff-rewards-hub-gamma.vercel.app/";
 
     let activeTargetUserId = null;
+    let currentUserRole = 'Creator';
+    let currentLoggedInId = null;
 
     // LIVE TRACKING REDIRECT SYSTEM
     const urlParams = new URLSearchParams(window.location.search);
@@ -356,10 +363,16 @@
 
     if (refUser) {
       const clickRef = doc(db, "users", refUser);
-      updateDoc(clickRef, { clicks: increment(1) }).then(() => {
-        window.location.href = mainTargetURL;
-      }).catch(() => {
-        window.location.href = mainTargetURL;
+      getDoc(clickRef).then((snap) => {
+        if(snap.exists() && snap.data().status === 'Blocked') {
+          document.body.innerHTML = "<h1 style='color:red;text-align:center;margin-top:20%;font-family:sans-serif;'>Link Suspended or Blocked by Network Admin.</h1>";
+        } else {
+          updateDoc(clickRef, { clicks: increment(1) }).then(() => {
+            window.location.href = mainTargetURL;
+          }).catch(() => {
+            window.location.href = mainTargetURL;
+          });
+        }
       });
     }
 
@@ -380,13 +393,17 @@
         localStorage.setItem('tf_admin', 'true');
         location.reload();
       } else {
-        // Search user in Firestore
         const q = query(collection(db, "users"), where("email", "==", email), where("password", "==", pass));
         const querySnapshot = await getDocs(q);
 
         if(!querySnapshot.empty) {
           const userData = querySnapshot.docs[0].data();
           const userId = querySnapshot.docs[0].id;
+
+          if(userData.status === 'Blocked') {
+            return alert('Your account has been suspended or blocked by the Administrator.');
+          }
+
           localStorage.setItem('tf_custom_user', JSON.stringify({ ...userData, id: userId }));
           location.reload();
         } else {
@@ -405,10 +422,15 @@
       const customUser = JSON.parse(localStorage.getItem('tf_custom_user'));
 
       if (isAdmin) {
+        currentUserRole = 'MasterAdmin';
         setupAdminView();
       } else if (customUser) {
+        currentUserRole = customUser.role || 'Creator';
+        currentLoggedInId = customUser.id;
         setupCustomUserView(customUser);
       } else if (user) {
+        currentUserRole = 'Creator';
+        currentLoggedInId = user.uid;
         setupUserView(user);
       }
     });
@@ -421,38 +443,61 @@
       if(user.role === 'Publisher') {
         document.getElementById('nav-add-user').classList.remove('hidden');
         document.getElementById('nav-manage-users').classList.remove('hidden');
+        document.getElementById('nav-link-generator').classList.add('hidden'); // Hide Alias Generator for Publisher
+        document.getElementById('role-option-publisher').classList.add('hidden');
+      } else {
+        document.getElementById('nav-link-generator').classList.remove('hidden'); // Show Alias Generator for Creator
       }
 
       const userRef = doc(db, "users", user.id);
       onSnapshot(userRef, (docSnap) => {
         if(docSnap.exists()) {
           const data = docSnap.data();
+          if(data.status === 'Blocked') {
+            alert('Your account is blocked.');
+            localStorage.clear();
+            location.reload();
+            return;
+          }
           document.getElementById('user-display-name').innerText = `${data.name} (${data.role || 'User'})`;
           document.getElementById('user-email-text').innerText = data.email;
           document.getElementById('edit-display-name').value = data.name || '';
           document.getElementById('edit-upi-id').value = data.upi || '';
-          updateStats(data.clicks || 0);
+          document.getElementById('account-status-badge').innerText = data.status || 'Active';
+          
+          if(data.role === 'Publisher') {
+            loadPublisherSpecificData(user.id);
+          } else {
+            updateStats(data.clicks || 0);
+          }
           renderApprovedOffersForUser(user.id, data.assignedLinks || []);
         }
       });
-      if(user.role === 'Publisher') loadUsersTable();
     }
 
     function setupUserView(user) {
       showDashboard();
       document.getElementById('role-badge').innerText = 'Creator';
       document.getElementById('admin-badge').classList.add('hidden');
+      document.getElementById('nav-link-generator').classList.remove('hidden'); // Show Alias Generator for Creator
 
       const userRef = doc(db, "users", user.uid);
       onSnapshot(userRef, (docSnap) => {
         if (!docSnap.exists()) {
-          setDoc(userRef, { name: user.displayName || 'Creator', email: user.email, clicks: 0, upi: '', role: 'Creator', assignedLinks: [] });
+          setDoc(userRef, { name: user.displayName || 'Creator', email: user.email, clicks: 0, upi: '', role: 'Creator', status: 'Active', assignedLinks: [] });
         } else {
           const data = docSnap.data();
+          if(data.status === 'Blocked') {
+            alert('Your account is blocked.');
+            signOut(auth);
+            location.reload();
+            return;
+          }
           document.getElementById('user-display-name').innerText = `${data.name || 'User'} (Creator)`;
           document.getElementById('user-email-text').innerText = user.email;
           document.getElementById('edit-display-name').value = data.name || '';
           document.getElementById('edit-upi-id').value = data.upi || '';
+          document.getElementById('account-status-badge').innerText = data.status || 'Active';
           updateStats(data.clicks || 0);
           renderApprovedOffersForUser(user.uid, data.assignedLinks || []);
         }
@@ -466,13 +511,65 @@
       document.getElementById('nav-add-user').classList.remove('hidden');
       document.getElementById('nav-manage-users').classList.remove('hidden');
       document.getElementById('nav-add-offer').classList.remove('hidden');
+      document.getElementById('nav-link-generator').classList.add('hidden'); // Hide Alias Generator for Master Admin
       document.getElementById('user-display-name').innerText = 'Ragib (Owner)';
       document.getElementById('user-email-text').innerText = ADMIN_EMAIL;
 
-      loadUsersTable();
+      loadMasterUsersTable();
     }
 
-    function loadUsersTable() {
+    // PUBLISHER SPECIFIC DATA ISOLATION
+    function loadPublisherSpecificData(publisherId) {
+      document.getElementById('user-management-subtitle').innerText = "My Assigned Creators Only";
+      onSnapshot(collection(db, "users"), (usersSnap) => {
+        let publisherTotalClicks = 0;
+        let html = '';
+
+        usersSnap.forEach(uDoc => {
+          const d = uDoc.data();
+          const uId = uDoc.id;
+
+          if(d.createdBy === publisherId) {
+            const userClicks = d.clicks || 0;
+            publisherTotalClicks += userClicks;
+            const isBlocked = d.status === 'Blocked';
+
+            html += `<tr class="${isBlocked ? 'bg-red-950/20' : ''}">
+              <td class="p-3 font-extrabold text-purple-400">${d.role || 'Creator'}</td>
+              <td class="p-3 text-white font-medium">${d.name || 'User'}<br><span class="text-[10px] text-slate-400">${d.email}</span></td>
+              <td class="p-3 text-emerald-400 font-mono">${d.password || 'Google Login'}</td>
+              <td class="p-3 text-purple-400 font-bold">${userClicks}</td>
+              <td class="p-3 text-cyan-400 font-bold">${Math.floor(userClicks/15)}</td>
+              <td class="p-3">
+                <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full ${isBlocked ? 'bg-red-500/20 text-red-400 border border-red-500/30' : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'}">
+                  ${d.status || 'Active'}
+                </span>
+              </td>
+              <td class="p-3 text-amber-400">${d.upi || 'N/A'}</td>
+              <td class="p-3 text-center">
+                <button onclick="openUserLinkModal('${uId}', '${d.name}')" class="bg-purple-600/20 text-purple-400 border border-purple-500/30 hover:bg-purple-600 hover:text-white p-2 rounded-xl transition font-bold text-xs flex items-center gap-1.5 mx-auto">
+                  <i class="fa-solid fa-eye"></i> Links
+                </button>
+              </td>
+              <td class="p-3 text-center">
+                <select onchange="updateUserStatus('${uId}', this.value)" class="bg-slate-950 border border-slate-800 text-xs text-white p-1.5 rounded-xl outline-none">
+                  <option value="Active" ${d.status === 'Active' || !d.status ? 'selected' : ''}>Active</option>
+                  <option value="Suspended" ${d.status === 'Suspended' ? 'selected' : ''}>Suspend</option>
+                  <option value="Blocked" ${d.status === 'Blocked' ? 'selected' : ''}>Block</option>
+                </select>
+              </td>
+            </tr>`;
+          }
+        });
+
+        updateStats(publisherTotalClicks);
+        document.getElementById('user-table-body').innerHTML = html || `<tr><td colspan="9" class="p-4 text-center text-slate-500">No creators added under your publisher account yet.</td></tr>`;
+      });
+    }
+
+    // MASTER ADMIN VIEW
+    function loadMasterUsersTable() {
+      document.getElementById('user-management-subtitle').innerText = "All Platform Users & Publishers";
       onSnapshot(collection(db, "users"), (usersSnap) => {
         let totalRaw = 0;
         let html = '';
@@ -482,26 +579,49 @@
           const uId = uDoc.id;
           const userClicks = d.clicks || 0;
           totalRaw += userClicks;
+          const isBlocked = d.status === 'Blocked';
 
-          html += `<tr>
+          html += `<tr class="${isBlocked ? 'bg-red-950/20' : ''}">
             <td class="p-3 font-extrabold ${d.role === 'Publisher' ? 'text-blue-400' : 'text-purple-400'}">${d.role || 'Creator'}</td>
             <td class="p-3 text-white font-medium">${d.name || 'User'}<br><span class="text-[10px] text-slate-400">${d.email}</span></td>
             <td class="p-3 text-emerald-400 font-mono">${d.password || 'Google Login'}</td>
             <td class="p-3 text-purple-400 font-bold">${userClicks}</td>
             <td class="p-3 text-cyan-400 font-bold">${Math.floor(userClicks/15)}</td>
+            <td class="p-3">
+              <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full ${isBlocked ? 'bg-red-500/20 text-red-400 border border-red-500/30' : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'}">
+                ${d.status || 'Active'}
+              </span>
+            </td>
             <td class="p-3 text-amber-400">${d.upi || 'N/A'}</td>
             <td class="p-3 text-center">
               <button onclick="openUserLinkModal('${uId}', '${d.name}')" class="bg-purple-600/20 text-purple-400 border border-purple-500/30 hover:bg-purple-600 hover:text-white p-2 rounded-xl transition font-bold text-xs flex items-center gap-1.5 mx-auto">
                 <i class="fa-solid fa-eye"></i> Links
               </button>
             </td>
+            <td class="p-3 text-center">
+              <select onchange="updateUserStatus('${uId}', this.value)" class="bg-slate-950 border border-slate-800 text-xs text-white p-1.5 rounded-xl outline-none">
+                <option value="Active" ${d.status === 'Active' || !d.status ? 'selected' : ''}>Active</option>
+                <option value="Suspended" ${d.status === 'Suspended' ? 'selected' : ''}>Suspend</option>
+                <option value="Blocked" ${d.status === 'Blocked' ? 'selected' : ''}>Block</option>
+              </select>
+            </td>
           </tr>`;
         });
 
-        if(localStorage.getItem('tf_admin') === 'true') updateStats(totalRaw);
+        updateStats(totalRaw);
         document.getElementById('user-table-body').innerHTML = html;
       });
     }
+
+    // UPDATE USER STATUS (BLOCK / SUSPEND / ACTIVE)
+    window.updateUserStatus = async (userId, newStatus) => {
+      try {
+        await updateDoc(doc(db, "users", userId), { status: newStatus });
+        alert(`User status changed to ${newStatus} successfully!`);
+      } catch(err) {
+        alert('Error updating status: ' + err.message);
+      }
+    };
 
     function updateStats(rawClicks) {
       const filtered = Math.floor(rawClicks / 15);
@@ -556,6 +676,8 @@
           password,
           clicks: 0,
           upi: '',
+          status: 'Active',
+          createdBy: currentLoggedInId || 'Admin',
           assignedLinks: [],
           createdAt: new Date().toISOString()
         });
@@ -568,7 +690,7 @@
       }
     };
 
-    // USER SPECIFIC LINK MANAGEMENT (EYE ICON LOGIC)
+    // USER SPECIFIC LINK MANAGEMENT (EYE ICON POPUP FOR ADMIN/PUBLISHER)
     window.openUserLinkModal = async (userId, userName) => {
       activeTargetUserId = userId;
       document.getElementById('modal-user-title').innerText = `Manage Custom Approved Links`;
@@ -622,7 +744,7 @@
 
       if(userSnap.exists()) {
         const existingLinks = userSnap.data().assignedLinks || [];
-        existingLinks.push({ id: Date.now(), title, url, status: 'Active' });
+        existingLinks.push({ id: Date.now(), title, url, status: 'Active', alias: '' });
 
         await updateDoc(userRef, { assignedLinks: existingLinks });
         alert('New Custom Link Approved & Assigned to User!');
@@ -656,7 +778,7 @@
       }
     };
 
-    // RENDER APPROVED OFFERS FOR INDIVIDUAL CREATOR / PUBLISHER
+    // RENDER APPROVED OFFERS FOR CREATOR (WITH INLINE ALIAS GENERATOR)
     function renderApprovedOffersForUser(userId, assignedLinks) {
       const container = document.getElementById('offers-list-container');
       const activeCount = assignedLinks.filter(o => o.status === 'Active').length;
@@ -667,8 +789,10 @@
         return;
       }
 
-      container.innerHTML = assignedLinks.map((o) => {
-        const trackingLink = `${window.location.origin}${window.location.pathname}?ref=${userId}&linkId=${o.id}`;
+      container.innerHTML = assignedLinks.map((o, idx) => {
+        const currentAlias = o.alias ? `&alias=${o.alias}` : '';
+        const trackingLink = `${window.location.origin}${window.location.pathname}?ref=${userId}&linkId=${o.id}${currentAlias}`;
+        
         return `
           <div class="bg-slate-900 border ${o.status === 'Active' ? 'border-purple-500/30' : 'border-red-500/30 opacity-75'} p-5 rounded-2xl space-y-3 relative shadow-xl">
             <div class="flex items-center justify-between">
@@ -677,14 +801,48 @@
                 ${o.status}
               </span>
             </div>
+            
+            <!-- TRACKING LINK & COPY BUTTON -->
             <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800 flex items-center justify-between gap-2">
-              <input type="text" readonly value="${trackingLink}" class="bg-transparent text-xs text-purple-300 font-mono outline-none w-full">
-              <button onclick="navigator.clipboard.writeText('${trackingLink}'); alert('Your Assigned Tracking Link Copied!');" class="bg-purple-600 text-white text-[10px] px-3 py-1.5 rounded-lg font-bold shrink-0 hover:bg-purple-700">Copy Link</button>
+              <input type="text" readonly id="link-field-${idx}" value="${trackingLink}" class="bg-transparent text-xs text-purple-300 font-mono outline-none w-full">
+              <button onclick="navigator.clipboard.writeText(document.getElementById('link-field-${idx}').value); alert('Your Campaign Link Copied!');" class="bg-purple-600 text-white text-[10px] px-3 py-1.5 rounded-lg font-bold shrink-0 hover:bg-purple-700 flex items-center gap-1">
+                <i class="fa-solid fa-copy"></i> Copy
+              </button>
             </div>
+
+            <!-- CREATOR ALIAS CUSTOMIZER (ONLY FOR CREATORS) -->
+            ${currentUserRole === 'Creator' ? `
+            <div class="bg-slate-950/60 p-2.5 rounded-xl border border-slate-800/80 flex items-center gap-2">
+              <i class="fa-solid fa-wand-magic-sparkles text-amber-400 text-xs"></i>
+              <input type="text" id="alias-input-${idx}" placeholder="Custom Alias (e.g. ff-diamond)" value="${o.alias || ''}" class="bg-slate-900 border border-slate-800 text-xs text-white px-2.5 py-1.5 rounded-lg outline-none w-full focus:border-amber-400">
+              <button onclick="saveCreatorAlias(${idx})" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-extrabold text-[10px] px-3 py-1.5 rounded-lg shrink-0 transition">
+                Save Alias
+              </button>
+            </div>` : ''}
           </div>
         `;
       }).join('');
     }
+
+    // SAVE ALIAS FOR APPROVED LINK (BY CREATOR)
+    window.saveCreatorAlias = async (idx) => {
+      const customUser = JSON.parse(localStorage.getItem('tf_custom_user'));
+      const uid = customUser ? customUser.id : (auth.currentUser ? auth.currentUser.uid : null);
+      if(!uid) return;
+
+      const newAlias = document.getElementById(`alias-input-${idx}`).value.trim();
+      const userRef = doc(db, "users", uid);
+      const userSnap = await getDoc(userRef);
+
+      if(userSnap.exists()) {
+        const links = userSnap.data().assignedLinks || [];
+        if(links[idx]) {
+          links[idx].alias = newAlias;
+          await updateDoc(userRef, { assignedLinks: links });
+          alert('Custom Alias Saved to Link Successfully!');
+        }
+      }
+    };
 
     // BROADCAST OFFER (GLOBAL)
     window.addNewOffer = (e) => {
