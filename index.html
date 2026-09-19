@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TrackFlow - Pro Marketing & Creator Hub</title>
   
-  <!-- Favicon -->
+  <!-- Favicon / Animated Logo -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='paint' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%23ec4899'/><stop offset='100%' stop-color='%238b5cf6'/></linearGradient></defs><circle cx='50' cy='50' r='46' fill='%230f172a' stroke='url(%23paint)' stroke-width='4'/><path d='M65 25 C65 25 75 35 75 35 C75 35 45 65 35 75 C30 80 20 80 20 80 C20 80 20 70 25 65 C35 55 65 25 65 25 Z' fill='url(%23paint)'/></svg>">
 
-  <!-- Tailwind CSS & Icons -->
+  <!-- Tailwind CSS & FontAwesome -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -24,7 +24,7 @@
   <!-- TOP NAVBAR -->
   <header class="bg-slate-900/90 backdrop-blur-md border-b border-slate-800 sticky top-0 z-40 h-16 flex items-center justify-between px-4 md:px-8">
     <div class="flex items-center gap-3">
-      <button id="toggle-sidebar-btn" class="hidden p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-fuchsia-400 transition flex items-center justify-center">
+      <button id="toggle-sidebar-btn" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-fuchsia-400 transition flex items-center justify-center">
         <i class="fa-solid fa-bars text-xl"></i>
       </button>
       <div class="flex items-center gap-2.5">
@@ -46,7 +46,7 @@
   <!-- LANDING PAGE -->
   <div id="landing-page" class="flex-1 flex flex-col items-center justify-center p-6 text-center max-w-4xl mx-auto">
     <div class="w-20 h-20 mb-6 bg-slate-900 border-2 border-fuchsia-500/50 rounded-3xl flex items-center justify-center paint-glow shadow-2xl">
-      <i class="fa-solid fa-paint-brush text-3xl text-fuchsia-400"></i>
+      <i class="fa-solid fa-paint-brush text-3xl text-fuchsia-400 animate-bounce"></i>
     </div>
     <h1 class="text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-400 via-purple-500 to-cyan-400 mb-4">
       Creator Performance Network
@@ -113,7 +113,7 @@
             <i class="fa-solid fa-gift w-5"></i> Campaign Offers
           </button>
           <button id="admin-add-offer-btn" onclick="switchTab('admin-panel')" class="hidden w-full text-left flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-amber-500/10 text-amber-400 font-bold text-sm border border-amber-500/20">
-            <i class="fa-solid fa-plus-circle w-5"></i> Admin: Add Offer
+            <i class="fa-solid fa-plus-circle w-5"></i> Admin: Manage & Add User
           </button>
         </nav>
       </div>
@@ -149,13 +149,13 @@
 
         <!-- GRAPH -->
         <div class="bg-slate-900 border border-slate-800 p-5 rounded-3xl">
-          <h4 class="text-xs font-bold text-slate-300 mb-3"><i class="fa-solid fa-chart-line text-cyan-400 mr-1.5"></i> Live Clicks Flow Graph</h4>
+          <h4 class="text-xs font-bold text-slate-300 mb-3"><i class="fa-solid fa-chart-line text-cyan-400 mr-1.5"></i> Live Lifetime Clicks Flow</h4>
           <div class="h-64 w-full"><canvas id="trafficChart"></canvas></div>
         </div>
 
-        <!-- ADMIN USER TABLE -->
+        <!-- USER LIVE TRAFFIC TABLE (ADMIN ONLY) -->
         <div id="admin-user-table-card" class="hidden bg-slate-900 border border-slate-800 p-5 rounded-3xl space-y-4">
-          <h3 class="text-sm font-bold text-amber-400">All Publishers Live Traffic</h3>
+          <h3 class="text-sm font-bold text-amber-400"><i class="fa-solid fa-users text-amber-400 mr-2"></i>All Registered Users Traffic</h3>
           <div class="overflow-x-auto">
             <table class="w-full text-left text-xs text-slate-300">
               <thead class="bg-slate-950 uppercase text-slate-400">
@@ -187,14 +187,25 @@
         <div id="offers-list-container" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
       </div>
 
-      <!-- TAB 4: ADMIN PANEL -->
-      <div id="tab-admin-panel" class="tab-content space-y-4 max-w-2xl mx-auto">
+      <!-- TAB 4: ADMIN PANEL (ADD USER & OFFERS) -->
+      <div id="tab-admin-panel" class="tab-content space-y-6 max-w-2xl mx-auto">
+        <!-- ADD OFFER SECTION -->
         <div class="bg-slate-900 border border-amber-500/40 p-6 rounded-3xl space-y-4">
-          <h3 class="text-base font-bold text-amber-400">Create & Broadcast New Offer</h3>
+          <h3 class="text-base font-bold text-amber-400"><i class="fa-solid fa-plus text-amber-400 mr-2"></i>Create & Broadcast New Offer</h3>
           <form onsubmit="addNewOffer(event)" class="space-y-4 text-xs">
             <input type="text" id="new-offer-title" required placeholder="Campaign Title" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white">
             <input type="url" id="new-offer-url" required placeholder="Target Redirect URL" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white">
             <button type="submit" class="w-full bg-amber-500 text-slate-950 font-extrabold py-3 rounded-xl">Publish Offer</button>
+          </form>
+        </div>
+
+        <!-- ADD USER SECTION -->
+        <div class="bg-slate-900 border border-fuchsia-500/40 p-6 rounded-3xl space-y-4">
+          <h3 class="text-base font-bold text-fuchsia-400"><i class="fa-solid fa-user-plus text-fuchsia-400 mr-2"></i>Add / Register User Manually</h3>
+          <form onsubmit="addManualUser(event)" class="space-y-4 text-xs">
+            <input type="text" id="manual-user-name" required placeholder="User Full Name" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white">
+            <input type="email" id="manual-user-email" required placeholder="User Email Address" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white">
+            <button type="submit" class="w-full bg-fuchsia-600 text-white font-extrabold py-3 rounded-xl">Register User to Database</button>
           </form>
         </div>
       </div>
@@ -202,7 +213,7 @@
     </main>
   </div>
 
-  <!-- SCRIPT -->
+  <!-- FIREBASE & REALTIME LOGIC -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { getAuth, signInWithRedirect, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
@@ -226,7 +237,7 @@
     const ADMIN_PASS = "Ragib@7549";
     const mainTargetURL = "https://ff-rewards-hub-gamma.vercel.app/";
 
-    // LIVE VISITOR REDIRECT & CLICK TRACKING
+    // LIVE VISITOR TRACKING & REDIRECT
     const urlParams = new URLSearchParams(window.location.search);
     const refUser = urlParams.get('ref');
 
@@ -239,7 +250,7 @@
       });
     }
 
-    // AUTH UI TOGGLES
+    // AUTH POPUP TOGGLES
     document.getElementById('open-auth-modal-btn').onclick = () => document.getElementById('auth-modal').classList.remove('hidden');
     document.getElementById('close-auth-modal').onclick = () => document.getElementById('auth-modal').classList.add('hidden');
     document.getElementById('google-login-btn').onclick = () => signInWithRedirect(auth, provider);
@@ -266,15 +277,16 @@
       }
     });
 
-    // REALTIME LIVE DATA LISTENERS
+    // USER VIEW (REALTIME LIVE CLICKS)
     function setupUserView(user) {
       showDashboard();
       document.getElementById('user-display-name').innerText = user.displayName || 'Publisher';
       document.getElementById('user-email-text').innerText = user.email;
+      if (user.photoURL) document.getElementById('user-avatar').src = user.photoURL;
 
       const userRef = doc(db, "users", user.uid);
 
-      // Listen for Clicks in REALTIME
+      // Live updates from Firestore
       onSnapshot(userRef, (docSnap) => {
         if (!docSnap.exists()) {
           setDoc(userRef, { name: user.displayName, email: user.email, clicks: 0 });
@@ -290,6 +302,7 @@
       renderOffers();
     }
 
+    // ADMIN VIEW (REALTIME LIVE TRAFFIC)
     async function setupAdminView() {
       showDashboard();
       document.getElementById('admin-badge').classList.remove('hidden');
@@ -298,20 +311,22 @@
       document.getElementById('user-display-name').innerText = 'Ragib (Owner)';
       document.getElementById('user-email-text').innerText = ADMIN_EMAIL;
 
-      const usersSnap = await getDocs(collection(db, "users"));
-      let totalRaw = 0;
-      let html = '';
+      onSnapshot(collection(db, "users"), (usersSnap) => {
+        let totalRaw = 0;
+        let html = '';
 
-      usersSnap.forEach(uDoc => {
-        const d = uDoc.data();
-        totalRaw += (d.clicks || 0);
-        html += `<tr><td class="p-3 text-white">${d.email || 'User'}</td><td class="p-3 text-fuchsia-400 font-bold">${d.clicks || 0}</td><td class="p-3 text-cyan-400 font-bold">${Math.floor((d.clicks||0)/15)}</td></tr>`;
+        usersSnap.forEach(uDoc => {
+          const d = uDoc.data();
+          totalRaw += (d.clicks || 0);
+          html += `<tr><td class="p-3 text-white">${d.email || d.name || 'User'}</td><td class="p-3 text-fuchsia-400 font-bold">${d.clicks || 0}</td><td class="p-3 text-cyan-400 font-bold">${Math.floor((d.clicks||0)/15)}</td></tr>`;
+        });
+
+        document.getElementById('total-clicks').innerText = totalRaw;
+        document.getElementById('filtered-clicks').innerText = Math.floor(totalRaw / 15);
+        document.getElementById('user-table-body').innerHTML = html;
+        initChart([totalRaw/3, totalRaw/1.5, totalRaw]);
       });
 
-      document.getElementById('total-clicks').innerText = totalRaw;
-      document.getElementById('filtered-clicks').innerText = Math.floor(totalRaw / 15);
-      document.getElementById('user-table-body').innerHTML = html;
-      initChart([totalRaw/3, totalRaw/1.5, totalRaw]);
       renderOffers();
     }
 
@@ -349,6 +364,16 @@
       alert('Offer Live Broadcasted!');
       e.target.reset();
       switchTab('offers-hub');
+    };
+
+    window.addManualUser = async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('manual-user-name').value;
+      const email = document.getElementById('manual-user-email').value;
+      const customId = "user_" + Date.now();
+      await setDoc(doc(db, "users", customId), { name: name, email: email, clicks: 0 });
+      alert('User Registered Successfully in Firebase!');
+      e.target.reset();
     };
 
     let myChart = null;
