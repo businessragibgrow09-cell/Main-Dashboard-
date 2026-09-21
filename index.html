@@ -154,14 +154,14 @@
           </button>
 
           <button onclick="switchTab('offers-hub')" class="w-full text-left flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white font-medium text-sm transition">
-            <i class="fa-solid fa-gift w-5"></i> Approved Campaign Links
+            <i class="fa-solid fa-gift w-5"></i> Campaign Offers Hub
           </button>
 
           <button onclick="switchTab('profile')" class="w-full text-left flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white font-medium text-sm transition">
-            <i class="fa-solid fa-user-gear w-5"></i> Profile & Payment
+            <i class="fa-solid fa-user-gear w-5"></i> Profile & Settings
           </button>
 
-          <button onclick="switchTab('withdrawals')" class="w-full text-left flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white font-medium text-sm transition">
+          <button id="nav-user-withdrawals" onclick="switchTab('withdrawals')" class="w-full text-left flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white font-medium text-sm transition">
             <i class="fa-solid fa-wallet w-5"></i> Earnings & Withdrawals
           </button>
           
@@ -211,7 +211,7 @@
           </div>
         </div>
 
-        <!-- STATS CARDS GRID (EXACT 4 CARDS ORDER REQUIRED FOR ADMIN: 1. REVENUE, 2. CONVERSIONS, 3. CLICKS, 4. CR) -->
+        <!-- STATS CARDS GRID (ADMIN: 1. REVENUE, 2. CONVERSIONS, 3. CLICKS, 4. CR) -->
         <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           
           <!-- 1. TOTAL REVENUE CARD -->
@@ -256,7 +256,7 @@
 
         </section>
 
-        <!-- CREATOR CTR CARD (Only visible when logged in as Creator and impression data exists) -->
+        <!-- CREATOR CTR CARD (Only visible when logged in as Creator) -->
         <div id="creator-ctr-card-wrapper" class="hidden">
           <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl max-w-xs">
             <div class="flex items-center justify-between">
@@ -390,31 +390,34 @@
         </section>
       </div>
 
-      <!-- TAB 3: APPROVED OFFERS -->
+      <!-- TAB 3: APPROVED OFFERS (VISIBLE TO PUBLISHERS & CREATORS) -->
       <div id="tab-offers-hub" class="tab-content space-y-4">
         <h3 class="text-base font-bold text-white mb-2"><i class="fa-solid fa-gift text-purple-400 mr-2"></i>Campaign Offers Hub</h3>
+        <p class="text-xs text-slate-400">Approved campaigns available for your account.</p>
         <div id="offers-list-container" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
       </div>
 
       <!-- TAB 4: PROFILE SETTINGS -->
       <div id="tab-profile" class="tab-content space-y-4 max-w-xl mx-auto">
         <div class="bg-slate-900 border border-slate-800 p-6 rounded-3xl space-y-4 shadow-2xl">
-          <h3 class="text-base font-bold text-purple-400 flex items-center gap-2"><i class="fa-solid fa-user-pen"></i> Account & Payment Info</h3>
+          <h3 class="text-base font-bold text-purple-400 flex items-center gap-2"><i class="fa-solid fa-user-pen"></i> Account & Settings</h3>
           <form onsubmit="updateProfile(event)" class="space-y-4 text-xs">
             <div>
               <label class="block text-slate-400 mb-1">Display Name</label>
               <input type="text" id="edit-display-name" required class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-purple-500">
             </div>
-            <div>
+            
+            <div id="profile-upi-container">
               <label class="block text-slate-400 mb-1">UPI ID / Withdrawal Address</label>
               <input type="text" id="edit-upi-id" placeholder="yourname@upi" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-purple-500">
             </div>
+
             <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-extrabold py-3 rounded-xl transition">Save Profile Info</button>
           </form>
         </div>
       </div>
 
-      <!-- TAB 5: WITHDRAWALS & EARNINGS -->
+      <!-- TAB 5: WITHDRAWALS & EARNINGS (PUBLISHERS & CREATORS ONLY) -->
       <div id="tab-withdrawals" class="tab-content space-y-6 max-w-xl mx-auto">
         <div class="bg-slate-900 border border-slate-800 p-6 rounded-3xl space-y-4 shadow-2xl">
           <h3 class="text-base font-bold text-emerald-400 flex items-center gap-2">
@@ -517,71 +520,69 @@
         </div>
       </div>
 
-      <!-- TAB 8: OFFER MANAGEMENT & BROADCAST (ADMIN ONLY) -->
+      <!-- TAB 8: SIMPLIFIED OFFER MANAGEMENT & BROADCAST (ADMIN ONLY) -->
       <div id="tab-admin-add-offer" class="tab-content space-y-6">
-        <div class="bg-slate-900 border border-amber-500/40 p-6 rounded-3xl space-y-4 shadow-2xl max-w-3xl mx-auto">
-          <h3 class="text-base font-bold text-amber-400 flex items-center gap-2"><i class="fa-solid fa-folder-plus"></i> Offer Management & Broadcast</h3>
-          
-          <form onsubmit="addNewOffer(event)" class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+        <div class="bg-slate-900 border border-amber-500/40 p-6 rounded-3xl space-y-4 shadow-2xl max-w-2xl mx-auto">
+          <h3 class="text-base font-bold text-amber-400 flex items-center gap-2"><i class="fa-solid fa-folder-plus"></i> Simple Offer Management</h3>
+          <p class="text-xs text-slate-400">Paste tracking link, set goal and payout. Broadcasts live to Publishers.</p>
+
+          <form onsubmit="addNewOffer(event)" class="space-y-4 text-xs">
             <div>
               <label class="block text-slate-400 mb-1">Campaign Title</label>
-              <input type="text" id="new-offer-title" required placeholder="e.g. WAVES App Download" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-amber-500">
-            </div>
-            <div>
-              <label class="block text-slate-400 mb-1">Network Offer ID</label>
-              <input type="text" id="new-offer-net-id" required placeholder="e.g. 130518" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-amber-500">
-            </div>
-            <div class="md:col-span-2">
-              <label class="block text-slate-400 mb-1">Network Tracking URL</label>
-              <input type="url" id="new-offer-url" required placeholder="https://havmor.gotrackier.com/click?campaign_id=130518&pub_id=842" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-amber-500">
-            </div>
-            <div>
-              <label class="block text-slate-400 mb-1">Network Payout (₹)</label>
-              <input type="number" step="0.01" id="new-offer-net-payout" required placeholder="e.g. 20" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-amber-500">
-            </div>
-            <div>
-              <label class="block text-slate-400 mb-1">Creator Payout (₹)</label>
-              <input type="number" step="0.01" id="new-offer-creator-payout" required placeholder="e.g. 12" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-amber-500">
-            </div>
-            <div>
-              <label class="block text-slate-400 mb-1">Publisher Payout / Margin (₹)</label>
-              <input type="number" step="0.01" id="new-offer-pub-payout" required placeholder="e.g. 3" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-amber-500">
-            </div>
-            <div>
-              <label class="block text-slate-400 mb-1">Conversion Event</label>
-              <input type="text" id="new-offer-event" placeholder="e.g. Install / Register" value="App Install" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-amber-500">
-            </div>
-            <div>
-              <label class="block text-slate-400 mb-1">Country</label>
-              <input type="text" id="new-offer-country" value="India" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-amber-500">
-            </div>
-            <div>
-              <label class="block text-slate-400 mb-1">Device / OS</label>
-              <input type="text" id="new-offer-device" value="Android / iOS" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-amber-500">
-            </div>
-            <div class="md:col-span-2">
-              <label class="block text-slate-400 mb-1">Allowed Traffic Source</label>
-              <input type="text" id="new-offer-traffic" placeholder="e.g. Social, YouTube, Telegram" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-amber-500">
+              <input type="text" id="new-offer-title" required placeholder="e.g. Free Fire App Install Offer" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-amber-500">
             </div>
 
-            <button type="submit" class="md:col-span-2 bg-amber-500 hover:bg-amber-600 text-slate-950 font-extrabold py-3 rounded-xl transition">
-              Broadcast Campaign Live
+            <div>
+              <label class="block text-slate-400 mb-1">Network Tracking URL (Main Link)</label>
+              <input type="url" id="new-offer-url" required placeholder="https://trackinglink.com/click?offer_id=123" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-amber-500 font-mono">
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-slate-400 mb-1">Conversion Goal</label>
+                <select id="new-offer-event" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-amber-500 font-semibold">
+                  <option value="App Install">App Install</option>
+                  <option value="User Registration">User Registration</option>
+                  <option value="Task Completion">Task Completion</option>
+                  <option value="Survey Complete">Survey Complete</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-slate-400 mb-1">Main Network Payout (₹)</label>
+                <input type="number" step="0.01" id="new-offer-net-payout" required placeholder="e.g. 20" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-amber-500">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-slate-400 mb-1">Publisher Payout (₹)</label>
+                <input type="number" step="0.01" id="new-offer-pub-payout" required placeholder="e.g. 15" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-amber-500">
+              </div>
+
+              <div>
+                <label class="block text-slate-400 mb-1">Creator Recommended Payout (₹)</label>
+                <input type="number" step="0.01" id="new-offer-creator-payout" required placeholder="e.g. 12" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-amber-500">
+              </div>
+            </div>
+
+            <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-extrabold py-3 rounded-xl transition">
+              Broadcast Offer Live to All Publishers
             </button>
           </form>
         </div>
 
         <div class="bg-slate-900 border border-slate-800 p-5 rounded-3xl space-y-4">
-          <h4 class="text-sm font-bold text-amber-400 flex items-center gap-2"><i class="fa-solid fa-list-check"></i> Network Active Offers List</h4>
+          <h4 class="text-sm font-bold text-amber-400 flex items-center gap-2"><i class="fa-solid fa-list-check"></i> Active Network Offers List</h4>
           <div id="admin-offers-table-container" class="overflow-x-auto">
             <table class="w-full text-left text-xs text-slate-300">
               <thead class="bg-slate-950 uppercase text-slate-400">
                 <tr>
-                  <th class="p-3">Offer Title</th>
-                  <th class="p-3">Net ID</th>
-                  <th class="p-3">Net Payout</th>
-                  <th class="p-3 text-cyan-400">Creator Payout</th>
+                  <th class="p-3">Campaign Title</th>
+                  <th class="p-3">Goal Event</th>
+                  <th class="p-3 text-amber-400">Main Payout</th>
                   <th class="p-3 text-purple-400">Publisher Payout</th>
-                  <th class="p-3 text-emerald-400">TrackFlow Margin</th>
+                  <th class="p-3 text-cyan-400">Creator Payout</th>
                   <th class="p-3">Status</th>
                   <th class="p-3 text-center">Action</th>
                 </tr>
@@ -596,14 +597,14 @@
       <div id="tab-admin-withdrawals" class="tab-content space-y-4">
         <div class="bg-slate-900 border border-emerald-500/40 p-5 rounded-3xl space-y-4 shadow-2xl">
           <h3 class="text-sm font-bold text-emerald-400 flex items-center justify-between">
-            <span class="flex items-center gap-2"><i class="fa-solid fa-money-bill-transfer"></i> User Withdrawal Requests</span>
+            <span class="flex items-center gap-2"><i class="fa-solid fa-money-bill-transfer"></i> User Withdrawal Requests Management</span>
             <span id="admin-withdrawal-subtitle" class="text-xs text-slate-400">Pending & Processed Requests</span>
           </h3>
           <div class="overflow-x-auto">
             <table class="w-full text-left text-xs text-slate-300">
               <thead class="bg-slate-950 uppercase text-slate-400">
                 <tr>
-                  <th class="p-3">User</th>
+                  <th class="p-3">User Name</th>
                   <th class="p-3">Amount</th>
                   <th class="p-3">UPI Address</th>
                   <th class="p-3">Status</th>
@@ -628,27 +629,27 @@
       </button>
       
       <div class="border-b border-slate-800 pb-3">
-        <h3 id="modal-user-title" class="text-base font-bold text-purple-400">Manage Approved Links & Offers</h3>
+        <h3 id="modal-user-title" class="text-base font-bold text-purple-400">Approve Custom Campaign Links</h3>
         <p id="modal-user-subtitle" class="text-xs text-slate-400">User: Loading...</p>
       </div>
 
       <form onsubmit="assignLinkToUser(event)" class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-3 text-xs">
-        <h4 class="font-bold text-emerald-400"><i class="fa-solid fa-plus-circle mr-1"></i> Approve New Custom Link</h4>
+        <h4 class="font-bold text-emerald-400"><i class="fa-solid fa-plus-circle mr-1"></i> Approve Custom Link for Creator</h4>
         <input type="text" id="assign-link-title" required placeholder="Campaign Title" class="w-full bg-slate-900 border border-slate-800 p-2.5 rounded-xl text-white outline-none focus:border-purple-500">
         <input type="url" id="assign-link-url" required placeholder="Target Redirect URL" class="w-full bg-slate-900 border border-slate-800 p-2.5 rounded-xl text-white outline-none focus:border-purple-500">
         <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 rounded-xl transition">Assign Custom Link</button>
       </form>
 
       <div id="publisher-broadcast-assign-section" class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-2 text-xs">
-        <h4 class="font-bold text-amber-400"><i class="fa-solid fa-bullhorn mr-1"></i> Assign Broadcasted Offer</h4>
+        <h4 class="font-bold text-amber-400"><i class="fa-solid fa-bullhorn mr-1"></i> Approve Broadcasted Campaign Offer</h4>
         <select id="modal-broadcast-offers-select" class="w-full bg-slate-900 border border-slate-800 p-2 rounded-xl text-white outline-none">
           <option value="">Select Active Offer...</option>
         </select>
-        <button onclick="assignBroadcastedOfferToCreator()" class="w-full bg-amber-500 text-slate-950 font-bold py-2 rounded-xl transition">Assign Selected Offer</button>
+        <button onclick="assignBroadcastedOfferToCreator()" class="w-full bg-amber-500 text-slate-950 font-bold py-2 rounded-xl transition">Approve & Assign Selected Offer</button>
       </div>
 
       <div class="space-y-2">
-        <h4 class="text-xs font-bold text-slate-300">Active Links for User:</h4>
+        <h4 class="text-xs font-bold text-slate-300">Active Approved Links for User:</h4>
         <div id="modal-assigned-links-list" class="max-h-48 overflow-y-auto space-y-2 pr-1"></div>
       </div>
     </div>
@@ -685,9 +686,8 @@
     let cachedConversions = [];
     let cachedWithdrawals = [];
     let broadcastOffersList = [];
-    let cachedImpressions = null; // null represents unavailable impression data
+    let cachedImpressions = null;
 
-    // Analytics Chart Instances
     let analyticsTrendChartInstance = null;
     let analyticsRevenueChartInstance = null;
 
@@ -855,12 +855,15 @@
       showDashboard();
       document.getElementById('role-badge').innerText = 'Master Admin';
       document.getElementById('admin-badge').classList.remove('hidden');
-      document.getElementById('nav-admin-analytics').classList.remove('hidden'); // Show Separate System Analytics
+      document.getElementById('nav-admin-analytics').classList.remove('hidden'); 
       document.getElementById('nav-add-user').classList.remove('hidden');
       document.getElementById('nav-manage-users').classList.remove('hidden');
       document.getElementById('nav-add-offer').classList.remove('hidden');
       document.getElementById('nav-admin-withdrawals').classList.remove('hidden');
       document.getElementById('nav-link-generator').classList.add('hidden');
+      document.getElementById('nav-user-withdrawals').classList.add('hidden'); // Hide Self Withdrawal for Admin
+      document.getElementById('profile-upi-container').classList.add('hidden'); // Hide UPI field in Profile for Admin
+
       document.getElementById('user-display-name').innerText = 'Ragib (Owner)';
       document.getElementById('user-email-text').innerText = ADMIN_EMAIL;
 
@@ -880,18 +883,15 @@
           broadcastOffersList.push(o);
           
           if(o.status === 'Active') {
-            selectHtml += `<option value="${o.id}">${o.title} (Net: ₹${o.netPayout} | Creator: ₹${o.creatorPayout})</option>`;
+            selectHtml += `<option value="${o.id}">${o.title} (Main: ₹${o.netPayout} | Pub: ₹${o.pubPayout} | Creator: ₹${o.creatorPayout})</option>`;
           }
-
-          const tfMargin = (parseFloat(o.netPayout || 0) - (parseFloat(o.creatorPayout || 0) + parseFloat(o.pubPayout || 0))).toFixed(2);
 
           adminTableHtml += `<tr>
             <td class="p-3 font-bold text-white">${o.title}</td>
-            <td class="p-3 font-mono text-slate-400">${o.netOfferId}</td>
+            <td class="p-3 text-slate-300 font-medium">${o.eventType || 'App Install'}</td>
             <td class="p-3 font-bold text-amber-400">₹${o.netPayout}</td>
-            <td class="p-3 font-bold text-cyan-400">₹${o.creatorPayout}</td>
             <td class="p-3 font-bold text-purple-400">₹${o.pubPayout}</td>
-            <td class="p-3 font-bold text-emerald-400">₹${tfMargin}</td>
+            <td class="p-3 font-bold text-cyan-400">₹${o.creatorPayout}</td>
             <td class="p-3"><span class="text-[10px] px-2 py-0.5 rounded-full ${o.status === 'Active' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-red-500/20 text-red-400'}">${o.status}</span></td>
             <td class="p-3 text-center">
               <button onclick="toggleOfferStatus('${o.id}', '${o.status === 'Active' ? 'Inactive' : 'Active'}')" class="bg-slate-800 text-xs px-2.5 py-1 rounded-lg hover:text-white">Toggle</button>
@@ -900,7 +900,7 @@
         });
 
         document.getElementById('modal-broadcast-offers-select').innerHTML = selectHtml;
-        document.getElementById('admin-offers-table-body').innerHTML = adminTableHtml || `<tr><td colspan="8" class="p-4 text-center text-slate-500">No broadcasted offers yet.</td></tr>`;
+        document.getElementById('admin-offers-table-body').innerHTML = adminTableHtml || `<tr><td colspan="7" class="p-4 text-center text-slate-500">No active broadcasted offers yet.</td></tr>`;
       });
     }
 
@@ -973,7 +973,7 @@
             </tr>
           `;
         });
-        document.getElementById('admin-withdrawals-table-body').innerHTML = html || `<tr><td colspan="6" class="p-4 text-center text-slate-500">No withdrawal requests.</td></tr>`;
+        document.getElementById('admin-withdrawals-table-body').innerHTML = html || `<tr><td colspan="6" class="p-4 text-center text-slate-500">No pending requests.</td></tr>`;
       });
     }
 
@@ -1023,7 +1023,7 @@
         document.getElementById('overview-header-title').innerHTML = `<i class="fa-solid fa-chart-pie text-purple-400"></i> Creator Overview`;
         document.getElementById('overview-header-sub').innerText = "Your personal performance and earnings breakdown.";
 
-        // Creator CTR Handling (CTR calculated ONLY when real impression data exists)
+        // Creator CTR Handling
         const ctrCard = document.getElementById('creator-ctr-card-wrapper');
         if (ctrCard) {
           ctrCard.classList.remove('hidden');
@@ -1042,9 +1042,12 @@
       const paidWithdrawals = cachedWithdrawals.filter(w => w.status === 'Paid').reduce((sum, w) => sum + (parseFloat(w.amount) || 0), 0);
       const availableBalance = Math.max(0, totalApprovedEarnings - paidWithdrawals);
 
-      document.getElementById('withdrawal-approved-earnings').innerText = `₹${totalApprovedEarnings.toFixed(2)}`;
-      document.getElementById('withdrawal-paid-amount').innerText = `₹${paidWithdrawals.toFixed(2)}`;
-      document.getElementById('withdrawal-available-balance').innerText = `₹${availableBalance.toFixed(2)}`;
+      const approvedEl = document.getElementById('withdrawal-approved-earnings');
+      if (approvedEl) approvedEl.innerText = `₹${totalApprovedEarnings.toFixed(2)}`;
+      const paidEl = document.getElementById('withdrawal-paid-amount');
+      if (paidEl) paidEl.innerText = `₹${paidWithdrawals.toFixed(2)}`;
+      const availEl = document.getElementById('withdrawal-available-balance');
+      if (availEl) availEl.innerText = `₹${availableBalance.toFixed(2)}`;
 
       const submitBtn = document.getElementById('submit-withdraw-btn');
       if (submitBtn) {
@@ -1069,23 +1072,30 @@
 
     // SYSTEM ANALYTICS SECTION RENDERER
     function renderAdminAnalyticsSection(clicks, conversions, cr, revenue) {
-      document.getElementById('analytics-total-clicks').innerText = clicks.toLocaleString();
-      document.getElementById('analytics-total-conversions').innerText = conversions.toLocaleString();
-      document.getElementById('analytics-cr').innerText = `${cr}%`;
-      document.getElementById('analytics-revenue').innerText = `₹${revenue.toFixed(2)}`;
+      const cEl = document.getElementById('analytics-total-clicks');
+      if (cEl) cEl.innerText = clicks.toLocaleString();
+      const cvEl = document.getElementById('analytics-total-conversions');
+      if (cvEl) cvEl.innerText = conversions.toLocaleString();
+      const crEl = document.getElementById('analytics-cr');
+      if (crEl) crEl.innerText = `${cr}%`;
+      const revEl = document.getElementById('analytics-revenue');
+      if (revEl) revEl.innerText = `₹${revenue.toFixed(2)}`;
 
-      // CTR Rule: Calculate ONLY if real impressions exist. Otherwise N/A
-      if (cachedImpressions !== null && cachedImpressions > 0) {
-        document.getElementById('analytics-ctr').innerText = ((clicks / cachedImpressions) * 100).toFixed(2) + '%';
-      } else {
-        document.getElementById('analytics-ctr').innerText = "N/A";
+      const ctrEl = document.getElementById('analytics-ctr');
+      if (ctrEl) {
+        if (cachedImpressions !== null && cachedImpressions > 0) {
+          ctrEl.innerText = ((clicks / cachedImpressions) * 100).toFixed(2) + '%';
+        } else {
+          ctrEl.innerText = "N/A";
+        }
       }
 
-      // EPC Rule: Revenue ÷ Clicks
-      const epcVal = clicks > 0 ? (revenue / clicks).toFixed(2) : "0.00";
-      document.getElementById('analytics-epc').innerText = `₹${epcVal}`;
+      const epcEl = document.getElementById('analytics-epc');
+      if (epcEl) {
+        const epcVal = clicks > 0 ? (revenue / clicks).toFixed(2) : "0.00";
+        epcEl.innerText = `₹${epcVal}`;
+      }
 
-      // Offer Wise Table
       renderAnalyticsOfferTable();
       renderAnalyticsCharts(clicks, conversions, revenue);
     }
@@ -1290,6 +1300,8 @@
       if (uid) {
         await updateDoc(doc(db, "users", uid), { name, upi });
         alert('Profile Saved!');
+      } else if (currentUserRole === 'MasterAdmin') {
+        alert('Admin Profile Saved!');
       }
     };
 
@@ -1460,37 +1472,29 @@
     window.addNewOffer = async (e) => {
       e.preventDefault();
       const title = document.getElementById('new-offer-title').value.trim();
-      const netOfferId = document.getElementById('new-offer-net-id').value.trim();
       const netUrl = document.getElementById('new-offer-url').value.trim();
-      const netPayout = parseFloat(document.getElementById('new-offer-net-payout').value);
-      const creatorPayout = parseFloat(document.getElementById('new-offer-creator-payout').value);
-      const pubPayout = parseFloat(document.getElementById('new-offer-pub-payout').value);
       const eventType = document.getElementById('new-offer-event').value;
-      const country = document.getElementById('new-offer-country').value;
-      const device = document.getElementById('new-offer-device').value;
-      const traffic = document.getElementById('new-offer-traffic').value;
+      const netPayout = parseFloat(document.getElementById('new-offer-net-payout').value);
+      const pubPayout = parseFloat(document.getElementById('new-offer-pub-payout').value);
+      const creatorPayout = parseFloat(document.getElementById('new-offer-creator-payout').value);
 
       // Payout Validation Check
       if ((creatorPayout + pubPayout) > netPayout) {
-        return alert(`Error: Combined Payout (Creator: ₹${creatorPayout} + Publisher: ₹${pubPayout} = ₹${creatorPayout + pubPayout}) cannot exceed Network Payout (₹${netPayout}).`);
+        return alert(`Error: Combined Payout (Publisher: ₹${pubPayout} + Creator: ₹${creatorPayout}) cannot exceed Main Network Payout (₹${netPayout}).`);
       }
 
       await addDoc(collection(db, "offers"), {
         title,
-        netOfferId,
         netUrl,
-        netPayout,
-        creatorPayout,
-        pubPayout,
         eventType,
-        country,
-        device,
-        traffic,
+        netPayout,
+        pubPayout,
+        creatorPayout,
         status: 'Active',
         createdAt: Date.now()
       });
 
-      alert('Campaign Offer Broadcasted Live!');
+      alert('Campaign Offer Broadcasted Live to All Publishers!');
       e.target.reset();
     };
 
