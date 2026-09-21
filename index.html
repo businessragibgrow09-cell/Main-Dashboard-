@@ -52,7 +52,118 @@
       min-height: 100vh;
     }
 
-    /* AUTH */
+    /* =========================================================
+       LANDING PAGE
+       ========================================================= */
+
+    #landingScreen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background:
+        radial-gradient(
+          circle at top right,
+          rgba(109,124,255,.18),
+          transparent 35%
+        ),
+        radial-gradient(
+          circle at bottom left,
+          rgba(49,196,141,.08),
+          transparent 30%
+        ),
+        var(--bg);
+    }
+
+    .landing-card {
+      width: 100%;
+      max-width: 760px;
+      background: rgba(18,26,45,.96);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 45px 30px;
+      text-align: center;
+      box-shadow: 0 25px 70px rgba(0,0,0,.35);
+    }
+
+    .landing-brand {
+      font-size: 42px;
+      font-weight: 850;
+      letter-spacing: -1px;
+    }
+
+    .landing-brand span {
+      color: var(--primary);
+    }
+
+    .landing-title {
+      font-size: 30px;
+      font-weight: 800;
+      margin-top: 18px;
+      margin-bottom: 10px;
+    }
+
+    .landing-subtitle {
+      color: var(--muted);
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    .landing-actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+
+    .access-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 0;
+      border-radius: 11px;
+      padding: 13px 25px;
+      color: white;
+      background: var(--primary);
+      font-weight: 750;
+      font-size: 15px;
+      min-width: 190px;
+    }
+
+    .access-btn:hover {
+      background: var(--primary2);
+    }
+
+    .contact-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      padding: 13px 22px;
+      color: var(--text);
+      background: var(--panel2);
+      font-weight: 650;
+      text-decoration: none;
+    }
+
+    .contact-btn:hover {
+      border-color: var(--primary);
+    }
+
+    .landing-note {
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    /* =========================================================
+       AUTH
+       ========================================================= */
 
     #authScreen {
       min-height: 100vh;
@@ -61,8 +172,16 @@
       justify-content: center;
       padding: 24px;
       background:
-        radial-gradient(circle at top right, rgba(109,124,255,.18), transparent 35%),
-        radial-gradient(circle at bottom left, rgba(49,196,141,.08), transparent 30%),
+        radial-gradient(
+          circle at top right,
+          rgba(109,124,255,.18),
+          transparent 35%
+        ),
+        radial-gradient(
+          circle at bottom left,
+          rgba(49,196,141,.08),
+          transparent 30%
+        ),
         var(--bg);
     }
 
@@ -90,27 +209,6 @@
       color: var(--muted);
       margin: 8px 0 25px;
       line-height: 1.5;
-    }
-
-    .auth-tabs {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 20px;
-    }
-
-    .auth-tab {
-      flex: 1;
-      border: 1px solid var(--border);
-      background: var(--panel2);
-      color: var(--muted);
-      padding: 11px;
-      border-radius: 10px;
-    }
-
-    .auth-tab.active {
-      background: var(--primary);
-      color: white;
-      border-color: var(--primary);
     }
 
     .field {
@@ -177,35 +275,23 @@
       font-size: 12px;
     }
 
-    .google-btn {
+    .auth-back {
+      margin-top: 15px;
       width: 100%;
-      margin-top: 10px;
-      background: white;
-      color: #222;
+      background: transparent;
       border: 0;
-      padding: 12px;
-      border-radius: 10px;
-      font-weight: 650;
-    }
-
-    .divider {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin: 18px 0;
       color: var(--muted);
       font-size: 12px;
+      padding: 8px;
     }
 
-    .divider::before,
-    .divider::after {
-      content: "";
-      height: 1px;
-      background: var(--border);
-      flex: 1;
+    .auth-back:hover {
+      color: white;
     }
 
-    /* HEADER */
+    /* =========================================================
+       HEADER
+       ========================================================= */
 
     .topbar {
       height: 70px;
@@ -245,7 +331,9 @@
       font-weight: 700;
     }
 
-    /* LAYOUT */
+    /* =========================================================
+       LAYOUT
+       ========================================================= */
 
     .layout {
       display: flex;
@@ -302,7 +390,9 @@
       margin-bottom: 25px;
     }
 
-    /* CARDS */
+    /* =========================================================
+       CARDS
+       ========================================================= */
 
     .stats-grid {
       display: grid;
@@ -364,7 +454,9 @@
       color: var(--muted);
     }
 
-    /* TABLE */
+    /* =========================================================
+       TABLE
+       ========================================================= */
 
     .table-wrap {
       overflow-x: auto;
@@ -395,7 +487,9 @@
       border-bottom: 0;
     }
 
-    /* STATUS */
+    /* =========================================================
+       STATUS
+       ========================================================= */
 
     .status {
       display: inline-block;
@@ -425,7 +519,9 @@
       color: #ff8a8a;
     }
 
-    /* FORMS */
+    /* =========================================================
+       FORMS
+       ========================================================= */
 
     .form-grid {
       display: grid;
@@ -444,7 +540,9 @@
       margin-top: 12px;
     }
 
-    /* CAMPAIGNS */
+    /* =========================================================
+       CAMPAIGNS
+       ========================================================= */
 
     .campaign-grid {
       display: grid;
@@ -487,7 +585,9 @@
       font-size: 11px;
     }
 
-    /* MESSAGE */
+    /* =========================================================
+       MESSAGE
+       ========================================================= */
 
     #message {
       position: fixed;
@@ -511,9 +611,12 @@
       border-color: rgba(239,98,98,.6);
     }
 
-    /* MOBILE */
+    /* =========================================================
+       MOBILE
+       ========================================================= */
 
     @media (max-width: 950px) {
+
       .stats-grid {
         grid-template-columns: repeat(2, minmax(0,1fr));
       }
@@ -526,9 +629,14 @@
       .sidebar {
         width: 200px;
       }
+
+      .landing-title {
+        font-size: 26px;
+      }
     }
 
     @media (max-width: 700px) {
+
       .topbar {
         padding: 0 14px;
       }
@@ -579,6 +687,18 @@
       .form-grid .full-field {
         grid-column: auto;
       }
+
+      .landing-card {
+        padding: 35px 20px;
+      }
+
+      .landing-brand {
+        font-size: 34px;
+      }
+
+      .landing-title {
+        font-size: 24px;
+      }
     }
   </style>
 </head>
@@ -587,9 +707,63 @@
 
   <div id="message" class="hidden"></div>
 
-  <!-- ================= AUTH ================= -->
+  <!-- =========================================================
+       LANDING / WELCOME SCREEN
+       ========================================================= -->
 
-  <section id="authScreen">
+  <section id="landingScreen">
+
+    <div class="landing-card">
+
+      <div class="landing-brand">
+        Track<span>Flow</span>
+      </div>
+
+      <div class="landing-title">
+        Affiliate Management & Performance Dashboard
+      </div>
+
+      <div class="landing-subtitle">
+        Manage offers, creators, campaigns, conversions,
+        earnings and withdrawals from one secure workspace.
+      </div>
+
+      <div class="landing-actions">
+
+        <button
+          id="accessDashboardBtn"
+          class="access-btn"
+          type="button"
+        >
+          Access Dashboard
+        </button>
+
+        <a
+          id="contactUsBtn"
+          class="contact-btn"
+          href="#"
+        >
+          Contact Us
+        </a>
+
+      </div>
+
+      <div class="landing-note">
+        Dashboard access is restricted to authorized accounts.
+        New account registration is disabled.
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================================================
+       AUTH
+       ========================================================= -->
+
+  <section id="authScreen" class="hidden">
+
     <div class="auth-card">
 
       <div class="brand">
@@ -597,70 +771,79 @@
       </div>
 
       <div class="auth-subtitle">
-        Affiliate Management & Performance Dashboard
-      </div>
-
-      <div class="auth-tabs">
-        <button id="loginTab" class="auth-tab active">Login</button>
-        <button id="signupTab" class="auth-tab">Create Account</button>
+        Sign in to your Affiliate Management Dashboard
       </div>
 
       <form id="authForm">
 
-        <div id="nameField" class="field hidden">
-          <label>Full Name</label>
-          <input
-            id="nameInput"
-            type="text"
-            placeholder="Your name"
-          />
-        </div>
-
         <div class="field">
+
           <label>Email</label>
+
           <input
             id="emailInput"
             type="email"
             placeholder="you@example.com"
+            autocomplete="email"
             required
           />
+
         </div>
 
         <div class="field">
+
           <label>Password</label>
+
           <input
             id="passwordInput"
             type="password"
             placeholder="Password"
+            autocomplete="current-password"
             minlength="6"
             required
           />
+
         </div>
 
-        <button id="authSubmit" class="btn" type="submit" style="width:100%;">
+        <button
+          id="authSubmit"
+          class="btn"
+          type="submit"
+          style="width:100%;"
+        >
           Login
         </button>
 
       </form>
 
-      <div class="divider">OR</div>
-
-      <button id="googleBtn" class="google-btn">
-        Continue with Google
+      <button
+        id="backToLandingBtn"
+        class="auth-back"
+        type="button"
+      >
+        ← Back
       </button>
 
       <div
         id="authHint"
         class="muted"
-        style="font-size:12px;margin-top:15px;text-align:center;"
+        style="
+          font-size:12px;
+          margin-top:8px;
+          text-align:center;
+        "
       >
-        New accounts are created as Pending until an administrator approves them.
+        Use your authorized TrackFlow account.
       </div>
 
     </div>
+
   </section>
 
-  <!-- ================= APP ================= -->
+
+  <!-- =========================================================
+       APP
+       ========================================================= -->
 
   <section id="appScreen" class="app hidden">
 
@@ -676,7 +859,10 @@
           Loading...
         </div>
 
-        <button id="logoutBtn" class="btn secondary small">
+        <button
+          id="logoutBtn"
+          class="btn secondary small"
+        >
           Logout
         </button>
 
@@ -684,53 +870,83 @@
 
     </header>
 
+
     <div class="layout">
 
       <!-- SIDEBAR -->
 
       <aside class="sidebar">
 
-        <div class="nav-title">Workspace</div>
+        <div class="nav-title">
+          Workspace
+        </div>
 
-        <button class="nav-btn active" data-page="dashboard">
+        <button
+          class="nav-btn active"
+          data-page="dashboard"
+        >
           Dashboard
         </button>
 
-        <button class="nav-btn" data-page="offers">
+        <button
+          class="nav-btn"
+          data-page="offers"
+        >
           Master Offers
         </button>
 
-        <button class="nav-btn" data-page="assignments">
+        <button
+          class="nav-btn"
+          data-page="assignments"
+        >
           Assignments
         </button>
 
-        <button class="nav-btn" data-page="users">
+        <button
+          class="nav-btn"
+          data-page="users"
+        >
           Network Users
         </button>
 
-        <button class="nav-btn" data-page="conversions">
+        <button
+          class="nav-btn"
+          data-page="conversions"
+        >
           Conversions
         </button>
 
-        <button class="nav-btn" data-page="withdrawals">
+        <button
+          class="nav-btn"
+          data-page="withdrawals"
+        >
           Withdrawals
         </button>
 
-        <button class="nav-btn" data-page="ledger">
+        <button
+          class="nav-btn"
+          data-page="ledger"
+        >
           Ledger
         </button>
 
       </aside>
 
+
       <!-- MAIN -->
 
       <main class="main">
 
-        <!-- ================= DASHBOARD ================= -->
+        <!-- DASHBOARD -->
 
-        <section id="page-dashboard" class="page">
+        <section
+          id="page-dashboard"
+          class="page"
+        >
 
-          <div class="page-title">Dashboard</div>
+          <div class="page-title">
+            Dashboard
+          </div>
 
           <div class="page-subtitle">
             TrackFlow performance overview
@@ -739,60 +955,136 @@
           <div class="stats-grid">
 
             <div class="stat-card">
-              <div class="stat-label">Clicks</div>
-              <div id="statClicks" class="stat-value">0</div>
+              <div class="stat-label">
+                Clicks
+              </div>
+
+              <div
+                id="statClicks"
+                class="stat-value"
+              >
+                0
+              </div>
             </div>
 
-            <div class="stat-card">
-              <div class="stat-label">Approved Conversions</div>
-              <div id="statConversions" class="stat-value">0</div>
-            </div>
 
             <div class="stat-card">
-              <div class="stat-label">Network Revenue</div>
-              <div id="statRevenue" class="stat-value">₹0</div>
+              <div class="stat-label">
+                Approved Conversions
+              </div>
+
+              <div
+                id="statConversions"
+                class="stat-value"
+              >
+                0
+              </div>
             </div>
 
+
             <div class="stat-card">
-              <div class="stat-label">TrackFlow Margin</div>
-              <div id="statMargin" class="stat-value">₹0</div>
+              <div class="stat-label">
+                Network Revenue
+              </div>
+
+              <div
+                id="statRevenue"
+                class="stat-value"
+              >
+                ₹0
+              </div>
+            </div>
+
+
+            <div class="stat-card">
+              <div class="stat-label">
+                TrackFlow Margin
+              </div>
+
+              <div
+                id="statMargin"
+                class="stat-value"
+              >
+                ₹0
+              </div>
             </div>
 
           </div>
 
+
           <div class="stats-grid">
 
             <div class="stat-card">
-              <div class="stat-label">Creator Earnings</div>
-              <div id="statCreatorEarnings" class="stat-value">₹0</div>
+              <div class="stat-label">
+                Creator Earnings
+              </div>
+
+              <div
+                id="statCreatorEarnings"
+                class="stat-value"
+              >
+                ₹0
+              </div>
             </div>
 
-            <div class="stat-card">
-              <div class="stat-label">Available Balance</div>
-              <div id="statAvailable" class="stat-value">₹0</div>
-            </div>
 
             <div class="stat-card">
-              <div class="stat-label">Pending Withdrawals</div>
-              <div id="statPendingWithdrawals" class="stat-value">0</div>
+              <div class="stat-label">
+                Available Balance
+              </div>
+
+              <div
+                id="statAvailable"
+                class="stat-value"
+              >
+                ₹0
+              </div>
             </div>
 
+
             <div class="stat-card">
-              <div class="stat-label">Role</div>
-              <div id="statRole" class="stat-value" style="font-size:18px;">
+              <div class="stat-label">
+                Pending Withdrawals
+              </div>
+
+              <div
+                id="statPendingWithdrawals"
+                class="stat-value"
+              >
+                0
+              </div>
+            </div>
+
+
+            <div class="stat-card">
+              <div class="stat-label">
+                Role
+              </div>
+
+              <div
+                id="statRole"
+                class="stat-value"
+                style="font-size:18px;"
+              >
                 Pending
               </div>
             </div>
 
           </div>
 
+
           <div class="panel">
 
             <div class="panel-header">
-              <div class="panel-title">Account Status</div>
+              <div class="panel-title">
+                Account Status
+              </div>
             </div>
 
-            <div id="accountStatusText" class="muted">
+            <div
+              id="accountStatusText"
+              class="muted"
+            >
               Loading account...
             </div>
 
@@ -800,47 +1092,76 @@
 
         </section>
 
-        <!-- ================= ADMIN OFFERS ================= -->
 
-        <section id="page-offers" class="page hidden">
+        <!-- ADMIN OFFERS -->
 
-          <div class="page-title">Master Offers</div>
+        <section
+          id="page-offers"
+          class="page hidden"
+        >
+
+          <div class="page-title">
+            Master Offers
+          </div>
 
           <div class="page-subtitle">
             Manage the master offer catalogue.
           </div>
 
-          <div id="adminOfferCreatePanel" class="panel hidden">
+
+          <div
+            id="adminOfferCreatePanel"
+            class="panel hidden"
+          >
 
             <div class="panel-header">
-              <div class="panel-title">Create Master Offer</div>
+              <div class="panel-title">
+                Create Master Offer
+              </div>
             </div>
+
 
             <form id="offerForm">
 
               <div class="form-grid">
 
                 <div class="field">
-                  <label>Offer Title</label>
+
+                  <label>
+                    Offer Title
+                  </label>
+
                   <input
                     id="offerTitle"
                     required
                     placeholder="Example: Free Fire Registration"
                   />
+
                 </div>
 
+
                 <div class="field">
-                  <label>Network Tracking Link</label>
+
+                  <label>
+                    Network Tracking Link
+                  </label>
+
                   <input
                     id="networkTrackingLink"
                     type="url"
                     required
                     placeholder="https://network.example/..."
                   />
+
                 </div>
 
+
                 <div class="field">
-                  <label>Network Payout (₹)</label>
+
+                  <label>
+                    Network Payout (₹)
+                  </label>
+
                   <input
                     id="networkPayout"
                     type="number"
@@ -849,87 +1170,165 @@
                     required
                     placeholder="100"
                   />
+
                 </div>
 
+
                 <div class="field">
-                  <label>Goal / Conversion Event</label>
+
+                  <label>
+                    Goal / Conversion Event
+                  </label>
+
                   <input
                     id="offerGoal"
                     required
                     placeholder="Registration / Install / Deposit"
                   />
+
                 </div>
 
+
                 <div class="field">
-                  <label>Status</label>
+
+                  <label>
+                    Status
+                  </label>
+
                   <select id="offerStatus">
-                    <option value="Active">Active</option>
-                    <option value="Inactive">Inactive</option>
+
+                    <option value="Active">
+                      Active
+                    </option>
+
+                    <option value="Inactive">
+                      Inactive
+                    </option>
+
                   </select>
+
                 </div>
 
               </div>
 
+
               <div class="action-row">
-                <button class="btn" type="submit">
+
+                <button
+                  class="btn"
+                  type="submit"
+                >
                   Create Offer
                 </button>
+
               </div>
 
             </form>
 
           </div>
 
+
           <div class="panel">
 
             <div class="panel-header">
-              <div class="panel-title">Offers</div>
+
+              <div class="panel-title">
+                Offers
+              </div>
+
             </div>
 
             <div id="offersTable">
-              <div class="muted">Loading...</div>
+              <div class="muted">
+                Loading...
+              </div>
             </div>
 
           </div>
 
         </section>
 
-        <!-- ================= ASSIGNMENTS ================= -->
 
-        <section id="page-assignments" class="page hidden">
+        <!-- ASSIGNMENTS -->
 
-          <div class="page-title">Assignments</div>
+        <section
+          id="page-assignments"
+          class="page hidden"
+        >
+
+          <div class="page-title">
+            Assignments
+          </div>
 
           <div class="page-subtitle">
             Assign active campaigns to creators.
           </div>
 
-          <div id="assignmentPanel" class="panel hidden">
+
+          <div
+            id="assignmentPanel"
+            class="panel hidden"
+          >
 
             <div class="panel-header">
-              <div class="panel-title">Assign Campaign</div>
+
+              <div class="panel-title">
+                Assign Campaign
+              </div>
+
             </div>
+
 
             <form id="assignmentForm">
 
               <div class="form-grid">
 
                 <div class="field">
-                  <label>Creator</label>
-                  <select id="assignmentCreator" required>
-                    <option value="">Select Creator</option>
+
+                  <label>
+                    Creator
+                  </label>
+
+                  <select
+                    id="assignmentCreator"
+                    required
+                  >
+
+                    <option value="">
+                      Select Creator
+                    </option>
+
                   </select>
+
                 </div>
 
-                <div class="field">
-                  <label>Offer</label>
-                  <select id="assignmentOffer" required>
-                    <option value="">Select Offer</option>
-                  </select>
-                </div>
 
                 <div class="field">
-                  <label>Creator Payout (₹)</label>
+
+                  <label>
+                    Offer
+                  </label>
+
+                  <select
+                    id="assignmentOffer"
+                    required
+                  >
+
+                    <option value="">
+                      Select Offer
+                    </option>
+
+                  </select>
+
+                </div>
+
+
+                <div class="field">
+
+                  <label>
+                    Creator Payout (₹)
+                  </label>
+
                   <input
                     id="assignmentPayout"
                     type="number"
@@ -938,112 +1337,180 @@
                     required
                     placeholder="75"
                   />
+
                 </div>
 
               </div>
 
+
               <div class="action-row">
-                <button class="btn" type="submit">
+
+                <button
+                  class="btn"
+                  type="submit"
+                >
                   Assign Campaign
                 </button>
+
               </div>
 
             </form>
 
           </div>
 
+
           <div class="panel">
 
             <div class="panel-header">
-              <div class="panel-title">Current Assignments</div>
+
+              <div class="panel-title">
+                Current Assignments
+              </div>
+
             </div>
 
             <div id="assignmentsTable">
-              <div class="muted">Loading...</div>
+              <div class="muted">
+                Loading...
+              </div>
             </div>
 
           </div>
 
         </section>
 
-        <!-- ================= USERS ================= -->
 
-        <section id="page-users" class="page hidden">
+        <!-- USERS -->
 
-          <div class="page-title">Network Users</div>
+        <section
+          id="page-users"
+          class="page hidden"
+        >
+
+          <div class="page-title">
+            Network Users
+          </div>
 
           <div class="page-subtitle">
             Manage publishers, creators and pending accounts.
           </div>
 
-          <div id="adminUserPanel" class="panel hidden">
+
+          <div
+            id="adminUserPanel"
+            class="panel hidden"
+          >
 
             <div class="panel-header">
-              <div class="panel-title">User Management</div>
+
+              <div class="panel-title">
+                User Management
+              </div>
+
             </div>
 
             <div id="usersTable">
-              <div class="muted">Loading...</div>
+              <div class="muted">
+                Loading...
+              </div>
             </div>
 
           </div>
 
-          <div id="publisherCreatorPanel" class="panel hidden">
+
+          <div
+            id="publisherCreatorPanel"
+            class="panel hidden"
+          >
 
             <div class="panel-header">
-              <div class="panel-title">My Creators</div>
+
+              <div class="panel-title">
+                My Creators
+              </div>
+
             </div>
 
             <div id="publisherCreatorsTable">
-              <div class="muted">Loading...</div>
+              <div class="muted">
+                Loading...
+              </div>
             </div>
 
           </div>
 
         </section>
 
-        <!-- ================= CONVERSIONS ================= -->
 
-        <section id="page-conversions" class="page hidden">
+        <!-- CONVERSIONS -->
 
-          <div class="page-title">Conversions</div>
+        <section
+          id="page-conversions"
+          class="page hidden"
+        >
+
+          <div class="page-title">
+            Conversions
+          </div>
 
           <div class="page-subtitle">
             Conversion status and payout history.
           </div>
 
+
           <div class="panel">
 
             <div id="conversionsTable">
-              <div class="muted">Loading...</div>
+              <div class="muted">
+                Loading...
+              </div>
             </div>
 
           </div>
 
         </section>
 
-        <!-- ================= WITHDRAWALS ================= -->
 
-        <section id="page-withdrawals" class="page hidden">
+        <!-- WITHDRAWALS -->
 
-          <div class="page-title">Withdrawals</div>
+        <section
+          id="page-withdrawals"
+          class="page hidden"
+        >
+
+          <div class="page-title">
+            Withdrawals
+          </div>
 
           <div class="page-subtitle">
             Manage withdrawal requests.
           </div>
 
-          <div id="creatorWithdrawalPanel" class="panel hidden">
+
+          <div
+            id="creatorWithdrawalPanel"
+            class="panel hidden"
+          >
 
             <div class="panel-header">
-              <div class="panel-title">Request Withdrawal</div>
+
+              <div class="panel-title">
+                Request Withdrawal
+              </div>
+
             </div>
+
 
             <form id="withdrawalForm">
 
               <div class="form-grid">
 
                 <div class="field">
-                  <label>Amount (₹)</label>
+                  
+                  <label>
+                    Amount (₹)
+                  </label>
+
                   <input
                     id="withdrawalAmount"
                     type="number"
@@ -1052,81 +1519,130 @@
                     placeholder="1000"
                     required
                   />
+
                 </div>
 
               </div>
 
-              <div class="muted" style="font-size:12px;">
+
+              <div
+                class="muted"
+                style="font-size:12px;"
+              >
                 Minimum withdrawal: ₹1,000
               </div>
 
+
               <div class="action-row">
-                <button class="btn" type="submit">
+
+                <button
+                  class="btn"
+                  type="submit"
+                >
                   Request Withdrawal
                 </button>
+
               </div>
 
             </form>
 
           </div>
 
-          <div id="adminWithdrawalPanel" class="panel hidden">
+
+          <div
+            id="adminWithdrawalPanel"
+            class="panel hidden"
+          >
 
             <div class="panel-header">
-              <div class="panel-title">Pending Withdrawal Requests</div>
+
+              <div class="panel-title">
+                Pending Withdrawal Requests
+              </div>
+
             </div>
 
             <div id="adminWithdrawalsTable">
-              <div class="muted">Loading...</div>
+              <div class="muted">
+                Loading...
+              </div>
             </div>
 
           </div>
 
-          <div id="creatorWithdrawalHistoryPanel" class="panel hidden">
+
+          <div
+            id="creatorWithdrawalHistoryPanel"
+            class="panel hidden"
+          >
 
             <div class="panel-header">
-              <div class="panel-title">My Withdrawal History</div>
+
+              <div class="panel-title">
+                My Withdrawal History
+              </div>
+
             </div>
 
             <div id="creatorWithdrawalsTable">
-              <div class="muted">Loading...</div>
+              <div class="muted">
+                Loading...
+              </div>
             </div>
 
           </div>
 
         </section>
 
-        <!-- ================= LEDGER ================= -->
 
-        <section id="page-ledger" class="page hidden">
+        <!-- LEDGER -->
 
-          <div class="page-title">Ledger</div>
+        <section
+          id="page-ledger"
+          class="page hidden"
+        >
+
+          <div class="page-title">
+            Ledger
+          </div>
 
           <div class="page-subtitle">
             Financial transaction history.
           </div>
 
+
           <div class="panel">
 
             <div id="ledgerTable">
-              <div class="muted">Loading...</div>
+              <div class="muted">
+                Loading...
+              </div>
             </div>
 
           </div>
 
         </section>
 
-        <!-- ================= CREATOR CAMPAIGNS ================= -->
 
-        <section id="creatorCampaignSection" class="hidden">
+        <!-- CREATOR CAMPAIGNS -->
 
-          <div class="page-title">My Campaigns</div>
+        <section
+          id="creatorCampaignSection"
+          class="hidden"
+        >
+
+          <div class="page-title">
+            My Campaigns
+          </div>
 
           <div class="page-subtitle">
             Campaigns assigned to your account.
           </div>
 
-          <div id="creatorCampaigns" class="campaign-grid"></div>
+          <div
+            id="creatorCampaigns"
+            class="campaign-grid"
+          ></div>
 
         </section>
 
@@ -1136,23 +1652,25 @@
 
   </section>
 
-  <!-- ================= FIREBASE ================= -->
+
+  <!-- =========================================================
+       FIREBASE
+       ========================================================= -->
 
   <script type="module">
 
     import { initializeApp }
       from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 
+
     import {
       getAuth,
       onAuthStateChanged,
       signInWithEmailAndPassword,
-      createUserWithEmailAndPassword,
-      signOut,
-      GoogleAuthProvider,
-      signInWithPopup
+      signOut
     }
       from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
 
     import {
       getFirestore,
@@ -1163,6 +1681,7 @@
     }
       from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
+
     import {
       getFunctions,
       httpsCallable
@@ -1171,30 +1690,64 @@
 
 
     /* =========================================================
-       IMPORTANT:
-       REPLACE THESE VALUES WITH YOUR FIREBASE WEB APP CONFIG
-       Firebase Console →
-       Project Settings →
-       Your Apps →
-       Web App →
-       Firebase SDK configuration
+       TRACKFLOW CONFIG
+       ========================================================= */
+
+    /*
+     * Contact email was not present in the HTML you supplied.
+     * Put your real support/contact email here when you have it.
+     *
+     * Do NOT put passwords, Firebase Admin credentials,
+     * service-account private keys or affiliate postback
+     * secrets in this frontend file.
+     */
+
+    const CONTACT_EMAIL = "";
+
+
+    /* =========================================================
+       FIREBASE WEB APP CONFIG
        ========================================================= */
 
     const firebaseConfig = {
-      apiKey: "YOUR_FIREBASE_API_KEY",
-      authDomain: "YOUR_FIREBASE_PROJECT.firebaseapp.com",
-      projectId: "YOUR_FIREBASE_PROJECT_ID",
-      storageBucket: "YOUR_FIREBASE_STORAGE_BUCKET",
-      messagingSenderId: "YOUR_FIREBASE_MESSAGING_SENDER_ID",
-      appId: "YOUR_FIREBASE_APP_ID"
+
+      apiKey:
+        "AIzaSyCs5X9luNPAYqEjVsk5PYh1cZrp-y4vcgw",
+
+      authDomain:
+        "ff-dashboard-e96dd.firebaseapp.com",
+
+      projectId:
+        "ff-dashboard-e96dd",
+
+      storageBucket:
+        "ff-dashboard-e96dd.firebasestorage.app",
+
+      messagingSenderId:
+        "710937510821",
+
+      appId:
+        "1:710937510821:web:24542defaad7f8349cde4c",
+
+      measurementId:
+        "G-JESJEE3J8X"
     };
 
 
-    const app = initializeApp(firebaseConfig);
+    const app =
+      initializeApp(firebaseConfig);
 
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-    const functions = getFunctions(app);
+
+    const auth =
+      getAuth(app);
+
+
+    const db =
+      getFirestore(app);
+
+
+    const functions =
+      getFunctions(app);
 
 
     /* =========================================================
@@ -1202,28 +1755,59 @@
        ========================================================= */
 
     const ensureMyProfile =
-      httpsCallable(functions, "ensureMyProfile");
+      httpsCallable(
+        functions,
+        "ensureMyProfile"
+      );
+
 
     const getDashboard =
-      httpsCallable(functions, "getDashboard");
+      httpsCallable(
+        functions,
+        "getDashboard"
+      );
+
 
     const createMasterOffer =
-      httpsCallable(functions, "createMasterOffer");
+      httpsCallable(
+        functions,
+        "createMasterOffer"
+      );
+
 
     const updateMasterOffer =
-      httpsCallable(functions, "updateMasterOffer");
+      httpsCallable(
+        functions,
+        "updateMasterOffer"
+      );
+
 
     const assignOffer =
-      httpsCallable(functions, "assignOffer");
+      httpsCallable(
+        functions,
+        "assignOffer"
+      );
+
 
     const setUserRole =
-      httpsCallable(functions, "setUserRole");
+      httpsCallable(
+        functions,
+        "setUserRole"
+      );
+
 
     const requestWithdrawal =
-      httpsCallable(functions, "requestWithdrawal");
+      httpsCallable(
+        functions,
+        "requestWithdrawal"
+      );
+
 
     const processWithdrawal =
-      httpsCallable(functions, "processWithdrawal");
+      httpsCallable(
+        functions,
+        "processWithdrawal"
+      );
 
 
     /* =========================================================
@@ -1231,11 +1815,13 @@
        ========================================================= */
 
     let currentUser = null;
+
     let currentProfile = null;
-    let authMode = "login";
 
     let cachedUsers = [];
+
     let cachedOffers = [];
+
     let cachedAssignments = [];
 
 
@@ -1243,223 +1829,341 @@
        HELPERS
        ========================================================= */
 
-    const $ = (id) => document.getElementById(id);
+    const $ =
+      (id) =>
+        document.getElementById(id);
 
-    function showMessage(message, type = "") {
 
-      const el = $("message");
+    function showMessage(
+      message,
+      type = ""
+    ) {
 
-      el.textContent = message;
-      el.className = type ? type : "";
+      const el =
+        $("message");
 
-      el.classList.remove("hidden");
+      el.textContent =
+        message;
 
-      clearTimeout(window.__messageTimer);
+      el.className =
+        type || "";
 
-      window.__messageTimer = setTimeout(() => {
-        el.classList.add("hidden");
-      }, 4500);
+      el.classList.remove(
+        "hidden"
+      );
+
+      clearTimeout(
+        window.__messageTimer
+      );
+
+      window.__messageTimer =
+        setTimeout(() => {
+
+          el.classList.add(
+            "hidden"
+          );
+
+        }, 4500);
     }
 
 
     function escapeHtml(value) {
 
-      return String(value ?? "")
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
+      return String(
+        value ?? ""
+      )
+        .replaceAll(
+          "&",
+          "&amp;"
+        )
+        .replaceAll(
+          "<",
+          "&lt;"
+        )
+        .replaceAll(
+          ">",
+          "&gt;"
+        )
+        .replaceAll(
+          '"',
+          "&quot;"
+        )
+        .replaceAll(
+          "'",
+          "&#039;"
+        );
     }
 
 
     function money(paise) {
 
-      const value = Number(paise || 0) / 100;
+      const value =
+        Number(
+          paise || 0
+        ) / 100;
 
-      return "₹" + value.toLocaleString("en-IN", {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-      });
+      return "₹" +
+        value.toLocaleString(
+          "en-IN",
+          {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+          }
+        );
     }
 
 
-    function formatDate(timestamp) {
+    function formatDate(
+      timestamp
+    ) {
 
-      if (!timestamp) return "-";
+      if (!timestamp) {
+        return "-";
+      }
 
       try {
 
-        const date = timestamp.toDate
-          ? timestamp.toDate()
-          : new Date(timestamp);
+        const date =
+          timestamp.toDate
+            ? timestamp.toDate()
+            : new Date(timestamp);
 
-        return date.toLocaleString("en-IN");
+        return date.toLocaleString(
+          "en-IN"
+        );
 
       } catch {
+
         return "-";
       }
     }
 
 
-    function statusBadge(status) {
+    function statusBadge(
+      status
+    ) {
 
-      const safe = escapeHtml(status || "Unknown");
+      const safe =
+        escapeHtml(
+          status ||
+          "Unknown"
+        );
 
-      return `<span class="status ${String(status || "")
-        .toLowerCase()}">${safe}</span>`;
+      return `
+        <span class="status ${
+          String(
+            status || ""
+          ).toLowerCase()
+        }">
+          ${safe}
+        </span>
+      `;
     }
 
 
-    function timestampValue(value) {
+    function timestampValue(
+      value
+    ) {
 
-      if (!value) return 0;
+      if (!value) {
+        return 0;
+      }
 
-      if (typeof value.toMillis === "function") {
+      if (
+        typeof value.toMillis ===
+        "function"
+      ) {
+
         return value.toMillis();
       }
 
-      const date = new Date(value);
+      const date =
+        new Date(value);
 
-      return Number.isNaN(date.getTime())
+      return Number.isNaN(
+        date.getTime()
+      )
         ? 0
         : date.getTime();
     }
 
 
     /* =========================================================
-       AUTH TABS
+       LANDING
        ========================================================= */
 
-    $("loginTab").addEventListener("click", () => {
+    $("accessDashboardBtn")
+      .addEventListener(
+        "click",
+        () => {
 
-      authMode = "login";
+          $("landingScreen")
+            .classList.add(
+              "hidden"
+            );
 
-      $("loginTab").classList.add("active");
-      $("signupTab").classList.remove("active");
+          $("authScreen")
+            .classList.remove(
+              "hidden"
+            );
 
-      $("nameField").classList.add("hidden");
+          $("emailInput")
+            .focus();
+        }
+      );
 
-      $("authSubmit").textContent = "Login";
-    });
 
+    $("backToLandingBtn")
+      .addEventListener(
+        "click",
+        () => {
 
-    $("signupTab").addEventListener("click", () => {
+          $("authScreen")
+            .classList.add(
+              "hidden"
+            );
 
-      authMode = "signup";
-
-      $("signupTab").classList.add("active");
-      $("loginTab").classList.remove("active");
-
-      $("nameField").classList.remove("hidden");
-
-      $("authSubmit").textContent = "Create Account";
-    });
+          $("landingScreen")
+            .classList.remove(
+              "hidden"
+            );
+        }
+      );
 
 
     /* =========================================================
-       EMAIL AUTH
+       CONTACT
        ========================================================= */
 
-    $("authForm").addEventListener("submit", async (event) => {
+    if (CONTACT_EMAIL) {worktrackflow@Gmail.com 
 
-      event.preventDefault();
+      $("contactUsBtn").href =
+        `mailto:${CONTACT_EMAIL}`;
 
-      const email = $("emailInput").value.trim();
-      const password = $("passwordInput").value;
-      const name = $("nameInput").value.trim();
+    } else {
 
-      try {
+      $("contactUsBtn")
+        .addEventListener(
+          "click",
+          (event) => {
 
-        $("authSubmit").disabled = true;
+            event.preventDefault();
 
-        if (authMode === "login") {
+            showMessage(
+              "Contact email has not been configured yet.",
+              "error"
+            );
+          }
+        );
+    }
 
-          await signInWithEmailAndPassword(
-            auth,
-            email,
-            password
-          );
 
-          showMessage("Login successful.", "success");
+    /* =========================================================
+       EMAIL LOGIN ONLY
+       ========================================================= */
 
-        } else {
+    $("authForm")
+      .addEventListener(
+        "submit",
+        async (event) => {
 
-          const credential =
-            await createUserWithEmailAndPassword(
+          event.preventDefault();
+
+          const email =
+            $("emailInput")
+              .value
+              .trim();
+
+          const password =
+            $("passwordInput")
+              .value;
+
+
+          if (!email || !password) {
+
+            showMessage(
+              "Enter your email and password.",
+              "error"
+            );
+
+            return;
+          }
+
+
+          try {
+
+            $("authSubmit")
+              .disabled = true;
+
+            await signInWithEmailAndPassword(
               auth,
               email,
               password
             );
 
-          /*
-           * The backend creates the authoritative profile.
-           * Name is passed only after authentication and is
-           * never used to select a privileged role.
-           */
+            showMessage(
+              "Login successful.",
+              "success"
+            );
 
-          if (name) {
+          } catch (error) {
 
-            try {
+            console.error(
+              "Authentication error:",
+              error
+            );
 
-              const { updateProfile } =
-                await import(
-                  "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js"
-                );
+            showMessage(
+              friendlyAuthError(
+                error
+              ),
+              "error"
+            );
 
-              await updateProfile(
-                credential.user,
-                {
-                  displayName: name
-                }
-              );
+          } finally {
 
-            } catch {
-              // Profile name is non-critical.
-            }
+            $("authSubmit")
+              .disabled = false;
           }
-
-          showMessage(
-            "Account created. Waiting for administrator approval.",
-            "success"
-          );
         }
-
-      } catch (error) {
-
-        showMessage(
-          friendlyAuthError(error),
-          "error"
-        );
-
-      } finally {
-
-        $("authSubmit").disabled = false;
-      }
-    });
+      );
 
 
-    function friendlyAuthError(error) {
+    function friendlyAuthError(
+      error
+    ) {
 
-      const code = error?.code || "";
+      const code =
+        error?.code || "";
+
 
       const messages = {
 
         "auth/invalid-credential":
           "Invalid email or password.",
 
-        "auth/email-already-in-use":
-          "This email is already registered.",
+        "auth/wrong-password":
+          "Invalid email or password.",
 
-        "auth/weak-password":
-          "Password should be at least 6 characters.",
+        "auth/user-not-found":
+          "Invalid email or password.",
 
         "auth/invalid-email":
           "Please enter a valid email.",
 
-        "auth/popup-closed-by-user":
-          "Google login was cancelled."
+        "auth/user-disabled":
+          "This account has been disabled.",
+
+        "auth/too-many-requests":
+          "Too many login attempts. Please try again later.",
+
+        "auth/network-request-failed":
+          "Network error. Check your internet connection.",
+
+        "auth/operation-not-allowed":
+          "Email/password authentication is not enabled in Firebase."
       };
+
 
       return messages[code] ||
         error?.message ||
@@ -1468,101 +2172,159 @@
 
 
     /* =========================================================
-       GOOGLE AUTH
-       ========================================================= */
-
-    $("googleBtn").addEventListener("click", async () => {
-
-      try {
-
-        const provider = new GoogleAuthProvider();
-
-        await signInWithPopup(auth, provider);
-
-        showMessage(
-          "Google login successful.",
-          "success"
-        );
-
-      } catch (error) {
-
-        showMessage(
-          friendlyAuthError(error),
-          "error"
-        );
-      }
-    });
-
-
-    /* =========================================================
        LOGOUT
        ========================================================= */
 
-    $("logoutBtn").addEventListener("click", async () => {
+    $("logoutBtn")
+      .addEventListener(
+        "click",
+        async () => {
 
-      try {
+          try {
 
-        await signOut(auth);
+            await signOut(
+              auth
+            );
 
-        showMessage("Logged out.", "success");
+            currentUser =
+              null;
 
-      } catch (error) {
+            currentProfile =
+              null;
 
-        showMessage(
-          error.message || "Logout failed.",
-          "error"
-        );
-      }
-    });
+            $("appScreen")
+              .classList.add(
+                "hidden"
+              );
+
+            $("authScreen")
+              .classList.add(
+                "hidden"
+              );
+
+            $("landingScreen")
+              .classList.remove(
+                "hidden"
+              );
+
+            $("emailInput")
+              .value = "";
+
+            $("passwordInput")
+              .value = "";
+
+            showMessage(
+              "Logged out.",
+              "success"
+            );
+
+          } catch (error) {
+
+            showMessage(
+              error?.message ||
+              "Logout failed.",
+              "error"
+            );
+          }
+        }
+      );
 
 
     /* =========================================================
        AUTH STATE
        ========================================================= */
 
-    onAuthStateChanged(auth, async (user) => {
+    onAuthStateChanged(
+      auth,
+      async (user) => {
 
-      currentUser = user;
+        currentUser =
+          user;
 
-      if (!user) {
 
-        currentProfile = null;
+        if (!user) {
 
-        $("authScreen").classList.remove("hidden");
-        $("appScreen").classList.add("hidden");
+          currentProfile =
+            null;
 
-        return;
+          $("appScreen")
+            .classList.add(
+              "hidden"
+            );
+
+          /*
+           * We intentionally keep the landing page
+           * as the first public screen.
+           */
+
+          if (
+            $("landingScreen")
+              .classList.contains(
+                "hidden"
+              )
+          ) {
+
+            $("authScreen")
+              .classList.remove(
+                "hidden"
+              );
+          }
+
+          return;
+        }
+
+
+        try {
+
+          /*
+           * Creates only a Pending profile
+           * when required.
+           *
+           * It cannot create privileged roles.
+           */
+
+          const result =
+            await ensureMyProfile();
+
+
+          currentProfile =
+            result.data;
+
+
+          $("landingScreen")
+            .classList.add(
+              "hidden"
+            );
+
+          $("authScreen")
+            .classList.add(
+              "hidden"
+            );
+
+          $("appScreen")
+            .classList.remove(
+              "hidden"
+            );
+
+
+          updateUserHeader();
+
+          await loadApplication();
+
+        } catch (error) {
+
+          console.error(
+            error
+          );
+
+          showMessage(
+            error?.message ||
+            "Unable to load your account.",
+            "error"
+          );
+        }
       }
-
-      try {
-
-        /*
-         * Creates only a Pending profile if one doesn't exist.
-         * It cannot create Admin/Publisher/Creator roles.
-         */
-
-        const result = await ensureMyProfile();
-
-        currentProfile = result.data;
-
-        $("authScreen").classList.add("hidden");
-        $("appScreen").classList.remove("hidden");
-
-        updateUserHeader();
-
-        await loadApplication();
-
-      } catch (error) {
-
-        console.error(error);
-
-        showMessage(
-          error?.message ||
-          "Unable to load your account.",
-          "error"
-        );
-      }
-    });
+    );
 
 
     function updateUserHeader() {
@@ -1573,15 +2335,22 @@
         currentUser?.email ||
         "User";
 
+
       const role =
         currentProfile?.role ||
         "Pending";
 
+
       $("userChip").innerHTML =
         `${escapeHtml(name)}
-         <span class="role-badge">${escapeHtml(role)}</span>`;
+         <span class="role-badge">
+           ${escapeHtml(role)}
+         </span>`;
 
-      $("statRole").textContent = role;
+
+      $("statRole")
+        .textContent =
+          role;
     }
 
 
@@ -1589,33 +2358,84 @@
        NAVIGATION
        ========================================================= */
 
-    document.querySelectorAll(".nav-btn")
-      .forEach(button => {
+    document
+      .querySelectorAll(
+        ".nav-btn"
+      )
+      .forEach(
+        button => {
 
-        button.addEventListener("click", async () => {
+          button.addEventListener(
+            "click",
+            async () => {
 
-          const page = button.dataset.page;
+              const page =
+                button.dataset.page;
 
-          document.querySelectorAll(".nav-btn")
-            .forEach(btn => btn.classList.remove("active"));
 
-          button.classList.add("active");
+              document
+                .querySelectorAll(
+                  ".nav-btn"
+                )
+                .forEach(
+                  btn =>
+                    btn.classList.remove(
+                      "active"
+                    )
+                );
 
-          document.querySelectorAll(".page")
-            .forEach(section => section.classList.add("hidden"));
 
-          const target = $("page-" + page);
+              button.classList.add(
+                "active"
+              );
 
-          if (target) {
-            target.classList.remove("hidden");
-          }
 
-          $("creatorCampaignSection")
-            .classList.add("hidden");
+              document
+                .querySelectorAll(
+                  ".page"
+                )
+                .forEach(
+                  section =>
+                    section.classList.add(
+                      "hidden"
+                    )
+                );
 
-          await loadPageData(page);
-        });
-      });
+
+              const target =
+                $("page-" + page);
+
+
+              if (target) {
+
+                target.classList.remove(
+                  "hidden"
+                );
+              }
+
+
+              $("creatorCampaignSection")
+                .classList.add(
+                  "hidden"
+                );
+
+
+              await loadPageData(
+                page
+              );
+
+
+              if (
+                currentProfile?.role ===
+                "Creator"
+              ) {
+
+                await showCreatorWorkspace();
+              }
+            }
+          );
+        }
+      );
 
 
     /* =========================================================
@@ -1630,13 +2450,26 @@
 
       await loadDashboard();
 
-      await loadPageData("dashboard");
+      await loadPageData(
+        "dashboard"
+      );
+
+
+      if (
+        currentProfile?.role ===
+        "Creator"
+      ) {
+
+        await showCreatorWorkspace();
+      }
     }
 
 
     function configureRoleUI() {
 
-      const role = currentProfile?.role;
+      const role =
+        currentProfile?.role;
+
 
       $("adminOfferCreatePanel")
         .classList.toggle(
@@ -1644,11 +2477,16 @@
           role !== "Admin"
         );
 
+
       $("assignmentPanel")
         .classList.toggle(
           "hidden",
-          !["Admin", "Publisher"].includes(role)
+          ![
+            "Admin",
+            "Publisher"
+          ].includes(role)
         );
+
 
       $("adminUserPanel")
         .classList.toggle(
@@ -1656,11 +2494,13 @@
           role !== "Admin"
         );
 
+
       $("publisherCreatorPanel")
         .classList.toggle(
           "hidden",
           role !== "Publisher"
         );
+
 
       $("adminWithdrawalPanel")
         .classList.toggle(
@@ -1668,11 +2508,13 @@
           role !== "Admin"
         );
 
+
       $("creatorWithdrawalPanel")
         .classList.toggle(
           "hidden",
           role !== "Creator"
         );
+
 
       $("creatorWithdrawalHistoryPanel")
         .classList.toggle(
@@ -1682,44 +2524,83 @@
     }
 
 
-    async function loadPageData(page) {
+    async function loadPageData(
+      page
+    ) {
 
       try {
 
-        if (page === "dashboard") {
+        if (
+          page ===
+          "dashboard"
+        ) {
+
           await loadDashboard();
         }
 
-        if (page === "offers") {
+
+        if (
+          page ===
+          "offers"
+        ) {
+
           await loadOffers();
         }
 
-        if (page === "assignments") {
+
+        if (
+          page ===
+          "assignments"
+        ) {
+
           await loadAssignments();
         }
 
-        if (page === "users") {
+
+        if (
+          page ===
+          "users"
+        ) {
+
           await loadUsers();
         }
 
-        if (page === "conversions") {
+
+        if (
+          page ===
+          "conversions"
+        ) {
+
           await loadConversions();
         }
 
-        if (page === "withdrawals") {
+
+        if (
+          page ===
+          "withdrawals"
+        ) {
+
           await loadWithdrawals();
         }
 
-        if (page === "ledger") {
+
+        if (
+          page ===
+          "ledger"
+        ) {
+
           await loadLedger();
         }
 
       } catch (error) {
 
-        console.error(error);
+        console.error(
+          error
+        );
 
         showMessage(
-          error?.message || "Unable to load data.",
+          error?.message ||
+          "Unable to load data.",
           "error"
         );
       }
@@ -1732,36 +2613,77 @@
 
     async function loadDashboard() {
 
-      const result = await getDashboard();
+      const result =
+        await getDashboard();
 
-      const data = result.data || {};
 
-      $("statClicks").textContent =
-        Number(data.clicks || 0).toLocaleString("en-IN");
+      const data =
+        result.data || {};
 
-      $("statConversions").textContent =
-        Number(data.approvedConversions || 0)
-          .toLocaleString("en-IN");
 
-      $("statRevenue").textContent =
-        money(data.networkRevenuePaise);
+      $("statClicks")
+        .textContent =
+          Number(
+            data.clicks || 0
+          ).toLocaleString(
+            "en-IN"
+          );
 
-      $("statMargin").textContent =
-        money(data.marginPaise);
 
-      $("statCreatorEarnings").textContent =
-        money(data.creatorEarningsPaise);
+      $("statConversions")
+        .textContent =
+          Number(
+            data.approvedConversions ||
+            0
+          ).toLocaleString(
+            "en-IN"
+          );
 
-      $("statAvailable").textContent =
-        money(data.availableBalancePaise);
 
-      $("statPendingWithdrawals").textContent =
-        Number(data.pendingWithdrawals || 0);
+      $("statRevenue")
+        .textContent =
+          money(
+            data.networkRevenuePaise
+          );
 
-      $("accountStatusText").textContent =
-        currentProfile?.role === "Pending"
-          ? "Your account is pending administrator approval."
-          : `Your account is active as ${currentProfile?.role}.`;
+
+      $("statMargin")
+        .textContent =
+          money(
+            data.marginPaise
+          );
+
+
+      $("statCreatorEarnings")
+        .textContent =
+          money(
+            data.creatorEarningsPaise
+          );
+
+
+      $("statAvailable")
+        .textContent =
+          money(
+            data.availableBalancePaise
+          );
+
+
+      $("statPendingWithdrawals")
+        .textContent =
+          Number(
+            data.pendingWithdrawals ||
+            0
+          );
+
+
+      $("accountStatusText")
+        .textContent =
+          currentProfile?.role ===
+          "Pending"
+
+            ? "Your account is pending administrator approval."
+
+            : `Your account is active as ${currentProfile?.role}.`;
     }
 
 
@@ -1769,189 +2691,313 @@
        MASTER OFFERS
        ========================================================= */
 
-    $("offerForm").addEventListener("submit", async (event) => {
+    $("offerForm")
+      .addEventListener(
+        "submit",
+        async event => {
 
-      event.preventDefault();
+          event.preventDefault();
 
-      try {
 
-        const title =
-          $("offerTitle").value.trim();
+          try {
 
-        const trackingLink =
-          $("networkTrackingLink").value.trim();
+            const title =
+              $("offerTitle")
+                .value
+                .trim();
 
-        const payout =
-          Number($("networkPayout").value);
 
-        const goal =
-          $("offerGoal").value.trim();
+            const trackingLink =
+              $("networkTrackingLink")
+                .value
+                .trim();
 
-        const status =
-          $("offerStatus").value;
 
-        if (!title || !trackingLink || !goal) {
-          throw new Error("Please fill all offer fields.");
+            const payout =
+              Number(
+                $("networkPayout")
+                  .value
+              );
+
+
+            const goal =
+              $("offerGoal")
+                .value
+                .trim();
+
+
+            const status =
+              $("offerStatus")
+                .value;
+
+
+            if (
+              !title ||
+              !trackingLink ||
+              !goal
+            ) {
+
+              throw new Error(
+                "Please fill all offer fields."
+              );
+            }
+
+
+            if (
+              !Number.isFinite(
+                payout
+              ) ||
+              payout < 0
+            ) {
+
+              throw new Error(
+                "Invalid network payout."
+              );
+            }
+
+
+            await createMasterOffer({
+
+              offerTitle:
+                title,
+
+              networkTrackingLink:
+                trackingLink,
+
+              networkPayout:
+                payout,
+
+              goal,
+
+              status
+
+            });
+
+
+            $("offerForm")
+              .reset();
+
+
+            showMessage(
+              "Master offer created.",
+              "success"
+            );
+
+
+            await loadOffers();
+
+          } catch (error) {
+
+            showMessage(
+              error?.message ||
+              "Unable to create offer.",
+              "error"
+            );
+          }
         }
-
-        if (!Number.isFinite(payout) || payout < 0) {
-          throw new Error("Invalid network payout.");
-        }
-
-        await createMasterOffer({
-          offerTitle: title,
-          networkTrackingLink: trackingLink,
-          networkPayout: payout,
-          goal,
-          status
-        });
-
-        $("offerForm").reset();
-
-        showMessage(
-          "Master offer created.",
-          "success"
-        );
-
-        await loadOffers();
-
-      } catch (error) {
-
-        showMessage(
-          error?.message || "Unable to create offer.",
-          "error"
-        );
-      }
-    });
+      );
 
 
     async function loadOffers() {
 
-      if (currentProfile?.role !== "Admin") {
-        $("offersTable").innerHTML =
-          `<div class="muted">
-             Master offers are managed by administrators.
-           </div>`;
+      if (
+        currentProfile?.role !==
+        "Admin"
+      ) {
+
+        $("offersTable")
+          .innerHTML =
+            `
+              <div class="muted">
+                Master offers are managed by administrators.
+              </div>
+            `;
+
         return;
       }
+
 
       const snapshot =
         await getDocs(
-          collection(db, "masterOffers")
+          collection(
+            db,
+            "masterOffers"
+          )
         );
 
-      cachedOffers = snapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      }));
 
-      if (!cachedOffers.length) {
+      cachedOffers =
+        snapshot.docs.map(
+          doc => ({
+            id: doc.id,
+            ...doc.data()
+          })
+        );
 
-        $("offersTable").innerHTML =
-          `<div class="muted">
-             No master offers found.
-           </div>`;
+
+      if (
+        !cachedOffers.length
+      ) {
+
+        $("offersTable")
+          .innerHTML =
+            `
+              <div class="muted">
+                No master offers found.
+              </div>
+            `;
 
         return;
       }
 
-      $("offersTable").innerHTML = `
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Offer</th>
-                <th>Network Payout</th>
-                <th>Goal</th>
-                <th>Status</th>
-                <th>Action</th>
-              </tr>
-            </thead>
 
-            <tbody>
+      $("offersTable")
+        .innerHTML = `
 
-              ${cachedOffers.map(offer => `
+          <div class="table-wrap">
+
+            <table>
+
+              <thead>
 
                 <tr>
-
-                  <td>
-                    ${escapeHtml(offer.offerTitle)}
-                  </td>
-
-                  <td>
-                    ${money(offer.networkPayoutPaise)}
-                  </td>
-
-                  <td>
-                    ${escapeHtml(offer.goal)}
-                  </td>
-
-                  <td>
-                    ${statusBadge(offer.status)}
-                  </td>
-
-                  <td>
-
-                    <button
-                      class="btn small secondary"
-                      data-toggle-offer="${escapeHtml(offer.id)}"
-                    >
-                      ${offer.status === "Active"
-                        ? "Deactivate"
-                        : "Activate"}
-                    </button>
-
-                  </td>
-
+                  <th>Offer</th>
+                  <th>Network Payout</th>
+                  <th>Goal</th>
+                  <th>Status</th>
+                  <th>Action</th>
                 </tr>
 
-              `).join("")}
+              </thead>
 
-            </tbody>
-          </table>
-        </div>
-      `;
+              <tbody>
+
+                ${cachedOffers
+                  .map(
+                    offer => `
+
+                      <tr>
+
+                        <td>
+                          ${escapeHtml(
+                            offer.offerTitle
+                          )}
+                        </td>
+
+                        <td>
+                          ${money(
+                            offer.networkPayoutPaise
+                          )}
+                        </td>
+
+                        <td>
+                          ${escapeHtml(
+                            offer.goal
+                          )}
+                        </td>
+
+                        <td>
+                          ${statusBadge(
+                            offer.status
+                          )}
+                        </td>
+
+                        <td>
+
+                          <button
+                            class="btn small secondary"
+                            data-toggle-offer="${escapeHtml(
+                              offer.id
+                            )}"
+                          >
+                            ${
+                              offer.status ===
+                              "Active"
+                                ? "Deactivate"
+                                : "Activate"
+                            }
+                          </button>
+
+                        </td>
+
+                      </tr>
+
+                    `
+                  )
+                  .join("")}
+
+              </tbody>
+
+            </table>
+
+          </div>
+        `;
+
 
       document
-        .querySelectorAll("[data-toggle-offer]")
-        .forEach(button => {
+        .querySelectorAll(
+          "[data-toggle-offer]"
+        )
+        .forEach(
+          button => {
 
-          button.addEventListener("click", async () => {
+            button.addEventListener(
+              "click",
+              async () => {
 
-            const offerId =
-              button.dataset.toggleOffer;
+                const offerId =
+                  button.dataset
+                    .toggleOffer;
 
-            const offer =
-              cachedOffers.find(x => x.id === offerId);
 
-            if (!offer) return;
+                const offer =
+                  cachedOffers.find(
+                    x =>
+                      x.id ===
+                      offerId
+                  );
 
-            try {
 
-              await updateMasterOffer({
-                offerId,
-                status:
-                  offer.status === "Active"
-                    ? "Inactive"
-                    : "Active"
-              });
+                if (!offer) {
+                  return;
+                }
 
-              showMessage(
-                "Offer status updated.",
-                "success"
-              );
 
-              await loadOffers();
+                try {
 
-            } catch (error) {
+                  await updateMasterOffer({
 
-              showMessage(
-                error?.message || "Update failed.",
-                "error"
-              );
-            }
-          });
-        });
+                    offerId,
+
+                    status:
+                      offer.status ===
+                      "Active"
+                        ? "Inactive"
+                        : "Active"
+
+                  });
+
+
+                  showMessage(
+                    "Offer status updated.",
+                    "success"
+                  );
+
+
+                  await loadOffers();
+
+                } catch (error) {
+
+                  showMessage(
+                    error?.message ||
+                    "Update failed.",
+                    "error"
+                  );
+                }
+              }
+            );
+          }
+        );
     }
 
 
@@ -1961,60 +3007,118 @@
 
     async function loadAssignments() {
 
-      const role = currentProfile?.role;
+      const role =
+        currentProfile?.role;
 
-      if (!["Admin", "Publisher", "Creator"].includes(role)) {
-        $("assignmentsTable").innerHTML =
-          `<div class="muted">
-             No assignment access.
-           </div>`;
+
+      if (
+        ![
+          "Admin",
+          "Publisher",
+          "Creator"
+        ].includes(role)
+      ) {
+
+        $("assignmentsTable")
+          .innerHTML =
+            `
+              <div class="muted">
+                No assignment access.
+              </div>
+            `;
+
         return;
       }
 
+
       const constraints = [];
 
-      if (role === "Creator") {
+
+      if (
+        role ===
+        "Creator"
+      ) {
+
         constraints.push(
-          where("creatorId", "==", currentUser.uid)
+          where(
+            "creatorId",
+            "==",
+            currentUser.uid
+          )
         );
       }
 
-      if (role === "Publisher") {
+
+      if (
+        role ===
+        "Publisher"
+      ) {
+
         constraints.push(
-          where("publisherId", "==", currentUser.uid)
+          where(
+            "publisherId",
+            "==",
+            currentUser.uid
+          )
         );
       }
+
 
       const assignmentQuery =
         constraints.length
+
           ? query(
-              collection(db, "assignments"),
+              collection(
+                db,
+                "assignments"
+              ),
               ...constraints
             )
-          : collection(db, "assignments");
+
+          : collection(
+              db,
+              "assignments"
+            );
+
 
       const snapshot =
-        await getDocs(assignmentQuery);
+        await getDocs(
+          assignmentQuery
+        );
+
 
       cachedAssignments =
-        snapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data()
-        }));
+        snapshot.docs.map(
+          doc => ({
+            id: doc.id,
+            ...doc.data()
+          })
+        );
 
 
-      /* Populate assignment dropdowns */
-
-      if (["Admin", "Publisher"].includes(role)) {
+      if (
+        [
+          "Admin",
+          "Publisher"
+        ].includes(role)
+      ) {
 
         const usersSnapshot =
           role === "Admin"
+
             ? await getDocs(
-                collection(db, "users")
+                collection(
+                  db,
+                  "users"
+                )
               )
+
             : await getDocs(
                 query(
-                  collection(db, "users"),
+                  collection(
+                    db,
+                    "users"
+                  ),
                   where(
                     "publisherId",
                     "==",
@@ -2023,200 +3127,301 @@
                 )
               );
 
+
         const creators =
           usersSnapshot.docs
-            .map(doc => ({
-              id: doc.id,
-              ...doc.data()
-            }))
-            .filter(user =>
-              user.role === "Creator"
+            .map(
+              doc => ({
+                id: doc.id,
+                ...doc.data()
+              })
+            )
+            .filter(
+              user =>
+                user.role ===
+                "Creator"
             );
 
-        $("assignmentCreator").innerHTML =
-          `<option value="">Select Creator</option>` +
-          creators.map(user => `
-            <option value="${escapeHtml(user.id)}">
-              ${escapeHtml(
-                user.displayName ||
-                user.email ||
-                user.id
-              )}
-            </option>
-          `).join("");
+
+        $("assignmentCreator")
+          .innerHTML =
+            `<option value="">
+              Select Creator
+            </option>` +
+
+            creators
+              .map(
+                user => `
+                  <option value="${escapeHtml(
+                    user.id
+                  )}">
+                    ${escapeHtml(
+                      user.displayName ||
+                      user.email ||
+                      user.id
+                    )}
+                  </option>
+                `
+              )
+              .join("");
+
+
+        if (
+          role === "Admin"
+        ) {
+
+          await loadOffers();
+        }
+
 
         const activeOffers =
-          cachedOffers.length
-            ? cachedOffers.filter(
-                offer => offer.status === "Active"
-              )
-            : [];
+          cachedOffers.filter(
+            offer =>
+              offer.status ===
+              "Active"
+          );
 
-        $("assignmentOffer").innerHTML =
-          `<option value="">Select Offer</option>` +
-          activeOffers.map(offer => `
-            <option
-              value="${escapeHtml(offer.id)}"
-              data-payout="${Number(
-                offer.networkPayoutPaise || 0
-              )}"
-            >
-              ${escapeHtml(offer.offerTitle)}
-              — ${money(offer.networkPayoutPaise)}
-            </option>
-          `).join("");
+
+        $("assignmentOffer")
+          .innerHTML =
+            `<option value="">
+              Select Offer
+            </option>` +
+
+            activeOffers
+              .map(
+                offer => `
+                  <option
+                    value="${escapeHtml(
+                      offer.id
+                    )}"
+                    data-payout="${Number(
+                      offer.networkPayoutPaise ||
+                      0
+                    )}"
+                  >
+                    ${escapeHtml(
+                      offer.offerTitle
+                    )}
+                    —
+                    ${money(
+                      offer.networkPayoutPaise
+                    )}
+                  </option>
+                `
+              )
+              .join("");
       }
 
 
-      if (!cachedAssignments.length) {
+      if (
+        !cachedAssignments.length
+      ) {
 
-        $("assignmentsTable").innerHTML =
-          `<div class="muted">
-             No assignments found.
-           </div>`;
+        $("assignmentsTable")
+          .innerHTML =
+            `
+              <div class="muted">
+                No assignments found.
+              </div>
+            `;
 
         return;
       }
 
 
-      $("assignmentsTable").innerHTML = `
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Campaign</th>
-                <th>Creator</th>
-                <th>Creator Payout</th>
-                <th>Status</th>
-                <th>Created</th>
-              </tr>
-            </thead>
+      $("assignmentsTable")
+        .innerHTML = `
 
-            <tbody>
+          <div class="table-wrap">
 
-              ${cachedAssignments.map(item => `
+            <table>
+
+              <thead>
 
                 <tr>
-
-                  <td>
-                    ${escapeHtml(
-                      item.offerTitle ||
-                      item.offerId ||
-                      "-"
-                    )}
-                  </td>
-
-                  <td>
-                    ${escapeHtml(
-                      item.creatorId || "-"
-                    )}
-                  </td>
-
-                  <td>
-                    ${money(
-                      item.creatorPayoutPaise
-                    )}
-                  </td>
-
-                  <td>
-                    ${statusBadge(item.status)}
-                  </td>
-
-                  <td>
-                    ${formatDate(item.createdAt)}
-                  </td>
-
+                  <th>Campaign</th>
+                  <th>Creator</th>
+                  <th>Creator Payout</th>
+                  <th>Status</th>
+                  <th>Created</th>
                 </tr>
 
-              `).join("")}
+              </thead>
 
-            </tbody>
-          </table>
-        </div>
-      `;
+              <tbody>
+
+                ${cachedAssignments
+                  .map(
+                    item => `
+
+                      <tr>
+
+                        <td>
+                          ${escapeHtml(
+                            item.offerTitle ||
+                            item.offerId ||
+                            "-"
+                          )}
+                        </td>
+
+                        <td>
+                          ${escapeHtml(
+                            item.creatorId ||
+                            "-"
+                          )}
+                        </td>
+
+                        <td>
+                          ${money(
+                            item.creatorPayoutPaise
+                          )}
+                        </td>
+
+                        <td>
+                          ${statusBadge(
+                            item.status
+                          )}
+                        </td>
+
+                        <td>
+                          ${formatDate(
+                            item.createdAt
+                          )}
+                        </td>
+
+                      </tr>
+
+                    `
+                  )
+                  .join("")}
+
+              </tbody>
+
+            </table>
+
+          </div>
+        `;
     }
 
 
-    $("assignmentForm").addEventListener("submit", async event => {
+    $("assignmentForm")
+      .addEventListener(
+        "submit",
+        async event => {
 
-      event.preventDefault();
+          event.preventDefault();
 
-      try {
 
-        const creatorId =
-          $("assignmentCreator").value;
+          try {
 
-        const offerId =
-          $("assignmentOffer").value;
+            const creatorId =
+              $("assignmentCreator")
+                .value;
 
-        const creatorPayout =
-          Number($("assignmentPayout").value);
 
-        if (!creatorId || !offerId) {
-          throw new Error(
-            "Select a creator and an offer."
-          );
+            const offerId =
+              $("assignmentOffer")
+                .value;
+
+
+            const creatorPayout =
+              Number(
+                $("assignmentPayout")
+                  .value
+              );
+
+
+            if (
+              !creatorId ||
+              !offerId
+            ) {
+
+              throw new Error(
+                "Select a creator and an offer."
+              );
+            }
+
+
+            if (
+              !Number.isFinite(
+                creatorPayout
+              ) ||
+              creatorPayout < 0
+            ) {
+
+              throw new Error(
+                "Enter a valid creator payout."
+              );
+            }
+
+
+            await assignOffer({
+
+              creatorId,
+
+              offerId,
+
+              creatorPayout
+
+            });
+
+
+            $("assignmentForm")
+              .reset();
+
+
+            showMessage(
+              "Campaign assigned successfully.",
+              "success"
+            );
+
+
+            await loadAssignments();
+
+          } catch (error) {
+
+            showMessage(
+              error?.message ||
+              "Unable to assign campaign.",
+              "error"
+            );
+          }
         }
+      );
 
-        if (
-          !Number.isFinite(creatorPayout) ||
-          creatorPayout < 0
-        ) {
-          throw new Error(
-            "Enter a valid creator payout."
-          );
+
+    $("assignmentOffer")
+      .addEventListener(
+        "change",
+        () => {
+
+          const option =
+            $("assignmentOffer")
+              .selectedOptions[0];
+
+
+          if (!option) {
+            return;
+          }
+
+
+          const networkPayoutPaise =
+            Number(
+              option.dataset.payout ||
+              0
+            );
+
+
+          $("assignmentPayout")
+            .value =
+              (
+                networkPayoutPaise *
+                0.75 /
+                100
+              ).toFixed(2);
         }
-
-        await assignOffer({
-          creatorId,
-          offerId,
-          creatorPayout
-        });
-
-        $("assignmentForm").reset();
-
-        showMessage(
-          "Campaign assigned successfully.",
-          "success"
-        );
-
-        await loadAssignments();
-
-      } catch (error) {
-
-        showMessage(
-          error?.message ||
-          "Unable to assign campaign.",
-          "error"
-        );
-      }
-    });
-
-
-    $("assignmentOffer").addEventListener("change", () => {
-
-      const option =
-        $("assignmentOffer")
-          .selectedOptions[0];
-
-      if (!option) return;
-
-      const networkPayoutPaise =
-        Number(
-          option.dataset.payout || 0
-        );
-
-      /*
-       * Default creator payout:
-       * 75% of network payout.
-       * Backend validates it never exceeds
-       * the trusted network payout.
-       */
-
-      $("assignmentPayout").value =
-        ((networkPayoutPaise * 0.75) / 100)
-          .toFixed(2);
-    });
+      );
 
 
     /* =========================================================
@@ -2225,208 +3430,311 @@
 
     async function loadUsers() {
 
-      const role = currentProfile?.role;
+      const role =
+        currentProfile?.role;
 
-      if (role === "Admin") {
+
+      if (
+        role === "Admin"
+      ) {
 
         const snapshot =
           await getDocs(
-            collection(db, "users")
+            collection(
+              db,
+              "users"
+            )
           );
 
+
         cachedUsers =
-          snapshot.docs.map(doc => ({
-            id: doc.id,
-            ...doc.data()
-          }));
+          snapshot.docs.map(
+            doc => ({
+              id: doc.id,
+              ...doc.data()
+            })
+          );
 
-        if (!cachedUsers.length) {
 
-          $("usersTable").innerHTML =
-            `<div class="muted">
-               No users found.
-             </div>`;
+        if (
+          !cachedUsers.length
+        ) {
+
+          $("usersTable")
+            .innerHTML =
+              `
+                <div class="muted">
+                  No users found.
+                </div>
+              `;
 
           return;
         }
 
-        $("usersTable").innerHTML = `
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>User</th>
-                  <th>Email</th>
-                  <th>Current Role</th>
-                  <th>Publisher ID</th>
-                  <th>Change Role</th>
-                </tr>
-              </thead>
 
-              <tbody>
+        $("usersTable")
+          .innerHTML = `
 
-                ${cachedUsers.map(user => `
+            <div class="table-wrap">
+
+              <table>
+
+                <thead>
 
                   <tr>
-
-                    <td>
-                      ${escapeHtml(
-                        user.displayName ||
-                        "-"
-                      )}
-                    </td>
-
-                    <td>
-                      ${escapeHtml(
-                        user.email ||
-                        "-"
-                      )}
-                    </td>
-
-                    <td>
-                      ${statusBadge(
-                        user.role || "Pending"
-                      )}
-                    </td>
-
-                    <td>
-                      ${escapeHtml(
-                        user.publisherId ||
-                        "-"
-                      )}
-                    </td>
-
-                    <td>
-
-                      <div style="
-                        display:flex;
-                        gap:6px;
-                        min-width:250px;
-                      ">
-
-                        <select
-                          data-role-select="${escapeHtml(user.id)}"
-                          style="
-                            background:#0d1528;
-                            color:white;
-                            border:1px solid var(--border);
-                            border-radius:7px;
-                            padding:7px;
-                          "
-                        >
-
-                          <option value="Pending"
-                            ${user.role === "Pending" ? "selected" : ""}>
-                            Pending
-                          </option>
-
-                          <option value="Publisher"
-                            ${user.role === "Publisher" ? "selected" : ""}>
-                            Publisher
-                          </option>
-
-                          <option value="Creator"
-                            ${user.role === "Creator" ? "selected" : ""}>
-                            Creator
-                          </option>
-
-                          <option value="Admin"
-                            ${user.role === "Admin" ? "selected" : ""}>
-                            Admin
-                          </option>
-
-                        </select>
-
-                        <button
-                          class="btn small"
-                          data-save-role="${escapeHtml(user.id)}"
-                        >
-                          Save
-                        </button>
-
-                      </div>
-
-                    </td>
-
+                    <th>User</th>
+                    <th>Email</th>
+                    <th>Current Role</th>
+                    <th>Publisher ID</th>
+                    <th>Change Role</th>
                   </tr>
 
-                `).join("")}
+                </thead>
 
-              </tbody>
-            </table>
-          </div>
-        `;
+                <tbody>
+
+                  ${cachedUsers
+                    .map(
+                      user => `
+
+                        <tr>
+
+                          <td>
+                            ${escapeHtml(
+                              user.displayName ||
+                              "-"
+                            )}
+                          </td>
+
+                          <td>
+                            ${escapeHtml(
+                              user.email ||
+                              "-"
+                            )}
+                          </td>
+
+                          <td>
+                            ${statusBadge(
+                              user.role ||
+                              "Pending"
+                            )}
+                          </td>
+
+                          <td>
+                            ${escapeHtml(
+                              user.publisherId ||
+                              "-"
+                            )}
+                          </td>
+
+                          <td>
+
+                            <div
+                              style="
+                                display:flex;
+                                gap:6px;
+                                min-width:250px;
+                              "
+                            >
+
+                              <select
+                                data-role-select="${escapeHtml(
+                                  user.id
+                                )}"
+                                style="
+                                  background:#0d1528;
+                                  color:white;
+                                  border:1px solid var(--border);
+                                  border-radius:7px;
+                                  padding:7px;
+                                "
+                              >
+
+                                <option
+                                  value="Pending"
+                                  ${
+                                    user.role ===
+                                    "Pending"
+                                      ? "selected"
+                                      : ""
+                                  }
+                                >
+                                  Pending
+                                </option>
+
+                                <option
+                                  value="Publisher"
+                                  ${
+                                    user.role ===
+                                    "Publisher"
+                                      ? "selected"
+                                      : ""
+                                  }
+                                >
+                                  Publisher
+                                </option>
+
+                                <option
+                                  value="Creator"
+                                  ${
+                                    user.role ===
+                                    "Creator"
+                                      ? "selected"
+                                      : ""
+                                  }
+                                >
+                                  Creator
+                                </option>
+
+                                <option
+                                  value="Admin"
+                                  ${
+                                    user.role ===
+                                    "Admin"
+                                      ? "selected"
+                                      : ""
+                                  }
+                                >
+                                  Admin
+                                </option>
+
+                              </select>
+
+
+                              <button
+                                class="btn small"
+                                data-save-role="${escapeHtml(
+                                  user.id
+                                )}"
+                              >
+                                Save
+                              </button>
+
+                            </div>
+
+                          </td>
+
+                        </tr>
+
+                      `
+                    )
+                    .join("")}
+
+                </tbody>
+
+              </table>
+
+            </div>
+          `;
 
 
         document
-          .querySelectorAll("[data-save-role]")
-          .forEach(button => {
+          .querySelectorAll(
+            "[data-save-role]"
+          )
+          .forEach(
+            button => {
 
-            button.addEventListener("click", async () => {
+              button.addEventListener(
+                "click",
+                async () => {
 
-              const uid =
-                button.dataset.saveRole;
+                  const uid =
+                    button.dataset
+                      .saveRole;
 
-              const select =
-                document.querySelector(
-                  `[data-role-select="${CSS.escape(uid)}"]`
-                );
 
-              const newRole =
-                select?.value;
+                  const select =
+                    document.querySelector(
+                      `[data-role-select="${CSS.escape(
+                        uid
+                      )}"]`
+                    );
 
-              if (!newRole) return;
 
-              let publisherId = null;
+                  const newRole =
+                    select?.value;
 
-              if (newRole === "Creator") {
 
-                publisherId =
-                  prompt(
-                    "Enter this Creator's Publisher UID:"
-                  );
+                  if (!newRole) {
+                    return;
+                  }
 
-                if (!publisherId) {
-                  return;
+
+                  let publisherId =
+                    null;
+
+
+                  if (
+                    newRole ===
+                    "Creator"
+                  ) {
+
+                    publisherId =
+                      prompt(
+                        "Enter this Creator's Publisher UID:"
+                      );
+
+
+                    if (!publisherId) {
+                      return;
+                    }
+                  }
+
+
+                  try {
+
+                    await setUserRole({
+
+                      userId:
+                        uid,
+
+                      role:
+                        newRole,
+
+                      publisherId
+
+                    });
+
+
+                    showMessage(
+                      "User role updated.",
+                      "success"
+                    );
+
+
+                    await loadUsers();
+
+                  } catch (error) {
+
+                    showMessage(
+                      error?.message ||
+                      "Unable to update role.",
+                      "error"
+                    );
+                  }
                 }
-              }
+              );
+            }
+          );
 
-              try {
-
-                await setUserRole({
-                  userId: uid,
-                  role: newRole,
-                  publisherId
-                });
-
-                showMessage(
-                  "User role updated.",
-                  "success"
-                );
-
-                await loadUsers();
-
-              } catch (error) {
-
-                showMessage(
-                  error?.message ||
-                  "Unable to update role.",
-                  "error"
-                );
-              }
-            });
-          });
 
         return;
       }
 
 
-      if (role === "Publisher") {
+      if (
+        role ===
+        "Publisher"
+      ) {
 
         const snapshot =
           await getDocs(
             query(
-              collection(db, "users"),
+              collection(
+                db,
+                "users"
+              ),
               where(
                 "publisherId",
                 "==",
@@ -2435,75 +3743,102 @@
             )
           );
 
+
         const creators =
           snapshot.docs
-            .map(doc => ({
-              id: doc.id,
-              ...doc.data()
-            }))
-            .filter(user =>
-              user.role === "Creator"
+            .map(
+              doc => ({
+                id: doc.id,
+                ...doc.data()
+              })
+            )
+            .filter(
+              user =>
+                user.role ===
+                "Creator"
             );
 
-        if (!creators.length) {
 
-          $("publisherCreatorsTable").innerHTML =
-            `<div class="muted">
-               No creators assigned to you yet.
-             </div>`;
+        if (
+          !creators.length
+        ) {
+
+          $("publisherCreatorsTable")
+            .innerHTML =
+              `
+                <div class="muted">
+                  No creators assigned to you yet.
+                </div>
+              `;
 
           return;
         }
 
-        $("publisherCreatorsTable").innerHTML = `
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Creator</th>
-                  <th>Email</th>
-                  <th>Status</th>
-                  <th>Creator UID</th>
-                </tr>
-              </thead>
 
-              <tbody>
+        $("publisherCreatorsTable")
+          .innerHTML = `
 
-                ${creators.map(user => `
+            <div class="table-wrap">
+
+              <table>
+
+                <thead>
 
                   <tr>
-
-                    <td>
-                      ${escapeHtml(
-                        user.displayName || "-"
-                      )}
-                    </td>
-
-                    <td>
-                      ${escapeHtml(
-                        user.email || "-"
-                      )}
-                    </td>
-
-                    <td>
-                      ${statusBadge(
-                        user.role
-                      )}
-                    </td>
-
-                    <td>
-                      ${escapeHtml(user.id)}
-                    </td>
-
+                    <th>Creator</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                    <th>Creator UID</th>
                   </tr>
 
-                `).join("")}
+                </thead>
 
-              </tbody>
-            </table>
-          </div>
-        `;
+                <tbody>
 
+                  ${creators
+                    .map(
+                      user => `
+
+                        <tr>
+
+                          <td>
+                            ${escapeHtml(
+                              user.displayName ||
+                              "-"
+                            )}
+                          </td>
+
+                          <td>
+                            ${escapeHtml(
+                              user.email ||
+                              "-"
+                            )}
+                          </td>
+
+                          <td>
+                            ${statusBadge(
+                              user.role
+                            )}
+                          </td>
+
+                          <td>
+                            ${escapeHtml(
+                              user.id
+                            )}
+                          </td>
+
+                        </tr>
+
+                      `
+                    )
+                    .join("")}
+
+                </tbody>
+
+              </table>
+
+            </div>
+          `;
       }
     }
 
@@ -2514,26 +3849,44 @@
 
     async function loadConversions() {
 
-      const role = currentProfile?.role;
+      const role =
+        currentProfile?.role;
+
 
       if (
-        !["Admin", "Publisher", "Creator"]
-          .includes(role)
+        ![
+          "Admin",
+          "Publisher",
+          "Creator"
+        ].includes(role)
       ) {
-        $("conversionsTable").innerHTML =
-          `<div class="muted">
-             No conversion access.
-           </div>`;
+
+        $("conversionsTable")
+          .innerHTML =
+            `
+              <div class="muted">
+                No conversion access.
+              </div>
+            `;
+
         return;
       }
 
+
       let conversionQuery;
 
-      if (role === "Creator") {
+
+      if (
+        role ===
+        "Creator"
+      ) {
 
         conversionQuery =
           query(
-            collection(db, "conversions"),
+            collection(
+              db,
+              "conversions"
+            ),
             where(
               "creatorId",
               "==",
@@ -2541,11 +3894,17 @@
             )
           );
 
-      } else if (role === "Publisher") {
+      } else if (
+        role ===
+        "Publisher"
+      ) {
 
         conversionQuery =
           query(
-            collection(db, "conversions"),
+            collection(
+              db,
+              "conversions"
+            ),
             where(
               "publisherId",
               "==",
@@ -2556,106 +3915,138 @@
       } else {
 
         conversionQuery =
-          collection(db, "conversions");
+          collection(
+            db,
+            "conversions"
+          );
       }
 
+
       const snapshot =
-        await getDocs(conversionQuery);
+        await getDocs(
+          conversionQuery
+        );
+
 
       const conversions =
         snapshot.docs
-          .map(doc => ({
-            id: doc.id,
-            ...doc.data()
-          }))
+          .map(
+            doc => ({
+              id: doc.id,
+              ...doc.data()
+            })
+          )
           .sort(
             (a,b) =>
-              timestampValue(b.updatedAt) -
-              timestampValue(a.updatedAt)
+              timestampValue(
+                b.updatedAt
+              ) -
+              timestampValue(
+                a.updatedAt
+              )
           )
-          .slice(0, 200);
+          .slice(
+            0,
+            200
+          );
 
 
-      if (!conversions.length) {
+      if (
+        !conversions.length
+      ) {
 
-        $("conversionsTable").innerHTML =
-          `<div class="muted">
-             No conversions found.
-           </div>`;
+        $("conversionsTable")
+          .innerHTML =
+            `
+              <div class="muted">
+                No conversions found.
+              </div>
+            `;
 
         return;
       }
 
 
-      $("conversionsTable").innerHTML = `
-        <div class="table-wrap">
+      $("conversionsTable")
+        .innerHTML = `
 
-          <table>
+          <div class="table-wrap">
 
-            <thead>
+            <table>
 
-              <tr>
-                <th>Transaction</th>
-                <th>Offer</th>
-                <th>Creator</th>
-                <th>Status</th>
-                <th>Creator Payout</th>
-                <th>Updated</th>
-              </tr>
-
-            </thead>
-
-            <tbody>
-
-              ${conversions.map(item => `
+              <thead>
 
                 <tr>
-
-                  <td>
-                    ${escapeHtml(
-                      item.transactionId ||
-                      item.id
-                    )}
-                  </td>
-
-                  <td>
-                    ${escapeHtml(
-                      item.offerTitle ||
-                      item.offerId ||
-                      "-"
-                    )}
-                  </td>
-
-                  <td>
-                    ${escapeHtml(
-                      item.creatorId || "-"
-                    )}
-                  </td>
-
-                  <td>
-                    ${statusBadge(item.status)}
-                  </td>
-
-                  <td>
-                    ${money(
-                      item.creatorPayoutPaise
-                    )}
-                  </td>
-
-                  <td>
-                    ${formatDate(item.updatedAt)}
-                  </td>
-
+                  <th>Transaction</th>
+                  <th>Offer</th>
+                  <th>Creator</th>
+                  <th>Status</th>
+                  <th>Creator Payout</th>
+                  <th>Updated</th>
                 </tr>
 
-              `).join("")}
+              </thead>
 
-            </tbody>
+              <tbody>
 
-          </table>
+                ${conversions
+                  .map(
+                    item => `
 
-        </div>
-      `;
+                      <tr>
+
+                        <td>
+                          ${escapeHtml(
+                            item.transactionId ||
+                            item.id
+                          )}
+                        </td>
+
+                        <td>
+                          ${escapeHtml(
+                            item.offerTitle ||
+                            item.offerId ||
+                            "-"
+                          )}
+                        </td>
+
+                        <td>
+                          ${escapeHtml(
+                            item.creatorId ||
+                            "-"
+                          )}
+                        </td>
+
+                        <td>
+                          ${statusBadge(
+                            item.status
+                          )}
+                        </td>
+
+                        <td>
+                          ${money(
+                            item.creatorPayoutPaise
+                          )}
+                        </td>
+
+                        <td>
+                          ${formatDate(
+                            item.updatedAt
+                          )}
+                        </td>
+
+                      </tr>
+
+                    `
+                  )
+                  .join("")}
+
+              </tbody>
+
+            </table>
+
+          </div>
+        `;
     }
 
 
@@ -2663,64 +4054,85 @@
        WITHDRAWALS
        ========================================================= */
 
-    $("withdrawalForm").addEventListener(
-      "submit",
-      async event => {
+    $("withdrawalForm")
+      .addEventListener(
+        "submit",
+        async event => {
 
-        event.preventDefault();
+          event.preventDefault();
 
-        try {
 
-          const amount =
-            Number(
-              $("withdrawalAmount").value
+          try {
+
+            const amount =
+              Number(
+                $("withdrawalAmount")
+                  .value
+              );
+
+
+            if (
+              !Number.isFinite(
+                amount
+              ) ||
+              amount < 1000
+            ) {
+
+              throw new Error(
+                "Minimum withdrawal is ₹1,000."
+              );
+            }
+
+
+            await requestWithdrawal({
+              amount
+            });
+
+
+            $("withdrawalForm")
+              .reset();
+
+
+            showMessage(
+              "Withdrawal request submitted.",
+              "success"
             );
 
-          if (
-            !Number.isFinite(amount) ||
-            amount < 1000
-          ) {
-            throw new Error(
-              "Minimum withdrawal is ₹1,000."
+
+            await loadDashboard();
+
+            await loadWithdrawals();
+
+          } catch (error) {
+
+            showMessage(
+              error?.message ||
+              "Unable to request withdrawal.",
+              "error"
             );
           }
-
-          await requestWithdrawal({
-            amount
-          });
-
-          $("withdrawalForm").reset();
-
-          showMessage(
-            "Withdrawal request submitted.",
-            "success"
-          );
-
-          await loadDashboard();
-          await loadWithdrawals();
-
-        } catch (error) {
-
-          showMessage(
-            error?.message ||
-            "Unable to request withdrawal.",
-            "error"
-          );
         }
-      }
-    );
+      );
 
 
     async function loadWithdrawals() {
 
-      const role = currentProfile?.role;
+      const role =
+        currentProfile?.role;
 
-      if (role === "Admin") {
+
+      if (
+        role ===
+        "Admin"
+      ) {
 
         const snapshot =
           await getDocs(
             query(
-              collection(db, "withdrawals"),
+              collection(
+                db,
+                "withdrawals"
+              ),
               where(
                 "status",
                 "==",
@@ -2729,142 +4141,177 @@
             )
           );
 
+
         const withdrawals =
-          snapshot.docs.map(doc => ({
-            id: doc.id,
-            ...doc.data()
-          }));
+          snapshot.docs.map(
+            doc => ({
+              id: doc.id,
+              ...doc.data()
+            })
+          );
 
-        if (!withdrawals.length) {
 
-          $("adminWithdrawalsTable").innerHTML =
-            `<div class="muted">
-               No pending withdrawals.
-             </div>`;
+        if (
+          !withdrawals.length
+        ) {
+
+          $("adminWithdrawalsTable")
+            .innerHTML =
+              `
+                <div class="muted">
+                  No pending withdrawals.
+                </div>
+              `;
 
         } else {
 
-          $("adminWithdrawalsTable").innerHTML = `
-            <div class="table-wrap">
+          $("adminWithdrawalsTable")
+            .innerHTML = `
 
-              <table>
+              <div class="table-wrap">
 
-                <thead>
-                  <tr>
-                    <th>Creator</th>
-                    <th>Amount</th>
-                    <th>Status</th>
-                    <th>Requested</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
+                <table>
 
-                <tbody>
-
-                  ${withdrawals.map(item => `
+                  <thead>
 
                     <tr>
-
-                      <td>
-                        ${escapeHtml(
-                          item.creatorId
-                        )}
-                      </td>
-
-                      <td>
-                        ${money(
-                          item.amountPaise
-                        )}
-                      </td>
-
-                      <td>
-                        ${statusBadge(
-                          item.status
-                        )}
-                      </td>
-
-                      <td>
-                        ${formatDate(
-                          item.createdAt
-                        )}
-                      </td>
-
-                      <td>
-
-                        <div class="action-row">
-
-                          <button
-                            class="btn small success"
-                            data-approve-withdrawal="${escapeHtml(item.id)}"
-                          >
-                            Approve
-                          </button>
-
-                          <button
-                            class="btn small danger"
-                            data-reject-withdrawal="${escapeHtml(item.id)}"
-                          >
-                            Reject
-                          </button>
-
-                        </div>
-
-                      </td>
-
+                      <th>Creator</th>
+                      <th>Amount</th>
+                      <th>Status</th>
+                      <th>Requested</th>
+                      <th>Action</th>
                     </tr>
 
-                  `).join("")}
+                  </thead>
 
-                </tbody>
+                  <tbody>
 
-              </table>
+                    ${withdrawals
+                      .map(
+                        item => `
 
-            </div>
-          `;
+                          <tr>
+
+                            <td>
+                              ${escapeHtml(
+                                item.creatorId
+                              )}
+                            </td>
+
+                            <td>
+                              ${money(
+                                item.amountPaise
+                              )}
+                            </td>
+
+                            <td>
+                              ${statusBadge(
+                                item.status
+                              )}
+                            </td>
+
+                            <td>
+                              ${formatDate(
+                                item.createdAt
+                              )}
+                            </td>
+
+                            <td>
+
+                              <div class="action-row">
+
+                                <button
+                                  class="btn small success"
+                                  data-approve-withdrawal="${escapeHtml(
+                                    item.id
+                                  )}"
+                                >
+                                  Approve
+                                </button>
+
+                                <button
+                                  class="btn small danger"
+                                  data-reject-withdrawal="${escapeHtml(
+                                    item.id
+                                  )}"
+                                >
+                                  Reject
+                                </button>
+
+                              </div>
+
+                            </td>
+
+                          </tr>
+
+                        `
+                      )
+                      .join("")}
+
+                  </tbody>
+
+                </table>
+
+              </div>
+            `;
 
 
           document
             .querySelectorAll(
               "[data-approve-withdrawal]"
             )
-            .forEach(button => {
+            .forEach(
+              button => {
 
-              button.addEventListener(
-                "click",
-                () => handleWithdrawal(
-                  button.dataset.approveWithdrawal,
-                  "Approved"
-                )
-              );
-            });
+                button.addEventListener(
+                  "click",
+                  () =>
+                    handleWithdrawal(
+                      button.dataset
+                        .approveWithdrawal,
+                      "Approved"
+                    )
+                );
+              }
+            );
 
 
           document
             .querySelectorAll(
               "[data-reject-withdrawal]"
             )
-            .forEach(button => {
+            .forEach(
+              button => {
 
-              button.addEventListener(
-                "click",
-                () => handleWithdrawal(
-                  button.dataset.rejectWithdrawal,
-                  "Rejected"
-                )
-              );
-            });
+                button.addEventListener(
+                  "click",
+                  () =>
+                    handleWithdrawal(
+                      button.dataset
+                        .rejectWithdrawal,
+                      "Rejected"
+                    )
+                );
+              }
+            );
         }
 
         return;
       }
 
 
-      if (role === "Creator") {
+      if (
+        role ===
+        "Creator"
+      ) {
 
         const snapshot =
           await getDocs(
             query(
-              collection(db, "withdrawals"),
+              collection(
+                db,
+                "withdrawals"
+              ),
               where(
                 "creatorId",
                 "==",
@@ -2873,84 +4320,104 @@
             )
           );
 
+
         const withdrawals =
           snapshot.docs
-            .map(doc => ({
-              id: doc.id,
-              ...doc.data()
-            }))
+            .map(
+              doc => ({
+                id: doc.id,
+                ...doc.data()
+              })
+            )
             .sort(
               (a,b) =>
-                timestampValue(b.createdAt) -
-                timestampValue(a.createdAt)
+                timestampValue(
+                  b.createdAt
+                ) -
+                timestampValue(
+                  a.createdAt
+                )
             );
 
 
-        if (!withdrawals.length) {
+        if (
+          !withdrawals.length
+        ) {
 
-          $("creatorWithdrawalsTable").innerHTML =
-            `<div class="muted">
-               No withdrawal history.
-             </div>`;
+          $("creatorWithdrawalsTable")
+            .innerHTML =
+              `
+                <div class="muted">
+                  No withdrawal history.
+                </div>
+              `;
 
           return;
         }
 
 
-        $("creatorWithdrawalsTable").innerHTML = `
-          <div class="table-wrap">
+        $("creatorWithdrawalsTable")
+          .innerHTML = `
 
-            <table>
+            <div class="table-wrap">
 
-              <thead>
-                <tr>
-                  <th>Amount</th>
-                  <th>Status</th>
-                  <th>Requested</th>
-                  <th>Processed</th>
-                </tr>
-              </thead>
+              <table>
 
-              <tbody>
-
-                ${withdrawals.map(item => `
+                <thead>
 
                   <tr>
-
-                    <td>
-                      ${money(
-                        item.amountPaise
-                      )}
-                    </td>
-
-                    <td>
-                      ${statusBadge(
-                        item.status
-                      )}
-                    </td>
-
-                    <td>
-                      ${formatDate(
-                        item.createdAt
-                      )}
-                    </td>
-
-                    <td>
-                      ${formatDate(
-                        item.processedAt
-                      )}
-                    </td>
-
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Requested</th>
+                    <th>Processed</th>
                   </tr>
 
-                `).join("")}
+                </thead>
 
-              </tbody>
+                <tbody>
 
-            </table>
+                  ${withdrawals
+                    .map(
+                      item => `
 
-          </div>
-        `;
+                        <tr>
+
+                          <td>
+                            ${money(
+                              item.amountPaise
+                            )}
+                          </td>
+
+                          <td>
+                            ${statusBadge(
+                              item.status
+                            )}
+                          </td>
+
+                          <td>
+                            ${formatDate(
+                              item.createdAt
+                            )}
+                          </td>
+
+                          <td>
+                            ${formatDate(
+                              item.processedAt
+                            )}
+                          </td>
+
+                        </tr>
+
+                      `
+                    )
+                    .join("")}
+
+                </tbody>
+
+              </table>
+
+            </div>
+          `;
       }
     }
 
@@ -2963,16 +4430,22 @@
       try {
 
         await processWithdrawal({
+
           withdrawalId,
+
           decision
+
         });
+
 
         showMessage(
           `Withdrawal ${decision.toLowerCase()}.`,
           "success"
         );
 
+
         await loadWithdrawals();
+
         await loadDashboard();
 
       } catch (error) {
@@ -2992,14 +4465,24 @@
 
     async function loadLedger() {
 
-      const role = currentProfile?.role;
+      const role =
+        currentProfile?.role;
 
-      if (!["Admin", "Creator"].includes(role)) {
 
-        $("ledgerTable").innerHTML =
-          `<div class="muted">
-             Ledger is available to creators and administrators.
-           </div>`;
+      if (
+        ![
+          "Admin",
+          "Creator"
+        ].includes(role)
+      ) {
+
+        $("ledgerTable")
+          .innerHTML =
+            `
+              <div class="muted">
+                Ledger is available to creators and administrators.
+              </div>
+            `;
 
         return;
       }
@@ -3007,11 +4490,18 @@
 
       let ledgerQuery;
 
-      if (role === "Creator") {
+
+      if (
+        role ===
+        "Creator"
+      ) {
 
         ledgerQuery =
           query(
-            collection(db, "ledger"),
+            collection(
+              db,
+              "ledger"
+            ),
             where(
               "creatorId",
               "==",
@@ -3022,101 +4512,130 @@
       } else {
 
         ledgerQuery =
-          collection(db, "ledger");
+          collection(
+            db,
+            "ledger"
+          );
       }
 
 
       const snapshot =
-        await getDocs(ledgerQuery);
+        await getDocs(
+          ledgerQuery
+        );
+
 
       const entries =
         snapshot.docs
-          .map(doc => ({
-            id: doc.id,
-            ...doc.data()
-          }))
+          .map(
+            doc => ({
+              id: doc.id,
+              ...doc.data()
+            })
+          )
           .sort(
             (a,b) =>
-              timestampValue(b.createdAt) -
-              timestampValue(a.createdAt)
+              timestampValue(
+                b.createdAt
+              ) -
+              timestampValue(
+                a.createdAt
+              )
           )
-          .slice(0, 300);
+          .slice(
+            0,
+            300
+          );
 
 
-      if (!entries.length) {
+      if (
+        !entries.length
+      ) {
 
-        $("ledgerTable").innerHTML =
-          `<div class="muted">
-             No ledger entries.
-           </div>`;
+        $("ledgerTable")
+          .innerHTML =
+            `
+              <div class="muted">
+                No ledger entries.
+              </div>
+            `;
 
         return;
       }
 
 
-      $("ledgerTable").innerHTML = `
-        <div class="table-wrap">
+      $("ledgerTable")
+        .innerHTML = `
 
-          <table>
+          <div class="table-wrap">
 
-            <thead>
+            <table>
 
-              <tr>
-                <th>Type</th>
-                <th>Creator</th>
-                <th>Amount</th>
-                <th>Reference</th>
-                <th>Date</th>
-              </tr>
-
-            </thead>
-
-            <tbody>
-
-              ${entries.map(item => `
+              <thead>
 
                 <tr>
-
-                  <td>
-                    ${escapeHtml(
-                      item.type || "-"
-                    )}
-                  </td>
-
-                  <td>
-                    ${escapeHtml(
-                      item.creatorId || "-"
-                    )}
-                  </td>
-
-                  <td>
-                    ${money(
-                      item.amountPaise
-                    )}
-                  </td>
-
-                  <td>
-                    ${escapeHtml(
-                      item.referenceId || "-"
-                    )}
-                  </td>
-
-                  <td>
-                    ${formatDate(
-                      item.createdAt
-                    )}
-                  </td>
-
+                  <th>Type</th>
+                  <th>Creator</th>
+                  <th>Amount</th>
+                  <th>Reference</th>
+                  <th>Date</th>
                 </tr>
 
-              `).join("")}
+              </thead>
 
-            </tbody>
+              <tbody>
 
-          </table>
+                ${entries
+                  .map(
+                    item => `
 
-        </div>
-      `;
+                      <tr>
+
+                        <td>
+                          ${escapeHtml(
+                            item.type ||
+                            "-"
+                          )}
+                        </td>
+
+                        <td>
+                          ${escapeHtml(
+                            item.creatorId ||
+                            "-"
+                          )}
+                        </td>
+
+                        <td>
+                          ${money(
+                            item.amountPaise
+                          )}
+                        </td>
+
+                        <td>
+                          ${escapeHtml(
+                            item.referenceId ||
+                            "-"
+                          )}
+                        </td>
+
+                        <td>
+                          ${formatDate(
+                            item.createdAt
+                          )}
+                        </td>
+
+                      </tr>
+
+                    `
+                  )
+                  .join("")}
+
+              </tbody>
+
+            </table>
+
+          </div>
+        `;
     }
 
 
@@ -3126,14 +4645,21 @@
 
     async function loadCreatorCampaigns() {
 
-      if (currentProfile?.role !== "Creator") {
+      if (
+        currentProfile?.role !==
+        "Creator"
+      ) {
         return;
       }
+
 
       const snapshot =
         await getDocs(
           query(
-            collection(db, "assignments"),
+            collection(
+              db,
+              "assignments"
+            ),
             where(
               "creatorId",
               "==",
@@ -3142,122 +4668,178 @@
           )
         );
 
+
       const assignments =
         snapshot.docs
-          .map(doc => ({
-            id: doc.id,
-            ...doc.data()
-          }))
+          .map(
+            doc => ({
+              id: doc.id,
+              ...doc.data()
+            })
+          )
           .filter(
-            item => item.status === "Active"
+            item =>
+              item.status ===
+              "Active"
           );
 
 
-      if (!assignments.length) {
+      if (
+        !assignments.length
+      ) {
 
-        $("creatorCampaigns").innerHTML = `
-          <div class="panel">
-            <div class="muted">
-              No active campaigns have been assigned to you.
+        $("creatorCampaigns")
+          .innerHTML = `
+
+            <div class="panel">
+
+              <div class="muted">
+                No active campaigns have been assigned to you.
+              </div>
+
             </div>
-          </div>
-        `;
+
+          `;
 
         return;
       }
 
 
-      $("creatorCampaigns").innerHTML =
-        assignments.map(item => {
+      $("creatorCampaigns")
+        .innerHTML =
+          assignments
+            .map(
+              item => {
 
-          const trackingUrl =
-            `${window.location.origin}/track?assignmentId=${encodeURIComponent(item.id)}`;
+                /*
+                 * Vercel does not execute Firebase Hosting
+                 * rewrites. Therefore the creator link points
+                 * directly to the Firebase HTTPS function.
+                 *
+                 * This works only after the function is deployed.
+                 */
 
-          return `
+                const trackingUrl =
+                  `https://us-central1-ff-dashboard-e96dd.cloudfunctions.net/track?assignmentId=${encodeURIComponent(
+                    item.id
+                  )}`;
 
-            <div class="campaign-card">
 
-              <div class="campaign-title">
-                ${escapeHtml(
-                  item.offerTitle ||
-                  item.offerId ||
-                  "Campaign"
-                )}
-              </div>
+                return `
 
-              <div class="campaign-meta">
+                  <div class="campaign-card">
 
-                Goal:
-                <strong>
-                  ${escapeHtml(
-                    item.goal || "-"
-                  )}
-                </strong>
+                    <div class="campaign-title">
+                      ${escapeHtml(
+                        item.offerTitle ||
+                        item.offerId ||
+                        "Campaign"
+                      )}
+                    </div>
 
-                <br />
 
-                Creator Payout:
-                <strong>
-                  ${money(
-                    item.creatorPayoutPaise
-                  )}
-                </strong>
+                    <div class="campaign-meta">
 
-                <br />
+                      Goal:
 
-                Status:
-                ${statusBadge(item.status)}
+                      <strong>
+                        ${escapeHtml(
+                          item.goal ||
+                          "-"
+                        )}
+                      </strong>
 
-              </div>
+                      <br />
 
-              <div class="tracking-box">
+                      Creator Payout:
 
-                <input
-                  readonly
-                  value="${escapeHtml(trackingUrl)}"
-                />
+                      <strong>
+                        ${money(
+                          item.creatorPayoutPaise
+                        )}
+                      </strong>
 
-                <button
-                  class="btn small"
-                  data-copy-link="${escapeHtml(trackingUrl)}"
-                >
-                  Copy
-                </button>
+                      <br />
 
-              </div>
+                      Status:
 
-            </div>
-          `;
-        }).join("");
+                      ${statusBadge(
+                        item.status
+                      )}
+
+                    </div>
+
+
+                    <div class="tracking-box">
+
+                      <input
+                        readonly
+                        value="${escapeHtml(
+                          trackingUrl
+                        )}"
+                      />
+
+
+                      <button
+                        class="btn small"
+                        data-copy-link="${escapeHtml(
+                          trackingUrl
+                        )}"
+                      >
+                        Copy
+                      </button>
+
+                    </div>
+
+                  </div>
+
+                `;
+              }
+            )
+            .join("");
 
 
       document
-        .querySelectorAll("[data-copy-link]")
-        .forEach(button => {
+        .querySelectorAll(
+          "[data-copy-link]"
+        )
+        .forEach(
+          button => {
 
-          button.addEventListener("click", async () => {
+            button.addEventListener(
+              "click",
+              async () => {
 
-            const url =
-              button.dataset.copyLink;
+                const url =
+                  button.dataset
+                    .copyLink;
 
-            try {
 
-              await navigator.clipboard.writeText(url);
+                try {
 
-              showMessage(
-                "Tracking link copied.",
-                "success"
-              );
+                  await navigator
+                    .clipboard
+                    .writeText(
+                      url
+                    );
 
-            } catch {
 
-              showMessage(
-                "Could not copy the link.",
-                "error"
-              );
-            }
-          });
-        });
+                  showMessage(
+                    "Tracking link copied.",
+                    "success"
+                  );
+
+                } catch {
+
+                  showMessage(
+                    "Could not copy the link.",
+                    "error"
+                  );
+                }
+              }
+            );
+          }
+        );
     }
 
 
@@ -3267,91 +4849,80 @@
 
     async function showCreatorWorkspace() {
 
-      if (currentProfile?.role !== "Creator") {
+      if (
+        currentProfile?.role !==
+        "Creator"
+      ) {
         return;
       }
 
+
       $("creatorCampaignSection")
-        .classList.remove("hidden");
+        .classList.remove(
+          "hidden"
+        );
+
 
       await loadCreatorCampaigns();
     }
 
 
     /* =========================================================
-       INITIAL CREATOR LOAD PATCH
-       ========================================================= */
-
-    const originalLoadApplication =
-      loadApplication;
-
-
-    /* Load creator campaigns whenever app loads */
-
-    const originalConfigureRoleUI =
-      configureRoleUI;
-
-
-    /* =========================================================
-       ROLE-AWARE PAGE OPEN
-       ========================================================= */
-
-    setTimeout(async () => {
-
-      if (
-        currentUser &&
-        currentProfile?.role === "Creator"
-      ) {
-        try {
-          await showCreatorWorkspace();
-        } catch (error) {
-          console.error(error);
-        }
-      }
-
-    }, 1200);
-
-
-    /* =========================================================
        PERIODIC DASHBOARD REFRESH
        ========================================================= */
 
-    setInterval(async () => {
+    setInterval(
+      async () => {
 
-      if (
-        currentUser &&
-        currentProfile &&
-        !document.hidden
-      ) {
+        if (
+          currentUser &&
+          currentProfile &&
+          !document.hidden
+        ) {
 
-        try {
-          await loadDashboard();
-        } catch {
-          // Silent background refresh failure.
+          try {
+
+            await loadDashboard();
+
+          } catch {
+            // Silent background refresh failure.
+          }
         }
-      }
 
-    }, 60000);
+      },
+      60000
+    );
 
 
     /* =========================================================
-       SECURITY / CONFIG NOTICE
+       SECURITY NOTICE
        ========================================================= */
 
     /*
      * IMPORTANT:
      *
-     * 1. Do NOT put Firebase Admin credentials here.
-     * 2. Do NOT put affiliate network postback secrets here.
-     * 3. Master network tracking URLs are protected by Firestore rules.
-     * 4. Financial writes are performed by Cloud Functions.
-     * 5. /track and /postback are backend endpoints.
-     * 6. The backend must be configured with the REAL affiliate
-     *    network's documented click parameter, macro and postback
-     *    parameters before live traffic is sent.
+     * 1. Firebase Web API configuration is intentionally present
+     *    in this frontend. This is NOT a Firebase Admin credential.
      *
-     * This frontend intentionally does not invent affiliate-network
-     * parameters.
+     * 2. NEVER put Firebase Admin private keys or service-account
+     *    credentials in this file.
+     *
+     * 3. NEVER put affiliate-network postback secrets in this file.
+     *
+     * 4. Financial writes must remain backend-authoritative.
+     *
+     * 5. Client-side Firestore writes for clicks, conversions,
+     *    withdrawals and ledger are blocked by Firestore rules.
+     *
+     * 6. /track and /postback are backend endpoints.
+     *
+     * 7. The affiliate network's REAL documented click parameter,
+     *    click-ID macro, transaction ID and postback parameters
+     *    must be configured before live traffic is sent.
+     *
+     * 8. Do not send live traffic until Firebase Functions and
+     *    the affiliate-network postback integration have actually
+     *    been deployed and tested.
      */
 
   </script>
