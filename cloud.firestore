@@ -1,0 +1,129 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function userExists() {
+      return signedIn()
+        && exists(
+          /databases/$(database)/documents/users/$(request.auth.uid)
+        );
+    }
+
+    function userData() {
+      return get(
+        /databases/$(database)/documents/users/$(request.auth.uid)
+      ).data;
+    }
+
+    function isAdmin() {
+      return userExists() && userData().role == "Admin";
+    }
+
+    function isPublisher() {
+      return userExists() && userData().role == "Publisher";
+    }
+
+    function isCreator() {
+      return userExists() && userData().role == "Creator";
+    }
+
+    match /users/{userId} {
+
+      allow get: if signedIn() && (
+        request.auth.uid == userId ||
+        isAdmin() ||
+        (
+          isPublisher() &&
+          resource.data.publisherId == request.auth.uid
+        )
+      );
+
+      allow list: if signedIn() && (
+        isAdmin() ||
+        (
+          isPublisher() &&
+          resource.data.publisherId == request.auth.uid
+        )
+      );
+
+      allow create, update, delete: if false;
+    }
+
+    match /masterOffers/{offerId} {
+
+      allow read: if isAdmin();
+
+      allow create, update, delete: if false;
+    }
+
+    match /assignments/{assignmentId} {
+
+      allow read: if signedIn() && (
+        isAdmin() ||
+        (
+          isPublisher() &&
+          resource.data.publisherId == request.auth.uid
+        ) ||
+        (
+          isCreator() &&
+          resource.data.creatorId == request.auth.uid
+        )
+      );
+
+      allow create, update, delete: if false;
+    }
+
+    match /clicks/{clickId} {
+
+      allow read, write: if false;
+    }
+
+    match /conversions/{conversionId} {
+
+      allow read: if signedIn() && (
+        isAdmin() ||
+        (
+          isPublisher() &&
+          resource.data.publisherId == request.auth.uid
+        ) ||
+        (
+          isCreator() &&
+          resource.data.creatorId == request.auth.uid
+        )
+      );
+
+      allow create, update, delete: if false;
+    }
+
+    match /withdrawals/{withdrawalId} {
+
+      allow read: if signedIn() && (
+        isAdmin() ||
+        (
+          isCreator() &&
+          resource.data.creatorId == request.auth.uid
+        )
+      );
+
+      allow create, update, delete: if false;
+    }
+
+    match /ledger/{ledgerId} {
+
+      allow read: if signedIn() && (
+        isAdmin() ||
+        (
+          isCreator() &&
+          resource.data.creatorId == request.auth.uid
+        )
+      );
+
+      allow create, update, delete: if false;
+    }
+  }
+}
