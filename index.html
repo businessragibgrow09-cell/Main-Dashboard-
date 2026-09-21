@@ -1,1543 +1,3360 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TrackFlow - Analytics Hub</title>
-  
-  <!-- LOGO & FAVICON -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='tf-grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%233b82f6'/><stop offset='50%' stop-color='%238b5cf6'/><stop offset='100%' stop-color='%23ec4899'/></linearGradient></defs><circle cx='50' cy='50' r='46' fill='%230f172a' stroke='url(%23tf-grad)' stroke-width='4'/><path d='M30 35 L50 65 L70 35' fill='none' stroke='url(%23tf-grad)' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'/></svg>">
-  
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0b1020" />
+  <title>TrackFlow - Affiliate Management Platform</title>
+
   <style>
-    .glow-effect { filter: drop-shadow(0 0 12px rgba(139, 92, 246, 0.6)); }
-    .glow-avatar { filter: drop-shadow(0 0 8px rgba(236, 72, 153, 0.5)); }
-    .tab-content { display: none; }
-    .tab-content.active { display: block; }
-    @keyframes pulse-slow { 0%, 100% { opacity: 1; } 50% { opacity: 0.65; } }
-    .animate-glow { animation: pulse-slow 3s infinite ease-in-out; }
-  </style>
-</head>
-<body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col justify-between">
-
-  <!-- TOP NAVBAR -->
-  <header class="bg-slate-900/90 backdrop-blur-md border-b border-slate-800 sticky top-0 z-40 h-16 flex items-center justify-between px-4 md:px-8">
-    <div class="flex items-center gap-3">
-      <button id="toggle-sidebar-btn" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-purple-400 transition flex items-center justify-center">
-        <i class="fa-solid fa-bars text-xl"></i>
-      </button>
-      
-      <!-- BRAND LOGO -->
-      <div class="flex items-center gap-2.5">
-        <div class="w-10 h-10 bg-slate-950 border border-purple-500/40 rounded-xl flex items-center justify-center glow-effect animate-glow">
-          <svg class="w-6 h-6" viewBox="0 0 100 100">
-            <defs>
-              <linearGradient id="tf-grad-nav" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#3b82f6"/>
-                <stop offset="50%" stop-color="#8b5cf6"/>
-                <stop offset="100%" stop-color="#ec4899"/>
-              </linearGradient>
-            </defs>
-            <circle cx="50" cy="50" r="44" fill="none" stroke="url(#tf-grad-nav)" stroke-width="8"/>
-            <path d="M30 35 L50 65 L70 35" fill="none" stroke="url(#tf-grad-nav)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <span class="font-extrabold text-xl tracking-wider text-white">TRACK<span class="text-purple-400">FLOW</span></span>
-        <span id="admin-badge" class="hidden bg-amber-500/20 text-amber-400 border border-amber-500/40 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full ml-2">MASTER ADMIN</span>
-      </div>
-    </div>
-    
-    <div class="flex items-center gap-3">
-      <span class="text-xs bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-3 py-1 rounded-full font-semibold flex items-center gap-1.5">
-        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Network Active
-      </span>
-      <div class="flex items-center gap-2">
-        <span id="role-badge" class="text-xs bg-purple-500/10 text-purple-400 border border-purple-500/20 px-3 py-1 rounded-full font-bold uppercase">Role</span>
-        <a href="mailto:Worktrackflow@Gmail.com" class="text-xs text-amber-400 hover:text-amber-300 font-bold ml-2 flex items-center gap-1">
-          <i class="fa-solid fa-envelope"></i> Support
-        </a>
-      </div>
-    </div>
-  </header>
-
-  <!-- LANDING PAGE -->
-  <div id="landing-page" class="flex-1 flex flex-col items-center justify-center p-6 text-center max-w-4xl mx-auto">
-    <div class="w-24 h-24 mb-6 bg-slate-900 border-2 border-purple-500/50 rounded-3xl flex items-center justify-center glow-effect shadow-2xl animate-glow">
-      <svg class="w-14 h-14" viewBox="0 0 100 100">
-        <defs>
-          <linearGradient id="tf-grad-land" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#3b82f6"/>
-            <stop offset="50%" stop-color="#8b5cf6"/>
-            <stop offset="100%" stop-color="#ec4899"/>
-          </linearGradient>
-        </defs>
-        <circle cx="50" cy="50" r="44" fill="none" stroke="url(#tf-grad-land)" stroke-width="8"/>
-        <path d="M30 35 L50 65 L70 35" fill="none" stroke="url(#tf-grad-land)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </div>
-    <h1 class="text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 mb-4">
-      TrackFlow Network Engine
-    </h1>
-    <p class="text-slate-400 text-base md:text-lg max-w-2xl mb-8">
-      Traffic Analytics & Performance Dashboard
-    </p>
-    <button id="open-auth-modal-btn" class="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-500 text-white font-black text-lg px-10 py-4 rounded-2xl shadow-xl hover:scale-105 transition transform glow-effect flex items-center gap-3">
-      <i class="fa-solid fa-rocket"></i> Access Dashboard
-    </button>
-  </div>
-
-  <!-- AUTH POPUP MODAL -->
-  <div id="auth-modal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-slate-900 border border-slate-800 p-8 rounded-3xl max-w-md w-full text-center shadow-2xl relative">
-      <button id="close-auth-modal" class="absolute top-4 right-4 text-slate-500 hover:text-white text-lg">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
-      <h2 class="text-2xl font-bold text-white mb-4">Sign In to TrackFlow</h2>
-
-      <div class="space-y-3">
-        <button id="google-login-btn" class="w-full bg-white hover:bg-slate-100 text-slate-900 font-bold py-3.5 px-4 rounded-xl flex items-center justify-center gap-3 transition">
-          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-5 h-5" alt="Google">
-          Continue with Google
-        </button>
-
-        <div class="relative my-4">
-          <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-slate-800"></div></div>
-          <div class="relative flex justify-center text-xs uppercase"><span class="bg-slate-900 px-2 text-slate-500">Email / Phone Login</span></div>
-        </div>
-
-        <input type="text" id="email-input" placeholder="User Email / Phone Number" class="w-full bg-slate-950 border border-slate-800 rounded-xl py-3 px-4 text-sm text-white focus:outline-none focus:border-purple-500">
-        <input type="password" id="password-input" placeholder="Password" class="w-full bg-slate-950 border border-slate-800 rounded-xl py-3 px-4 text-sm text-white focus:outline-none focus:border-purple-500">
-        
-        <button id="email-login-btn" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-extrabold py-3 px-4 rounded-xl text-sm transition">
-          Login Account
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- DASHBOARD APP CONTAINER -->
-  <div id="dashboard-app" class="hidden flex-1 flex flex-col md:flex-row relative overflow-hidden">
-
-    <!-- SIDEBAR NAVIGATION -->
-    <aside id="sidebar" class="w-64 bg-slate-900 border-r border-slate-800 flex flex-col justify-between shrink-0 h-[calc(100vh-4rem)]">
-      <div class="p-4 space-y-6 overflow-y-auto">
-        
-        <!-- USER PROFILE CARD -->
-        <div class="bg-slate-950 border border-slate-800 p-3.5 rounded-2xl flex items-center gap-3 relative overflow-hidden">
-          <div class="w-10 h-10 rounded-xl bg-slate-900 border border-purple-500/40 flex items-center justify-center shrink-0 glow-avatar">
-            <svg class="w-6 h-6" viewBox="0 0 100 100">
-              <circle cx="50" cy="50" r="44" fill="none" stroke="url(#tf-grad-nav)" stroke-width="8"/>
-              <path d="M30 35 L50 65 L70 35" fill="none" stroke="url(#tf-grad-nav)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-          <div class="overflow-hidden">
-            <h4 id="user-display-name" class="text-sm font-bold text-white truncate">User</h4>
-            <p id="user-email-text" class="text-xs text-slate-400 truncate">Loading...</p>
-          </div>
-        </div>
-
-        <nav class="space-y-1.5">
-          <button onclick="switchTab('overview')" class="w-full text-left flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-purple-500/10 text-purple-400 font-medium text-sm border border-purple-500/20">
-            <i class="fa-solid fa-chart-pie w-5"></i> Performance Hub
-          </button>
-          
-          <!-- SEPARATE ADMIN ANALYTICS OPTION -->
-          <button id="nav-admin-analytics" onclick="switchTab('admin-analytics')" class="hidden w-full text-left flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-cyan-400 bg-cyan-500/10 border border-cyan-500/20 font-bold text-sm transition">
-            <i class="fa-solid fa-chart-line w-5"></i> System Analytics
-          </button>
-
-          <button id="nav-link-generator" onclick="switchTab('link-generator')" class="w-full text-left flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white font-medium text-sm transition">
-            <i class="fa-solid fa-link w-5"></i> Custom Link Alias
-          </button>
-
-          <button onclick="switchTab('offers-hub')" class="w-full text-left flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white font-medium text-sm transition">
-            <i class="fa-solid fa-gift w-5"></i> Campaign Offers Hub
-          </button>
-
-          <button onclick="switchTab('profile')" class="w-full text-left flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white font-medium text-sm transition">
-            <i class="fa-solid fa-user-gear w-5"></i> Profile & Settings
-          </button>
-
-          <button id="nav-user-withdrawals" onclick="switchTab('withdrawals')" class="w-full text-left flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-400 hover:bg-slate-800 hover:text-white font-medium text-sm transition">
-            <i class="fa-solid fa-wallet w-5"></i> Earnings & Withdrawals
-          </button>
-          
-          <button id="nav-add-user" onclick="switchTab('admin-add-user')" class="hidden w-full text-left flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-blue-500/10 text-blue-400 font-bold text-sm border border-blue-500/20">
-            <i class="fa-solid fa-user-plus w-5"></i> Add User Account
-          </button>
-          <button id="nav-manage-users" onclick="switchTab('admin-manage-users')" class="hidden w-full text-left flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-purple-500/10 text-purple-400 font-bold text-sm border border-purple-500/20">
-            <i class="fa-solid fa-users-gear w-5"></i> Network Users
-          </button>
-          <button id="nav-add-offer" onclick="switchTab('admin-add-offer')" class="hidden w-full text-left flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-amber-500/10 text-amber-400 font-bold text-sm border border-amber-500/20">
-            <i class="fa-solid fa-folder-plus w-5"></i> Offer Management
-          </button>
-          <button id="nav-admin-withdrawals" onclick="switchTab('admin-withdrawals')" class="hidden w-full text-left flex items-center gap-3 px-3.5 py-2.5 rounded-xl bg-emerald-500/10 text-emerald-400 font-bold text-sm border border-emerald-500/20">
-            <i class="fa-solid fa-money-bill-transfer w-5"></i> Manage Withdrawals
-          </button>
-        </nav>
-      </div>
-
-      <div class="p-4 border-t border-slate-800">
-        <button id="logout-btn" class="w-full bg-red-500/10 text-red-400 border border-red-500/20 font-semibold py-2.5 rounded-xl text-sm transition">Logout System</button>
-      </div>
-    </aside>
-
-    <!-- MAIN CONTENT AREA -->
-    <main class="flex-1 overflow-y-auto p-4 md:p-6 space-y-6">
-
-      <!-- TAB 1: OVERVIEW METRICS (ADMIN & CREATOR) -->
-      <div id="tab-overview" class="tab-content active space-y-6">
-        
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-900 border border-slate-800 p-4 rounded-2xl shadow-md">
-          <div>
-            <h2 id="overview-header-title" class="text-lg font-extrabold text-white flex items-center gap-2">
-              <i class="fa-solid fa-chart-line text-purple-400"></i> Performance Overview
-            </h2>
-            <p id="overview-header-sub" class="text-xs text-slate-400">Realtime Performance Summary</p>
-          </div>
-
-          <!-- CALENDAR FILTER -->
-          <div class="flex items-center gap-2">
-            <i class="fa-solid fa-calendar-days text-purple-400 text-sm"></i>
-            <select id="time-range-filter" onchange="applyTimeFilter(this.value)" class="bg-slate-950 border border-slate-800 text-xs font-bold text-purple-300 py-2 px-3.5 rounded-xl outline-none focus:border-purple-500">
-              <option value="today">Today</option>
-              <option value="yesterday">Yesterday</option>
-              <option value="last7">Last 7 Days</option>
-              <option value="last30" selected>Last 30 Days</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- STATS CARDS GRID -->
-        <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          
-          <!-- 1. TOTAL REVENUE CARD -->
-          <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl">
-            <div class="flex items-center justify-between">
-              <p id="earnings-card-label" class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Total Revenue</p>
-              <i class="fa-solid fa-indian-rupee-sign text-amber-400 text-base"></i>
-            </div>
-            <h3 id="display-earnings-val" class="text-3xl font-extrabold text-amber-400 mt-3">₹0.00</h3>
-            <span id="earnings-card-sub" class="text-[11px] text-slate-400 mt-2 inline-block">Validated Earnings</span>
-          </div>
-
-          <!-- 2. CONVERSIONS CARD -->
-          <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl">
-            <div class="flex items-center justify-between">
-              <p class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Conversions</p>
-              <i class="fa-solid fa-bullseye text-emerald-400 text-base"></i>
-            </div>
-            <h3 id="display-conversions-count" class="text-3xl font-extrabold text-emerald-400 mt-3">0</h3>
-            <span id="conversion-status-sub" class="text-[11px] text-slate-400 mt-2 inline-block">Approved Conversions</span>
-          </div>
-
-          <!-- 3. TOTAL CLICKS CARD -->
-          <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl relative overflow-hidden">
-            <div class="flex items-center justify-between">
-              <p class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Total Clicks</p>
-              <i class="fa-solid fa-arrow-pointer text-purple-400 text-base"></i>
-            </div>
-            <h3 id="display-clicks-count" class="text-3xl font-extrabold text-purple-400 mt-3">0</h3>
-            <span class="text-[11px] text-emerald-400 mt-2 inline-block font-medium"><i class="fa-solid fa-check-circle mr-1"></i>Verified Clicks</span>
-          </div>
-
-          <!-- 4. CONVERSION RATE CARD -->
-          <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl">
-            <div class="flex items-center justify-between">
-              <p class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Conversion Rate</p>
-              <i class="fa-solid fa-percent text-purple-400 text-base"></i>
-            </div>
-            <h3 id="display-cr-val" class="text-3xl font-extrabold text-purple-400 mt-3">0.00%</h3>
-            <span class="text-[11px] text-slate-400 mt-2 inline-block">Realtime CR</span>
-          </div>
-
-        </section>
-
-        <!-- CREATOR CTR CARD -->
-        <div id="creator-ctr-card-wrapper" class="hidden">
-          <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl max-w-xs">
-            <div class="flex items-center justify-between">
-              <p class="text-xs text-slate-400 font-semibold uppercase tracking-wider">CTR</p>
-              <i class="fa-solid fa-eye text-cyan-400 text-base"></i>
-            </div>
-            <h3 id="display-creator-ctr-val" class="text-3xl font-extrabold text-cyan-400 mt-3">N/A</h3>
-            <span class="text-[11px] text-slate-500 mt-2 inline-block">Requires impression data</span>
-          </div>
-        </div>
-
-        <!-- GRAPH BELOW OVERVIEW CARDS -->
-        <div class="bg-slate-900 border border-slate-800 p-6 rounded-3xl shadow-xl">
-          <div class="flex items-center justify-between mb-4">
-            <div>
-              <h4 class="text-sm font-bold text-white flex items-center gap-2">
-                <i class="fa-solid fa-chart-area text-purple-400"></i> Performance Graph over Time
-              </h4>
-              <p id="graph-subtitle-text" class="text-xs text-slate-400">Clicks, Conversions & Revenue over time</p>
-            </div>
-            <span class="text-xs bg-purple-500/10 text-purple-400 border border-purple-500/20 px-3 py-1 rounded-full font-bold">Realtime</span>
-          </div>
-          <div class="h-72 w-full"><canvas id="trafficChart"></canvas></div>
-        </div>
-      </div>
-
-      <!-- TAB 1.5: ADMIN ANALYTICS TAB -->
-      <div id="tab-admin-analytics" class="tab-content space-y-6">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-900 border border-slate-800 p-5 rounded-2xl shadow-md">
-          <div>
-            <h2 class="text-xl font-extrabold text-white flex items-center gap-2">
-              <i class="fa-solid fa-chart-line text-cyan-400"></i> Admin System Analytics
-            </h2>
-            <p class="text-xs text-slate-400">In-depth breakdown of traffic, conversions, CR, revenue, CTR, and EPC</p>
-          </div>
-
-          <div class="flex items-center bg-slate-950 p-1 border border-slate-800 rounded-xl">
-            <button onclick="setAnalyticsDateFilter('today')" id="btn-filter-today" class="px-3 py-1.5 text-xs font-semibold text-slate-400 hover:text-white rounded-lg transition">Today</button>
-            <button onclick="setAnalyticsDateFilter('7days')" id="btn-filter-7days" class="px-3 py-1.5 text-xs font-semibold text-slate-400 hover:text-white rounded-lg transition">7 Days</button>
-            <button onclick="setAnalyticsDateFilter('30days')" id="btn-filter-30days" class="px-3 py-1.5 text-xs font-semibold bg-purple-600 text-white rounded-lg shadow-sm transition">30 Days</button>
-            <button onclick="setAnalyticsDateFilter('all')" id="btn-filter-all" class="px-3 py-1.5 text-xs font-semibold text-slate-400 hover:text-white rounded-lg transition">All Time</button>
-          </div>
-        </div>
-
-        <!-- ANALYTICS CARDS GRID -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl">
-            <p class="text-xs text-slate-400 uppercase font-semibold">Total Clicks</p>
-            <h3 id="analytics-total-clicks" class="text-2xl font-bold text-white mt-2">0</h3>
-          </div>
-          <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl">
-            <p class="text-xs text-slate-400 uppercase font-semibold">Total Conversions</p>
-            <h3 id="analytics-total-conversions" class="text-2xl font-bold text-emerald-400 mt-2">0</h3>
-          </div>
-          <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl">
-            <p class="text-xs text-slate-400 uppercase font-semibold">Conversion Rate</p>
-            <h3 id="analytics-cr" class="text-2xl font-bold text-purple-400 mt-2">0.00%</h3>
-          </div>
-          <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl">
-            <p class="text-xs text-slate-400 uppercase font-semibold">Total Revenue</p>
-            <h3 id="analytics-revenue" class="text-2xl font-bold text-amber-400 mt-2">₹0.00</h3>
-          </div>
-          <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl">
-            <div class="flex justify-between items-center">
-              <p class="text-xs text-slate-400 uppercase font-semibold">CTR</p>
-              <span class="text-[10px] bg-slate-800 text-slate-400 px-1.5 py-0.5 rounded">Real Impressions Only</span>
-            </div>
-            <h3 id="analytics-ctr" class="text-2xl font-bold text-cyan-400 mt-2">N/A</h3>
-          </div>
-          <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl">
-            <div class="flex justify-between items-center">
-              <p class="text-xs text-slate-400 uppercase font-semibold">EPC (Earnings Per Click)</p>
-              <span class="text-[10px] bg-slate-800 text-slate-400 px-1.5 py-0.5 rounded">Revenue ÷ Clicks</span>
-            </div>
-            <h3 id="analytics-epc" class="text-2xl font-bold text-blue-400 mt-2">₹0.00</h3>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div class="bg-slate-900 border border-slate-800 p-5 rounded-3xl">
-            <h4 class="text-sm font-bold text-white mb-4">Traffic Clicks vs Conversions Trend</h4>
-            <div class="h-64"><canvas id="analyticsTrendChart"></canvas></div>
-          </div>
-          <div class="bg-slate-900 border border-slate-800 p-5 rounded-3xl">
-            <h4 class="text-sm font-bold text-white mb-4">Revenue Generation Flow</h4>
-            <div class="h-64"><canvas id="analyticsRevenueChart"></canvas></div>
-          </div>
-        </div>
-
-        <div class="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden shadow-xl">
-          <div class="p-5 border-b border-slate-800">
-            <h3 class="text-sm font-bold text-amber-400"><i class="fa-solid fa-list-check mr-2"></i>Offer-Wise Performance Breakdown</h3>
-          </div>
-          <div class="overflow-x-auto">
-            <table class="w-full text-left text-xs text-slate-300">
-              <thead class="bg-slate-950 uppercase text-slate-400">
-                <tr>
-                  <th class="p-3.5">Offer Title</th>
-                  <th class="p-3.5">Clicks</th>
-                  <th class="p-3.5">Conversions</th>
-                  <th class="p-3.5 text-purple-400">CR (%)</th>
-                  <th class="p-3.5 text-amber-400">Revenue</th>
-                  <th class="p-3.5 text-blue-400">EPC</th>
-                </tr>
-              </thead>
-              <tbody id="analytics-offer-table-body" class="divide-y divide-slate-800">
-                <tr>
-                  <td colspan="6" class="p-6 text-center text-slate-500">No active offer data available.</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <!-- TAB 2: ALIAS GENERATOR -->
-      <div id="tab-link-generator" class="tab-content space-y-4">
-        <section class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl">
-          <h2 class="text-lg font-bold text-white mb-2"><i class="fa-solid fa-wand-magic-sparkles text-purple-400 mr-2"></i>Create Custom Link Tracking Alias</h2>
-          <div class="flex flex-col md:flex-row gap-3">
-            <input type="text" id="alias-input" placeholder="e.g. ff-rewards-vip" class="w-full bg-slate-950 border border-slate-800 rounded-xl py-2.5 px-4 text-sm text-purple-300">
-            <button id="generate-btn" class="bg-purple-600 hover:bg-purple-700 text-white font-bold px-6 py-2.5 rounded-xl text-sm">Generate Link</button>
-          </div>
-          <div class="mt-4 p-3.5 bg-slate-950 rounded-2xl border border-slate-800 flex items-center justify-between gap-3">
-            <input type="text" id="final-link-output" readonly value="https://ff-rewards-hub-gamma.vercel.app/" class="bg-transparent text-xs text-slate-300 w-full outline-none font-mono">
-            <button id="copy-link-btn" class="bg-slate-800 text-purple-400 px-4 py-1.5 rounded-lg text-xs font-semibold">Copy Link</button>
-          </div>
-        </section>
-      </div>
-
-      <!-- TAB 3: APPROVED OFFERS -->
-      <div id="tab-offers-hub" class="tab-content space-y-4">
-        <h3 class="text-base font-bold text-white mb-2"><i class="fa-solid fa-gift text-purple-400 mr-2"></i>Campaign Offers Hub</h3>
-        <p class="text-xs text-slate-400">Approved campaigns available for your account.</p>
-        <div id="offers-list-container" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
-      </div>
-
-      <!-- TAB 4: PROFILE SETTINGS -->
-      <div id="tab-profile" class="tab-content space-y-4 max-w-xl mx-auto">
-        <div class="bg-slate-900 border border-slate-800 p-6 rounded-3xl space-y-4 shadow-2xl">
-          <h3 class="text-base font-bold text-purple-400 flex items-center gap-2"><i class="fa-solid fa-user-pen"></i> Account & Settings</h3>
-          <form onsubmit="updateProfile(event)" class="space-y-4 text-xs">
-            <div>
-              <label class="block text-slate-400 mb-1">Display Name</label>
-              <input type="text" id="edit-display-name" required class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-purple-500">
-            </div>
-            
-            <div id="profile-upi-container">
-              <label class="block text-slate-400 mb-1">UPI ID / Withdrawal Address</label>
-              <input type="text" id="edit-upi-id" placeholder="yourname@upi" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-purple-500">
-            </div>
-
-            <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-extrabold py-3 rounded-xl transition">Save Profile Info</button>
-          </form>
-        </div>
-      </div>
-
-      <!-- TAB 5: WITHDRAWALS & EARNINGS -->
-      <div id="tab-withdrawals" class="tab-content space-y-6 max-w-xl mx-auto">
-        <div class="bg-slate-900 border border-slate-800 p-6 rounded-3xl space-y-4 shadow-2xl">
-          <h3 class="text-base font-bold text-emerald-400 flex items-center gap-2">
-            <i class="fa-solid fa-wallet"></i> Earnings & Payout Requests
-          </h3>
-          
-          <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-2">
-            <div class="flex justify-between text-xs">
-              <span class="text-slate-400">Total Approved Earnings:</span>
-              <span id="withdrawal-approved-earnings" class="text-emerald-400 font-bold">₹0.00</span>
-            </div>
-            <div class="flex justify-between text-xs">
-              <span class="text-slate-400">Paid Withdrawals:</span>
-              <span id="withdrawal-paid-amount" class="text-slate-300 font-bold">₹0.00</span>
-            </div>
-            <div class="border-t border-slate-800 pt-2 flex justify-between text-sm">
-              <span class="text-white font-bold">Available Balance:</span>
-              <span id="withdrawal-available-balance" class="text-amber-400 font-extrabold">₹0.00</span>
-            </div>
-          </div>
-
-          <form onsubmit="requestWithdrawal(event)" class="space-y-4 text-xs">
-            <div>
-              <label class="block text-slate-400 mb-1">Withdrawal Amount (₹)</label>
-              <input type="number" id="withdraw-amount-input" min="1000" placeholder="Minimum ₹1,000" required class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-emerald-500">
-              <p class="text-[10px] text-slate-500 mt-1">* Minimum threshold for withdrawal is ₹1,000.</p>
-            </div>
-            <div>
-              <label class="block text-slate-400 mb-1">UPI Address</label>
-              <input type="text" id="withdraw-upi-input" placeholder="e.g. name@upi" required class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-emerald-500">
-            </div>
-            <button type="submit" id="submit-withdraw-btn" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold py-3 rounded-xl transition disabled:opacity-50 disabled:cursor-not-allowed">
-              Submit Withdrawal Request
-            </button>
-          </form>
-        </div>
-
-        <div class="bg-slate-900 border border-slate-800 p-5 rounded-3xl space-y-3">
-          <h4 class="text-sm font-bold text-slate-300"><i class="fa-solid fa-clock-rotate-left mr-1"></i> Withdrawal History</h4>
-          <div id="user-withdrawal-history" class="space-y-2 text-xs">
-            <p class="text-slate-500 text-center py-2">No withdrawal requests found.</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- TAB 6: ADD USER -->
-      <div id="tab-admin-add-user" class="tab-content space-y-4 max-w-xl mx-auto">
-        <div class="bg-slate-900 border border-blue-500/40 p-6 rounded-3xl space-y-4 shadow-2xl">
-          <h3 class="text-base font-bold text-blue-400 flex items-center gap-2"><i class="fa-solid fa-user-plus"></i> Register User Account</h3>
-          <form onsubmit="addManualUserWithPass(event)" class="space-y-4 text-xs">
-            <div>
-              <label class="block text-slate-400 mb-1">User Role</label>
-              <select id="manual-user-role" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-blue-500 font-semibold">
-                <option value="Creator">Creator</option>
-                <option id="role-option-publisher" value="Publisher">Publisher</option>
-              </select>
-            </div>
-            <div>
-              <label class="block text-slate-400 mb-1">Full Name</label>
-              <input type="text" id="manual-user-name" required class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-blue-500">
-            </div>
-            <div>
-              <label class="block text-slate-400 mb-1">Email or Phone Number</label>
-              <input type="text" id="manual-user-email" required class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-blue-500">
-            </div>
-            <div>
-              <label class="block text-slate-400 mb-1">Account Password</label>
-              <input type="text" id="manual-user-password" required class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-blue-500">
-            </div>
-            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-extrabold py-3 rounded-xl transition">Create User</button>
-          </form>
-        </div>
-      </div>
-
-      <!-- TAB 7: MASTER USER MANAGEMENT -->
-      <div id="tab-admin-manage-users" class="tab-content space-y-4">
-        <div class="bg-slate-900 border border-purple-500/40 p-5 rounded-3xl space-y-4 shadow-2xl">
-          <h3 class="text-sm font-bold text-purple-400 flex items-center justify-between">
-            <span class="flex items-center gap-2"><i class="fa-solid fa-users-gear"></i> Network Users Overview</span>
-            <span id="user-management-subtitle" class="text-xs text-slate-400">Loading Users...</span>
-          </h3>
-          <div class="overflow-x-auto">
-            <table class="w-full text-left text-xs text-slate-300">
-              <thead class="bg-slate-950 uppercase text-slate-400">
-                <tr>
-                  <th class="p-3">Role</th>
-                  <th class="p-3">User Info</th>
-                  <th class="p-3">Password</th>
-                  <th class="p-3 text-amber-400">Raw Real Clicks</th>
-                  <th class="p-3 text-cyan-400">Creator View Clicks</th>
-                  <th class="p-3">Status</th>
-                  <th class="p-3">UPI Info</th>
-                  <th class="p-3 text-center">Links</th>
-                  <th class="p-3 text-center">Action</th>
-                </tr>
-              </thead>
-              <tbody id="user-table-body" class="divide-y divide-slate-800"></tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <!-- TAB 8: OFFER MANAGEMENT -->
-      <div id="tab-admin-add-offer" class="tab-content space-y-6">
-        <div class="bg-slate-900 border border-amber-500/40 p-6 rounded-3xl space-y-4 shadow-2xl max-w-2xl mx-auto">
-          <h3 class="text-base font-bold text-amber-400 flex items-center gap-2"><i class="fa-solid fa-folder-plus"></i> Simple Offer Management</h3>
-          <p class="text-xs text-slate-400">Paste tracking link, set goal and payout. Broadcasts live to Publishers.</p>
-
-          <form onsubmit="addNewOffer(event)" class="space-y-4 text-xs">
-            <div>
-              <label class="block text-slate-400 mb-1">Campaign Title</label>
-              <input type="text" id="new-offer-title" required placeholder="e.g. Free Fire App Install Offer" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-amber-500">
-            </div>
-
-            <div>
-              <label class="block text-slate-400 mb-1">Network Tracking URL (Main Link)</label>
-              <input type="url" id="new-offer-url" required placeholder="https://trackinglink.com/click?offer_id=123" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-amber-500 font-mono">
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label class="block text-slate-400 mb-1">Conversion Goal</label>
-                <select id="new-offer-event" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-amber-500 font-semibold">
-                  <option value="App Install">App Install</option>
-                  <option value="User Registration">User Registration</option>
-                  <option value="Task Completion">Task Completion</option>
-                  <option value="Survey Complete">Survey Complete</option>
-                </select>
-              </div>
-
-              <div>
-                <label class="block text-slate-400 mb-1">Main Network Payout (₹)</label>
-                <input type="number" step="0.01" id="new-offer-net-payout" required placeholder="e.g. 20" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-amber-500">
-              </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label class="block text-slate-400 mb-1">Publisher Payout (₹)</label>
-                <input type="number" step="0.01" id="new-offer-pub-payout" required placeholder="e.g. 15" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-amber-500">
-              </div>
-
-              <div>
-                <label class="block text-slate-400 mb-1">Creator Recommended Payout (₹)</label>
-                <input type="number" step="0.01" id="new-offer-creator-payout" required placeholder="e.g. 12" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-amber-500">
-              </div>
-            </div>
-
-            <button type="submit" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-extrabold py-3 rounded-xl transition">
-              Broadcast Offer Live to All Publishers
-            </button>
-          </form>
-        </div>
-
-        <div class="bg-slate-900 border border-slate-800 p-5 rounded-3xl space-y-4">
-          <h4 class="text-sm font-bold text-amber-400 flex items-center gap-2"><i class="fa-solid fa-list-check"></i> Active Network Offers List</h4>
-          <div id="admin-offers-table-container" class="overflow-x-auto">
-            <table class="w-full text-left text-xs text-slate-300">
-              <thead class="bg-slate-950 uppercase text-slate-400">
-                <tr>
-                  <th class="p-3">Campaign Title</th>
-                  <th class="p-3">Goal Event</th>
-                  <th class="p-3 text-amber-400">Main Payout</th>
-                  <th class="p-3 text-purple-400">Publisher Payout</th>
-                  <th class="p-3 text-cyan-400">Creator Payout</th>
-                  <th class="p-3">Status</th>
-                  <th class="p-3 text-center">Action</th>
-                </tr>
-              </thead>
-              <tbody id="admin-offers-table-body" class="divide-y divide-slate-800"></tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <!-- TAB 9: MANAGE WITHDRAWALS -->
-      <div id="tab-admin-withdrawals" class="tab-content space-y-4">
-        <div class="bg-slate-900 border border-emerald-500/40 p-5 rounded-3xl space-y-4 shadow-2xl">
-          <h3 class="text-sm font-bold text-emerald-400 flex items-center justify-between">
-            <span class="flex items-center gap-2"><i class="fa-solid fa-money-bill-transfer"></i> User Withdrawal Requests Management</span>
-            <span id="admin-withdrawal-subtitle" class="text-xs text-slate-400">Pending & Processed Requests</span>
-          </h3>
-          <div class="overflow-x-auto">
-            <table class="w-full text-left text-xs text-slate-300">
-              <thead class="bg-slate-950 uppercase text-slate-400">
-                <tr>
-                  <th class="p-3">User Name</th>
-                  <th class="p-3">Amount</th>
-                  <th class="p-3">UPI Address</th>
-                  <th class="p-3">Status</th>
-                  <th class="p-3">Date</th>
-                  <th class="p-3 text-center">Action</th>
-                </tr>
-              </thead>
-              <tbody id="admin-withdrawals-table-body" class="divide-y divide-slate-800"></tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-    </main>
-  </div>
-
-  <!-- MODAL: MANAGE USER LINKS & ASSIGN OFFERS -->
-  <div id="user-link-modal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-slate-900 border border-purple-500/40 p-6 rounded-3xl max-w-lg w-full shadow-2xl relative space-y-4">
-      <button onclick="closeUserLinkModal()" class="absolute top-4 right-4 text-slate-500 hover:text-white text-lg">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
-      
-      <div class="border-b border-slate-800 pb-3">
-        <h3 id="modal-user-title" class="text-base font-bold text-purple-400">Approve Custom Campaign Links</h3>
-        <p id="modal-user-subtitle" class="text-xs text-slate-400">User: Loading...</p>
-      </div>
-
-      <form onsubmit="assignLinkToUser(event)" class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-3 text-xs">
-        <h4 class="font-bold text-emerald-400"><i class="fa-solid fa-plus-circle mr-1"></i> Approve Custom Link for Creator</h4>
-        <input type="text" id="assign-link-title" required placeholder="Campaign Title" class="w-full bg-slate-900 border border-slate-800 p-2.5 rounded-xl text-white outline-none focus:border-purple-500">
-        <input type="url" id="assign-link-url" required placeholder="Target Redirect URL" class="w-full bg-slate-900 border border-slate-800 p-2.5 rounded-xl text-white outline-none focus:border-purple-500">
-        <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 rounded-xl transition">Assign Custom Link</button>
-      </form>
-
-      <div id="publisher-broadcast-assign-section" class="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-2 text-xs">
-        <h4 class="font-bold text-amber-400"><i class="fa-solid fa-bullhorn mr-1"></i> Approve Broadcasted Campaign Offer</h4>
-        <select id="modal-broadcast-offers-select" class="w-full bg-slate-900 border border-slate-800 p-2 rounded-xl text-white outline-none">
-          <option value="">Select Active Offer...</option>
-        </select>
-        <button onclick="assignBroadcastedOfferToCreator()" class="w-full bg-amber-500 text-slate-950 font-bold py-2 rounded-xl transition">Approve & Assign Selected Offer</button>
-      </div>
-
-      <div class="space-y-2">
-        <h4 class="text-xs font-bold text-slate-300">Active Approved Links for User:</h4>
-        <div id="modal-assigned-links-list" class="max-h-48 overflow-y-auto space-y-2 pr-1"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- FIREBASE & STRICT CLICKS/OFFER/POSTBACK SYSTEM -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getAuth, signInWithRedirect, GoogleAuthProvider, onAuthStateChanged, signOut, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-    import { getFirestore, doc, setDoc, updateDoc, increment, onSnapshot, collection, getDocs, query, where, getDoc, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyDhi-7RfGoAV1K9gXBiQcd3vUtHCmPrTCQ",
-      authDomain: "trackflow-92b4e.firebaseapp.com",
-      projectId: "trackflow-92b4e",
-      storageBucket: "trackflow-92b4e.firebasestorage.app",
-      messagingSenderId: "524980292297",
-      appId: "1:524980292297:web:584e81fa8197e17e881b18"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-    const provider = new GoogleAuthProvider();
-
-    const ADMIN_EMAIL = "Kids38271@gmail.com";
-    const ADMIN_PASS = "Ragib@7549";
-    const mainTargetURL = "https://ff-rewards-hub-gamma.vercel.app/";
-
-    let activeTargetUserId = null;
-    let currentUserRole = 'Creator';
-    let currentLoggedInId = null;
-    let cachedRawClicks = 0;
-    let cachedConversions = [];
-    let cachedWithdrawals = [];
-    let broadcastOffersList = [];
-    let cachedImpressions = null;
-
-    let analyticsTrendChartInstance = null;
-    let analyticsRevenueChartInstance = null;
-
-    // Dynamic 15:2 Ratio Calculation for Creators
-    function calculateDynamicCreatorClicks(rawClicks) {
-      if (!rawClicks || rawClicks < 15) return 0;
-      const blocks = Math.floor(rawClicks / 15);
-      let totalCreatorClicks = 0;
-
-      for (let i = 1; i <= blocks; i++) {
-        const variance = (i % 3 === 0) ? 4 : ((i % 2 === 0) ? 3 : 2);
-        totalCreatorClicks += variance;
-      }
-      return totalCreatorClicks;
+    * {
+      box-sizing: border-box;
     }
 
-    // Direct Incoming URL Click / Postback Handler
-    const urlParams = new URLSearchParams(window.location.search);
-    const refUser = urlParams.get('ref');
-    const offerIdParam = urlParams.get('offerId');
-    const subIdParam = urlParams.get('subId') || '';
+    :root {
+      --bg: #0b1020;
+      --panel: #121a2d;
+      --panel2: #18223a;
+      --border: #273451;
+      --text: #f5f7fb;
+      --muted: #98a4bd;
+      --primary: #6d7cff;
+      --primary2: #5365ff;
+      --success: #31c48d;
+      --warning: #f6c344;
+      --danger: #ef6262;
+      --info: #45aaf2;
+    }
 
-    // POSTBACK HANDLING: If ad network calls back with conversion data
-    const isPostback = urlParams.get('postback') === 'true' || urlParams.get('click_id');
-    if (isPostback) {
-      const clickId = urlParams.get('click_id') || urlParams.get('sub_id') || subIdParam;
-      const creatorId = urlParams.get('creator_id') || refUser;
-      const offerId = urlParams.get('offer_id') || offerIdParam || 'default';
-      const netPayout = parseFloat(urlParams.get('payout') || '0');
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
 
-      if (creatorId || clickId) {
-        addDoc(collection(db, "conversions"), {
-          clickId: clickId || 'unknown',
-          creatorId: creatorId || '',
-          offerId: offerId,
-          networkPayout: netPayout,
-          pubPayout: netPayout * 0.75, // 75% allocated to Publisher/Creator
-          creatorPayout: netPayout * 0.60,
-          status: 'Approved',
-          timestamp: Date.now()
-        }).then(() => {
-          document.body.innerHTML = "<h2 style='color:green;text-align:center;margin-top:20%;font-family:sans-serif;'>Postback Processed Successfully</h2>";
-        });
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .app {
+      min-height: 100vh;
+    }
+
+    /* AUTH */
+
+    #authScreen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background:
+        radial-gradient(circle at top right, rgba(109,124,255,.18), transparent 35%),
+        radial-gradient(circle at bottom left, rgba(49,196,141,.08), transparent 30%),
+        var(--bg);
+    }
+
+    .auth-card {
+      width: 100%;
+      max-width: 430px;
+      background: rgba(18,26,45,.96);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 30px;
+      box-shadow: 0 25px 70px rgba(0,0,0,.35);
+    }
+
+    .brand {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -.5px;
+    }
+
+    .brand span {
+      color: var(--primary);
+    }
+
+    .auth-subtitle {
+      color: var(--muted);
+      margin: 8px 0 25px;
+      line-height: 1.5;
+    }
+
+    .auth-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .auth-tab {
+      flex: 1;
+      border: 1px solid var(--border);
+      background: var(--panel2);
+      color: var(--muted);
+      padding: 11px;
+      border-radius: 10px;
+    }
+
+    .auth-tab.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .field {
+      margin-bottom: 14px;
+    }
+
+    .field label {
+      display: block;
+      margin-bottom: 7px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .field input,
+    .field select {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: #0d1528;
+      color: var(--text);
+      padding: 12px 13px;
+      border-radius: 10px;
+      outline: none;
+    }
+
+    .field input:focus,
+    .field select:focus {
+      border-color: var(--primary);
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 10px;
+      padding: 11px 15px;
+      color: white;
+      background: var(--primary);
+      font-weight: 650;
+    }
+
+    .btn:hover {
+      background: var(--primary2);
+    }
+
+    .btn.secondary {
+      background: var(--panel2);
+      border: 1px solid var(--border);
+    }
+
+    .btn.success {
+      background: var(--success);
+      color: #06150f;
+    }
+
+    .btn.danger {
+      background: var(--danger);
+    }
+
+    .btn.warning {
+      background: var(--warning);
+      color: #211b06;
+    }
+
+    .btn.small {
+      padding: 7px 10px;
+      font-size: 12px;
+    }
+
+    .google-btn {
+      width: 100%;
+      margin-top: 10px;
+      background: white;
+      color: #222;
+      border: 0;
+      padding: 12px;
+      border-radius: 10px;
+      font-weight: 650;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 18px 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: "";
+      height: 1px;
+      background: var(--border);
+      flex: 1;
+    }
+
+    /* HEADER */
+
+    .topbar {
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(11,16,32,.96);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(12px);
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .user-chip {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      padding: 7px 11px;
+      border-radius: 10px;
+      font-size: 13px;
+    }
+
+    .role-badge {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(109,124,255,.15);
+      color: #aeb7ff;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    /* LAYOUT */
+
+    .layout {
+      display: flex;
+      min-height: calc(100vh - 70px);
+    }
+
+    .sidebar {
+      width: 240px;
+      flex-shrink: 0;
+      border-right: 1px solid var(--border);
+      background: #0d1425;
+      padding: 18px 12px;
+    }
+
+    .nav-title {
+      color: #697590;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 10px 12px;
+    }
+
+    .nav-btn {
+      width: 100%;
+      text-align: left;
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      padding: 11px 12px;
+      border-radius: 9px;
+      margin-bottom: 3px;
+    }
+
+    .nav-btn:hover,
+    .nav-btn.active {
+      background: var(--panel2);
+      color: white;
+    }
+
+    .main {
+      flex: 1;
+      min-width: 0;
+      padding: 25px;
+    }
+
+    .page-title {
+      font-size: 25px;
+      font-weight: 800;
+      margin-bottom: 5px;
+    }
+
+    .page-subtitle {
+      color: var(--muted);
+      margin-bottom: 25px;
+    }
+
+    /* CARDS */
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0,1fr));
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .stat-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      padding: 18px;
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 9px;
+    }
+
+    .stat-value {
+      font-size: 24px;
+      font-weight: 800;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 18px;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      padding: 18px;
+      margin-bottom: 18px;
+    }
+
+    .panel.full {
+      grid-column: 1 / -1;
+    }
+
+    .panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 15px;
+    }
+
+    .panel-title {
+      font-weight: 750;
+      font-size: 16px;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    /* TABLE */
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 650px;
+    }
+
+    th,
+    td {
+      padding: 11px 10px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      font-size: 13px;
+    }
+
+    th {
+      color: var(--muted);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    /* STATUS */
+
+    .status {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .status.active,
+    .status.approved,
+    .status.completed {
+      background: rgba(49,196,141,.13);
+      color: #57e1ac;
+    }
+
+    .status.pending {
+      background: rgba(246,195,68,.13);
+      color: #ffd86e;
+    }
+
+    .status.inactive,
+    .status.rejected,
+    .status.reversed,
+    .status.declined {
+      background: rgba(239,98,98,.13);
+      color: #ff8a8a;
+    }
+
+    /* FORMS */
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 13px;
+    }
+
+    .form-grid .full-field {
+      grid-column: 1 / -1;
+    }
+
+    .action-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 12px;
+    }
+
+    /* CAMPAIGNS */
+
+    .campaign-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 14px;
+    }
+
+    .campaign-card {
+      background: #0e1629;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      padding: 16px;
+    }
+
+    .campaign-title {
+      font-weight: 750;
+      margin-bottom: 7px;
+    }
+
+    .campaign-meta {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    .tracking-box {
+      display: flex;
+      gap: 7px;
+      margin-top: 13px;
+    }
+
+    .tracking-box input {
+      min-width: 0;
+      flex: 1;
+      background: #080e1d;
+      color: #aeb7ff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 9px;
+      font-size: 11px;
+    }
+
+    /* MESSAGE */
+
+    #message {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      max-width: 380px;
+      padding: 13px 16px;
+      border-radius: 11px;
+      background: var(--panel2);
+      border: 1px solid var(--border);
+      color: white;
+      z-index: 100;
+      box-shadow: 0 12px 35px rgba(0,0,0,.35);
+    }
+
+    #message.success {
+      border-color: rgba(49,196,141,.5);
+    }
+
+    #message.error {
+      border-color: rgba(239,98,98,.6);
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 950px) {
+      .stats-grid {
+        grid-template-columns: repeat(2, minmax(0,1fr));
       }
-    } else if (refUser) {
-      const clickRef = doc(db, "users", refUser);
-      getDoc(clickRef).then((snap) => {
-        if(snap.exists() && snap.data().status === 'Blocked') {
-          document.body.innerHTML = "<h1 style='color:red;text-align:center;margin-top:20%;font-family:sans-serif;'>Link Suspended.</h1>";
-        } else {
-          const clickId = "clk_" + Date.now() + "_" + Math.random().toString(36).substr(2, 5);
-          addDoc(collection(db, "clicks"), {
-            clickId,
-            creatorId: refUser,
-            publisherId: snap.exists() ? (snap.data().createdBy || '') : '',
-            offerId: offerIdParam || 'default',
-            subId: subIdParam,
-            timestamp: Date.now()
-          });
 
-          updateDoc(clickRef, { clicks: increment(1) }).then(() => {
-            window.location.href = mainTargetURL;
-          }).catch(() => {
-            window.location.href = mainTargetURL;
-          });
-        }
+      .content-grid,
+      .campaign-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        width: 200px;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .topbar {
+        padding: 0 14px;
+      }
+
+      .topbar .brand {
+        font-size: 20px;
+      }
+
+      .user-chip {
+        display: none;
+      }
+
+      .layout {
+        display: block;
+      }
+
+      .sidebar {
+        width: 100%;
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        overflow-x: auto;
+        padding: 8px;
+      }
+
+      .nav-title {
+        display: none;
+      }
+
+      .nav-btn {
+        width: auto;
+        white-space: nowrap;
+        margin: 0;
+      }
+
+      .main {
+        padding: 16px;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-grid .full-field {
+        grid-column: auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="message" class="hidden"></div>
+
+  <!-- ================= AUTH ================= -->
+
+  <section id="authScreen">
+    <div class="auth-card">
+
+      <div class="brand">
+        Track<span>Flow</span>
+      </div>
+
+      <div class="auth-subtitle">
+        Affiliate Management & Performance Dashboard
+      </div>
+
+      <div class="auth-tabs">
+        <button id="loginTab" class="auth-tab active">Login</button>
+        <button id="signupTab" class="auth-tab">Create Account</button>
+      </div>
+
+      <form id="authForm">
+
+        <div id="nameField" class="field hidden">
+          <label>Full Name</label>
+          <input
+            id="nameInput"
+            type="text"
+            placeholder="Your name"
+          />
+        </div>
+
+        <div class="field">
+          <label>Email</label>
+          <input
+            id="emailInput"
+            type="email"
+            placeholder="you@example.com"
+            required
+          />
+        </div>
+
+        <div class="field">
+          <label>Password</label>
+          <input
+            id="passwordInput"
+            type="password"
+            placeholder="Password"
+            minlength="6"
+            required
+          />
+        </div>
+
+        <button id="authSubmit" class="btn" type="submit" style="width:100%;">
+          Login
+        </button>
+
+      </form>
+
+      <div class="divider">OR</div>
+
+      <button id="googleBtn" class="google-btn">
+        Continue with Google
+      </button>
+
+      <div
+        id="authHint"
+        class="muted"
+        style="font-size:12px;margin-top:15px;text-align:center;"
+      >
+        New accounts are created as Pending until an administrator approves them.
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= APP ================= -->
+
+  <section id="appScreen" class="app hidden">
+
+    <header class="topbar">
+
+      <div class="brand">
+        Track<span>Flow</span>
+      </div>
+
+      <div class="topbar-right">
+
+        <div id="userChip" class="user-chip">
+          Loading...
+        </div>
+
+        <button id="logoutBtn" class="btn secondary small">
+          Logout
+        </button>
+
+      </div>
+
+    </header>
+
+    <div class="layout">
+
+      <!-- SIDEBAR -->
+
+      <aside class="sidebar">
+
+        <div class="nav-title">Workspace</div>
+
+        <button class="nav-btn active" data-page="dashboard">
+          Dashboard
+        </button>
+
+        <button class="nav-btn" data-page="offers">
+          Master Offers
+        </button>
+
+        <button class="nav-btn" data-page="assignments">
+          Assignments
+        </button>
+
+        <button class="nav-btn" data-page="users">
+          Network Users
+        </button>
+
+        <button class="nav-btn" data-page="conversions">
+          Conversions
+        </button>
+
+        <button class="nav-btn" data-page="withdrawals">
+          Withdrawals
+        </button>
+
+        <button class="nav-btn" data-page="ledger">
+          Ledger
+        </button>
+
+      </aside>
+
+      <!-- MAIN -->
+
+      <main class="main">
+
+        <!-- ================= DASHBOARD ================= -->
+
+        <section id="page-dashboard" class="page">
+
+          <div class="page-title">Dashboard</div>
+
+          <div class="page-subtitle">
+            TrackFlow performance overview
+          </div>
+
+          <div class="stats-grid">
+
+            <div class="stat-card">
+              <div class="stat-label">Clicks</div>
+              <div id="statClicks" class="stat-value">0</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-label">Approved Conversions</div>
+              <div id="statConversions" class="stat-value">0</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-label">Network Revenue</div>
+              <div id="statRevenue" class="stat-value">₹0</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-label">TrackFlow Margin</div>
+              <div id="statMargin" class="stat-value">₹0</div>
+            </div>
+
+          </div>
+
+          <div class="stats-grid">
+
+            <div class="stat-card">
+              <div class="stat-label">Creator Earnings</div>
+              <div id="statCreatorEarnings" class="stat-value">₹0</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-label">Available Balance</div>
+              <div id="statAvailable" class="stat-value">₹0</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-label">Pending Withdrawals</div>
+              <div id="statPendingWithdrawals" class="stat-value">0</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-label">Role</div>
+              <div id="statRole" class="stat-value" style="font-size:18px;">
+                Pending
+              </div>
+            </div>
+
+          </div>
+
+          <div class="panel">
+
+            <div class="panel-header">
+              <div class="panel-title">Account Status</div>
+            </div>
+
+            <div id="accountStatusText" class="muted">
+              Loading account...
+            </div>
+
+          </div>
+
+        </section>
+
+        <!-- ================= ADMIN OFFERS ================= -->
+
+        <section id="page-offers" class="page hidden">
+
+          <div class="page-title">Master Offers</div>
+
+          <div class="page-subtitle">
+            Manage the master offer catalogue.
+          </div>
+
+          <div id="adminOfferCreatePanel" class="panel hidden">
+
+            <div class="panel-header">
+              <div class="panel-title">Create Master Offer</div>
+            </div>
+
+            <form id="offerForm">
+
+              <div class="form-grid">
+
+                <div class="field">
+                  <label>Offer Title</label>
+                  <input
+                    id="offerTitle"
+                    required
+                    placeholder="Example: Free Fire Registration"
+                  />
+                </div>
+
+                <div class="field">
+                  <label>Network Tracking Link</label>
+                  <input
+                    id="networkTrackingLink"
+                    type="url"
+                    required
+                    placeholder="https://network.example/..."
+                  />
+                </div>
+
+                <div class="field">
+                  <label>Network Payout (₹)</label>
+                  <input
+                    id="networkPayout"
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    required
+                    placeholder="100"
+                  />
+                </div>
+
+                <div class="field">
+                  <label>Goal / Conversion Event</label>
+                  <input
+                    id="offerGoal"
+                    required
+                    placeholder="Registration / Install / Deposit"
+                  />
+                </div>
+
+                <div class="field">
+                  <label>Status</label>
+                  <select id="offerStatus">
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                  </select>
+                </div>
+
+              </div>
+
+              <div class="action-row">
+                <button class="btn" type="submit">
+                  Create Offer
+                </button>
+              </div>
+
+            </form>
+
+          </div>
+
+          <div class="panel">
+
+            <div class="panel-header">
+              <div class="panel-title">Offers</div>
+            </div>
+
+            <div id="offersTable">
+              <div class="muted">Loading...</div>
+            </div>
+
+          </div>
+
+        </section>
+
+        <!-- ================= ASSIGNMENTS ================= -->
+
+        <section id="page-assignments" class="page hidden">
+
+          <div class="page-title">Assignments</div>
+
+          <div class="page-subtitle">
+            Assign active campaigns to creators.
+          </div>
+
+          <div id="assignmentPanel" class="panel hidden">
+
+            <div class="panel-header">
+              <div class="panel-title">Assign Campaign</div>
+            </div>
+
+            <form id="assignmentForm">
+
+              <div class="form-grid">
+
+                <div class="field">
+                  <label>Creator</label>
+                  <select id="assignmentCreator" required>
+                    <option value="">Select Creator</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label>Offer</label>
+                  <select id="assignmentOffer" required>
+                    <option value="">Select Offer</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label>Creator Payout (₹)</label>
+                  <input
+                    id="assignmentPayout"
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    required
+                    placeholder="75"
+                  />
+                </div>
+
+              </div>
+
+              <div class="action-row">
+                <button class="btn" type="submit">
+                  Assign Campaign
+                </button>
+              </div>
+
+            </form>
+
+          </div>
+
+          <div class="panel">
+
+            <div class="panel-header">
+              <div class="panel-title">Current Assignments</div>
+            </div>
+
+            <div id="assignmentsTable">
+              <div class="muted">Loading...</div>
+            </div>
+
+          </div>
+
+        </section>
+
+        <!-- ================= USERS ================= -->
+
+        <section id="page-users" class="page hidden">
+
+          <div class="page-title">Network Users</div>
+
+          <div class="page-subtitle">
+            Manage publishers, creators and pending accounts.
+          </div>
+
+          <div id="adminUserPanel" class="panel hidden">
+
+            <div class="panel-header">
+              <div class="panel-title">User Management</div>
+            </div>
+
+            <div id="usersTable">
+              <div class="muted">Loading...</div>
+            </div>
+
+          </div>
+
+          <div id="publisherCreatorPanel" class="panel hidden">
+
+            <div class="panel-header">
+              <div class="panel-title">My Creators</div>
+            </div>
+
+            <div id="publisherCreatorsTable">
+              <div class="muted">Loading...</div>
+            </div>
+
+          </div>
+
+        </section>
+
+        <!-- ================= CONVERSIONS ================= -->
+
+        <section id="page-conversions" class="page hidden">
+
+          <div class="page-title">Conversions</div>
+
+          <div class="page-subtitle">
+            Conversion status and payout history.
+          </div>
+
+          <div class="panel">
+
+            <div id="conversionsTable">
+              <div class="muted">Loading...</div>
+            </div>
+
+          </div>
+
+        </section>
+
+        <!-- ================= WITHDRAWALS ================= -->
+
+        <section id="page-withdrawals" class="page hidden">
+
+          <div class="page-title">Withdrawals</div>
+
+          <div class="page-subtitle">
+            Manage withdrawal requests.
+          </div>
+
+          <div id="creatorWithdrawalPanel" class="panel hidden">
+
+            <div class="panel-header">
+              <div class="panel-title">Request Withdrawal</div>
+            </div>
+
+            <form id="withdrawalForm">
+
+              <div class="form-grid">
+
+                <div class="field">
+                  <label>Amount (₹)</label>
+                  <input
+                    id="withdrawalAmount"
+                    type="number"
+                    min="1000"
+                    step="0.01"
+                    placeholder="1000"
+                    required
+                  />
+                </div>
+
+              </div>
+
+              <div class="muted" style="font-size:12px;">
+                Minimum withdrawal: ₹1,000
+              </div>
+
+              <div class="action-row">
+                <button class="btn" type="submit">
+                  Request Withdrawal
+                </button>
+              </div>
+
+            </form>
+
+          </div>
+
+          <div id="adminWithdrawalPanel" class="panel hidden">
+
+            <div class="panel-header">
+              <div class="panel-title">Pending Withdrawal Requests</div>
+            </div>
+
+            <div id="adminWithdrawalsTable">
+              <div class="muted">Loading...</div>
+            </div>
+
+          </div>
+
+          <div id="creatorWithdrawalHistoryPanel" class="panel hidden">
+
+            <div class="panel-header">
+              <div class="panel-title">My Withdrawal History</div>
+            </div>
+
+            <div id="creatorWithdrawalsTable">
+              <div class="muted">Loading...</div>
+            </div>
+
+          </div>
+
+        </section>
+
+        <!-- ================= LEDGER ================= -->
+
+        <section id="page-ledger" class="page hidden">
+
+          <div class="page-title">Ledger</div>
+
+          <div class="page-subtitle">
+            Financial transaction history.
+          </div>
+
+          <div class="panel">
+
+            <div id="ledgerTable">
+              <div class="muted">Loading...</div>
+            </div>
+
+          </div>
+
+        </section>
+
+        <!-- ================= CREATOR CAMPAIGNS ================= -->
+
+        <section id="creatorCampaignSection" class="hidden">
+
+          <div class="page-title">My Campaigns</div>
+
+          <div class="page-subtitle">
+            Campaigns assigned to your account.
+          </div>
+
+          <div id="creatorCampaigns" class="campaign-grid"></div>
+
+        </section>
+
+      </main>
+
+    </div>
+
+  </section>
+
+  <!-- ================= FIREBASE ================= -->
+
+  <script type="module">
+
+    import { initializeApp }
+      from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+
+    import {
+      getAuth,
+      onAuthStateChanged,
+      signInWithEmailAndPassword,
+      createUserWithEmailAndPassword,
+      signOut,
+      GoogleAuthProvider,
+      signInWithPopup
+    }
+      from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+    import {
+      getFirestore,
+      collection,
+      query,
+      where,
+      getDocs
+    }
+      from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    import {
+      getFunctions,
+      httpsCallable
+    }
+      from "https://www.gstatic.com/firebasejs/10.8.0/firebase-functions.js";
+
+
+    /* =========================================================
+       IMPORTANT:
+       REPLACE THESE VALUES WITH YOUR FIREBASE WEB APP CONFIG
+       Firebase Console →
+       Project Settings →
+       Your Apps →
+       Web App →
+       Firebase SDK configuration
+       ========================================================= */
+
+    const firebaseConfig = {
+      apiKey: "YOUR_FIREBASE_API_KEY",
+      authDomain: "YOUR_FIREBASE_PROJECT.firebaseapp.com",
+      projectId: "YOUR_FIREBASE_PROJECT_ID",
+      storageBucket: "YOUR_FIREBASE_STORAGE_BUCKET",
+      messagingSenderId: "YOUR_FIREBASE_MESSAGING_SENDER_ID",
+      appId: "YOUR_FIREBASE_APP_ID"
+    };
+
+
+    const app = initializeApp(firebaseConfig);
+
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    const functions = getFunctions(app);
+
+
+    /* =========================================================
+       CALLABLE FUNCTIONS
+       ========================================================= */
+
+    const ensureMyProfile =
+      httpsCallable(functions, "ensureMyProfile");
+
+    const getDashboard =
+      httpsCallable(functions, "getDashboard");
+
+    const createMasterOffer =
+      httpsCallable(functions, "createMasterOffer");
+
+    const updateMasterOffer =
+      httpsCallable(functions, "updateMasterOffer");
+
+    const assignOffer =
+      httpsCallable(functions, "assignOffer");
+
+    const setUserRole =
+      httpsCallable(functions, "setUserRole");
+
+    const requestWithdrawal =
+      httpsCallable(functions, "requestWithdrawal");
+
+    const processWithdrawal =
+      httpsCallable(functions, "processWithdrawal");
+
+
+    /* =========================================================
+       STATE
+       ========================================================= */
+
+    let currentUser = null;
+    let currentProfile = null;
+    let authMode = "login";
+
+    let cachedUsers = [];
+    let cachedOffers = [];
+    let cachedAssignments = [];
+
+
+    /* =========================================================
+       HELPERS
+       ========================================================= */
+
+    const $ = (id) => document.getElementById(id);
+
+    function showMessage(message, type = "") {
+
+      const el = $("message");
+
+      el.textContent = message;
+      el.className = type ? type : "";
+
+      el.classList.remove("hidden");
+
+      clearTimeout(window.__messageTimer);
+
+      window.__messageTimer = setTimeout(() => {
+        el.classList.add("hidden");
+      }, 4500);
+    }
+
+
+    function escapeHtml(value) {
+
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+
+    function money(paise) {
+
+      const value = Number(paise || 0) / 100;
+
+      return "₹" + value.toLocaleString("en-IN", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
       });
     }
 
-    document.getElementById('open-auth-modal-btn').onclick = () => document.getElementById('auth-modal').classList.remove('hidden');
-    document.getElementById('close-auth-modal').onclick = () => document.getElementById('auth-modal').classList.add('hidden');
-    document.getElementById('google-login-btn').onclick = () => signInWithRedirect(auth, provider);
-    document.getElementById('logout-btn').onclick = () => { localStorage.clear(); signOut(auth); window.location.reload(); };
 
-    document.getElementById('email-login-btn').onclick = async () => {
-      const email = document.getElementById('email-input').value.trim();
-      const pass = document.getElementById('password-input').value.trim();
+    function formatDate(timestamp) {
 
-      if(!email || !pass) return alert('Please enter credentials');
+      if (!timestamp) return "-";
 
-      if(email.toLowerCase() === ADMIN_EMAIL.toLowerCase() && pass === ADMIN_PASS) {
-        localStorage.setItem('tf_admin', 'true');
-        location.reload();
-      } else {
-        const q = query(collection(db, "users"), where("email", "==", email), where("password", "==", pass));
-        const querySnapshot = await getDocs(q);
+      try {
 
-        if(!querySnapshot.empty) {
-          const userData = querySnapshot.docs[0].data();
-          const userId = querySnapshot.docs[0].id;
+        const date = timestamp.toDate
+          ? timestamp.toDate()
+          : new Date(timestamp);
 
-          if(userData.status === 'Blocked') return alert('Account Blocked!');
+        return date.toLocaleString("en-IN");
 
-          localStorage.setItem('tf_custom_user', JSON.stringify({ ...userData, id: userId }));
-          location.reload();
-        } else {
-          try {
-            await signInWithEmailAndPassword(auth, email, pass);
-          } catch(err) {
-            alert('Invalid Credentials!');
-          }
-        }
+      } catch {
+        return "-";
       }
-    };
+    }
 
-    onAuthStateChanged(auth, async (user) => {
-      const isAdmin = localStorage.getItem('tf_admin') === 'true';
-      const customUser = JSON.parse(localStorage.getItem('tf_custom_user'));
 
-      loadBroadcastOffers();
+    function statusBadge(status) {
 
-      if (isAdmin) {
-        currentUserRole = 'MasterAdmin';
-        setupAdminView();
-      } else if (customUser) {
-        currentUserRole = customUser.role || 'Creator';
-        currentLoggedInId = customUser.id;
-        setupCustomUserView(customUser);
-      } else if (user) {
-        currentUserRole = 'Creator';
-        currentLoggedInId = user.uid;
-        setupUserView(user);
+      const safe = escapeHtml(status || "Unknown");
+
+      return `<span class="status ${String(status || "")
+        .toLowerCase()}">${safe}</span>`;
+    }
+
+
+    function timestampValue(value) {
+
+      if (!value) return 0;
+
+      if (typeof value.toMillis === "function") {
+        return value.toMillis();
+      }
+
+      const date = new Date(value);
+
+      return Number.isNaN(date.getTime())
+        ? 0
+        : date.getTime();
+    }
+
+
+    /* =========================================================
+       AUTH TABS
+       ========================================================= */
+
+    $("loginTab").addEventListener("click", () => {
+
+      authMode = "login";
+
+      $("loginTab").classList.add("active");
+      $("signupTab").classList.remove("active");
+
+      $("nameField").classList.add("hidden");
+
+      $("authSubmit").textContent = "Login";
+    });
+
+
+    $("signupTab").addEventListener("click", () => {
+
+      authMode = "signup";
+
+      $("signupTab").classList.add("active");
+      $("loginTab").classList.remove("active");
+
+      $("nameField").classList.remove("hidden");
+
+      $("authSubmit").textContent = "Create Account";
+    });
+
+
+    /* =========================================================
+       EMAIL AUTH
+       ========================================================= */
+
+    $("authForm").addEventListener("submit", async (event) => {
+
+      event.preventDefault();
+
+      const email = $("emailInput").value.trim();
+      const password = $("passwordInput").value;
+      const name = $("nameInput").value.trim();
+
+      try {
+
+        $("authSubmit").disabled = true;
+
+        if (authMode === "login") {
+
+          await signInWithEmailAndPassword(
+            auth,
+            email,
+            password
+          );
+
+          showMessage("Login successful.", "success");
+
+        } else {
+
+          const credential =
+            await createUserWithEmailAndPassword(
+              auth,
+              email,
+              password
+            );
+
+          /*
+           * The backend creates the authoritative profile.
+           * Name is passed only after authentication and is
+           * never used to select a privileged role.
+           */
+
+          if (name) {
+
+            try {
+
+              const { updateProfile } =
+                await import(
+                  "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js"
+                );
+
+              await updateProfile(
+                credential.user,
+                {
+                  displayName: name
+                }
+              );
+
+            } catch {
+              // Profile name is non-critical.
+            }
+          }
+
+          showMessage(
+            "Account created. Waiting for administrator approval.",
+            "success"
+          );
+        }
+
+      } catch (error) {
+
+        showMessage(
+          friendlyAuthError(error),
+          "error"
+        );
+
+      } finally {
+
+        $("authSubmit").disabled = false;
       }
     });
 
-    function setupCustomUserView(user) {
-      showDashboard();
-      document.getElementById('role-badge').innerText = user.role || 'User';
 
-      if(user.role === 'Publisher') {
-        document.getElementById('nav-add-user').classList.remove('hidden');
-        document.getElementById('nav-manage-users').classList.remove('hidden');
-        document.getElementById('nav-link-generator').classList.add('hidden');
-        document.getElementById('nav-admin-analytics').classList.add('hidden');
-      } else {
-        document.getElementById('nav-link-generator').classList.remove('hidden');
-        document.getElementById('nav-admin-analytics').classList.add('hidden');
+    function friendlyAuthError(error) {
+
+      const code = error?.code || "";
+
+      const messages = {
+
+        "auth/invalid-credential":
+          "Invalid email or password.",
+
+        "auth/email-already-in-use":
+          "This email is already registered.",
+
+        "auth/weak-password":
+          "Password should be at least 6 characters.",
+
+        "auth/invalid-email":
+          "Please enter a valid email.",
+
+        "auth/popup-closed-by-user":
+          "Google login was cancelled."
+      };
+
+      return messages[code] ||
+        error?.message ||
+        "Authentication failed.";
+    }
+
+
+    /* =========================================================
+       GOOGLE AUTH
+       ========================================================= */
+
+    $("googleBtn").addEventListener("click", async () => {
+
+      try {
+
+        const provider = new GoogleAuthProvider();
+
+        await signInWithPopup(auth, provider);
+
+        showMessage(
+          "Google login successful.",
+          "success"
+        );
+
+      } catch (error) {
+
+        showMessage(
+          friendlyAuthError(error),
+          "error"
+        );
+      }
+    });
+
+
+    /* =========================================================
+       LOGOUT
+       ========================================================= */
+
+    $("logoutBtn").addEventListener("click", async () => {
+
+      try {
+
+        await signOut(auth);
+
+        showMessage("Logged out.", "success");
+
+      } catch (error) {
+
+        showMessage(
+          error.message || "Logout failed.",
+          "error"
+        );
+      }
+    });
+
+
+    /* =========================================================
+       AUTH STATE
+       ========================================================= */
+
+    onAuthStateChanged(auth, async (user) => {
+
+      currentUser = user;
+
+      if (!user) {
+
+        currentProfile = null;
+
+        $("authScreen").classList.remove("hidden");
+        $("appScreen").classList.add("hidden");
+
+        return;
       }
 
-      onSnapshot(doc(db, "users", user.id), (docSnap) => {
-        if(docSnap.exists()) {
-          const data = docSnap.data();
-          document.getElementById('user-display-name').innerText = `${data.name}`;
-          document.getElementById('user-email-text').innerText = data.email;
-          document.getElementById('edit-display-name').value = data.name || '';
-          document.getElementById('edit-upi-id').value = data.upi || '';
-          document.getElementById('withdraw-upi-input').value = data.upi || '';
+      try {
 
-          cachedRawClicks = data.clicks || 0;
-          if(data.role === 'Publisher') {
-            loadPublisherSpecificData(user.id);
-          } else {
-            loadUserConversions(user.id, 'Creator');
-            loadUserWithdrawals(user.id);
-          }
-          renderApprovedOffersForUser(user.id, data.assignedLinks || []);
-        }
-      });
+        /*
+         * Creates only a Pending profile if one doesn't exist.
+         * It cannot create Admin/Publisher/Creator roles.
+         */
+
+        const result = await ensureMyProfile();
+
+        currentProfile = result.data;
+
+        $("authScreen").classList.add("hidden");
+        $("appScreen").classList.remove("hidden");
+
+        updateUserHeader();
+
+        await loadApplication();
+
+      } catch (error) {
+
+        console.error(error);
+
+        showMessage(
+          error?.message ||
+          "Unable to load your account.",
+          "error"
+        );
+      }
+    });
+
+
+    function updateUserHeader() {
+
+      const name =
+        currentProfile?.displayName ||
+        currentUser?.displayName ||
+        currentUser?.email ||
+        "User";
+
+      const role =
+        currentProfile?.role ||
+        "Pending";
+
+      $("userChip").innerHTML =
+        `${escapeHtml(name)}
+         <span class="role-badge">${escapeHtml(role)}</span>`;
+
+      $("statRole").textContent = role;
     }
 
-    function setupUserView(user) {
-      showDashboard();
-      document.getElementById('role-badge').innerText = 'Creator';
-      document.getElementById('nav-admin-analytics').classList.add('hidden');
 
-      onSnapshot(doc(db, "users", user.uid), (docSnap) => {
-        if (!docSnap.exists()) {
-          setDoc(doc(db, "users", user.uid), { name: user.displayName || 'Creator', email: user.email, clicks: 0, upi: '', role: 'Creator', status: 'Active', assignedLinks: [] });
-        } else {
-          const data = docSnap.data();
-          document.getElementById('user-display-name').innerText = `${data.name || 'User'}`;
-          document.getElementById('user-email-text').innerText = user.email;
-          document.getElementById('edit-display-name').value = data.name || '';
-          document.getElementById('edit-upi-id').value = data.upi || '';
-          document.getElementById('withdraw-upi-input').value = data.upi || '';
+    /* =========================================================
+       NAVIGATION
+       ========================================================= */
 
-          cachedRawClicks = data.clicks || 0;
-          loadUserConversions(user.uid, 'Creator');
-          loadUserWithdrawals(user.uid);
-          renderApprovedOffersForUser(user.uid, data.assignedLinks || []);
-        }
-      });
-    }
+    document.querySelectorAll(".nav-btn")
+      .forEach(button => {
 
-    function setupAdminView() {
-      showDashboard();
-      document.getElementById('role-badge').innerText = 'Master Admin';
-      document.getElementById('admin-badge').classList.remove('hidden');
-      document.getElementById('nav-admin-analytics').classList.remove('hidden'); 
-      document.getElementById('nav-add-user').classList.remove('hidden');
-      document.getElementById('nav-manage-users').classList.remove('hidden');
-      document.getElementById('nav-add-offer').classList.remove('hidden');
-      document.getElementById('nav-admin-withdrawals').classList.remove('hidden');
-      document.getElementById('nav-link-generator').classList.add('hidden');
-      document.getElementById('nav-user-withdrawals').classList.add('hidden'); 
-      document.getElementById('profile-upi-container').classList.add('hidden'); 
+        button.addEventListener("click", async () => {
 
-      document.getElementById('user-display-name').innerText = 'Ragib (Owner)';
-      document.getElementById('user-email-text').innerText = ADMIN_EMAIL;
+          const page = button.dataset.page;
 
-      loadMasterUsersTable();
-      loadAdminConversions();
-      loadAdminWithdrawals();
-    }
+          document.querySelectorAll(".nav-btn")
+            .forEach(btn => btn.classList.remove("active"));
 
-    function loadBroadcastOffers() {
-      onSnapshot(collection(db, "offers"), (snap) => {
-        broadcastOffersList = [];
-        let selectHtml = '<option value="">Select Active Offer...</option>';
-        let adminTableHtml = '';
+          button.classList.add("active");
 
-        snap.forEach(oDoc => {
-          const o = { id: oDoc.id, ...oDoc.data() };
-          broadcastOffersList.push(o);
-          
-          if(o.status === 'Active') {
-            selectHtml += `<option value="${o.id}">${o.title} (Main: ₹${o.netPayout} | Pub: ₹${o.pubPayout} | Creator: ₹${o.creatorPayout})</option>`;
+          document.querySelectorAll(".page")
+            .forEach(section => section.classList.add("hidden"));
+
+          const target = $("page-" + page);
+
+          if (target) {
+            target.classList.remove("hidden");
           }
 
-          adminTableHtml += `<tr>
-            <td class="p-3 font-bold text-white">${o.title}</td>
-            <td class="p-3 text-slate-300 font-medium">${o.eventType || 'App Install'}</td>
-            <td class="p-3 font-bold text-amber-400">₹${o.netPayout}</td>
-            <td class="p-3 font-bold text-purple-400">₹${o.pubPayout}</td>
-            <td class="p-3 font-bold text-cyan-400">₹${o.creatorPayout}</td>
-            <td class="p-3"><span class="text-[10px] px-2 py-0.5 rounded-full ${o.status === 'Active' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-red-500/20 text-red-400'}">${o.status}</span></td>
-            <td class="p-3 text-center">
-              <button onclick="toggleOfferStatus('${o.id}', '${o.status === 'Active' ? 'Inactive' : 'Active'}')" class="bg-slate-800 text-xs px-2.5 py-1 rounded-lg hover:text-white">Toggle</button>
-            </td>
-          </tr>`;
+          $("creatorCampaignSection")
+            .classList.add("hidden");
+
+          await loadPageData(page);
+        });
+      });
+
+
+    /* =========================================================
+       APPLICATION LOAD
+       ========================================================= */
+
+    async function loadApplication() {
+
+      updateUserHeader();
+
+      configureRoleUI();
+
+      await loadDashboard();
+
+      await loadPageData("dashboard");
+    }
+
+
+    function configureRoleUI() {
+
+      const role = currentProfile?.role;
+
+      $("adminOfferCreatePanel")
+        .classList.toggle(
+          "hidden",
+          role !== "Admin"
+        );
+
+      $("assignmentPanel")
+        .classList.toggle(
+          "hidden",
+          !["Admin", "Publisher"].includes(role)
+        );
+
+      $("adminUserPanel")
+        .classList.toggle(
+          "hidden",
+          role !== "Admin"
+        );
+
+      $("publisherCreatorPanel")
+        .classList.toggle(
+          "hidden",
+          role !== "Publisher"
+        );
+
+      $("adminWithdrawalPanel")
+        .classList.toggle(
+          "hidden",
+          role !== "Admin"
+        );
+
+      $("creatorWithdrawalPanel")
+        .classList.toggle(
+          "hidden",
+          role !== "Creator"
+        );
+
+      $("creatorWithdrawalHistoryPanel")
+        .classList.toggle(
+          "hidden",
+          role !== "Creator"
+        );
+    }
+
+
+    async function loadPageData(page) {
+
+      try {
+
+        if (page === "dashboard") {
+          await loadDashboard();
+        }
+
+        if (page === "offers") {
+          await loadOffers();
+        }
+
+        if (page === "assignments") {
+          await loadAssignments();
+        }
+
+        if (page === "users") {
+          await loadUsers();
+        }
+
+        if (page === "conversions") {
+          await loadConversions();
+        }
+
+        if (page === "withdrawals") {
+          await loadWithdrawals();
+        }
+
+        if (page === "ledger") {
+          await loadLedger();
+        }
+
+      } catch (error) {
+
+        console.error(error);
+
+        showMessage(
+          error?.message || "Unable to load data.",
+          "error"
+        );
+      }
+    }
+
+
+    /* =========================================================
+       DASHBOARD
+       ========================================================= */
+
+    async function loadDashboard() {
+
+      const result = await getDashboard();
+
+      const data = result.data || {};
+
+      $("statClicks").textContent =
+        Number(data.clicks || 0).toLocaleString("en-IN");
+
+      $("statConversions").textContent =
+        Number(data.approvedConversions || 0)
+          .toLocaleString("en-IN");
+
+      $("statRevenue").textContent =
+        money(data.networkRevenuePaise);
+
+      $("statMargin").textContent =
+        money(data.marginPaise);
+
+      $("statCreatorEarnings").textContent =
+        money(data.creatorEarningsPaise);
+
+      $("statAvailable").textContent =
+        money(data.availableBalancePaise);
+
+      $("statPendingWithdrawals").textContent =
+        Number(data.pendingWithdrawals || 0);
+
+      $("accountStatusText").textContent =
+        currentProfile?.role === "Pending"
+          ? "Your account is pending administrator approval."
+          : `Your account is active as ${currentProfile?.role}.`;
+    }
+
+
+    /* =========================================================
+       MASTER OFFERS
+       ========================================================= */
+
+    $("offerForm").addEventListener("submit", async (event) => {
+
+      event.preventDefault();
+
+      try {
+
+        const title =
+          $("offerTitle").value.trim();
+
+        const trackingLink =
+          $("networkTrackingLink").value.trim();
+
+        const payout =
+          Number($("networkPayout").value);
+
+        const goal =
+          $("offerGoal").value.trim();
+
+        const status =
+          $("offerStatus").value;
+
+        if (!title || !trackingLink || !goal) {
+          throw new Error("Please fill all offer fields.");
+        }
+
+        if (!Number.isFinite(payout) || payout < 0) {
+          throw new Error("Invalid network payout.");
+        }
+
+        await createMasterOffer({
+          offerTitle: title,
+          networkTrackingLink: trackingLink,
+          networkPayout: payout,
+          goal,
+          status
         });
 
-        document.getElementById('modal-broadcast-offers-select').innerHTML = selectHtml;
-        document.getElementById('admin-offers-table-body').innerHTML = adminTableHtml || `<tr><td colspan="7" class="p-4 text-center text-slate-500">No active broadcasted offers yet.</td></tr>`;
-      });
+        $("offerForm").reset();
+
+        showMessage(
+          "Master offer created.",
+          "success"
+        );
+
+        await loadOffers();
+
+      } catch (error) {
+
+        showMessage(
+          error?.message || "Unable to create offer.",
+          "error"
+        );
+      }
+    });
+
+
+    async function loadOffers() {
+
+      if (currentProfile?.role !== "Admin") {
+        $("offersTable").innerHTML =
+          `<div class="muted">
+             Master offers are managed by administrators.
+           </div>`;
+        return;
+      }
+
+      const snapshot =
+        await getDocs(
+          collection(db, "masterOffers")
+        );
+
+      cachedOffers = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+
+      if (!cachedOffers.length) {
+
+        $("offersTable").innerHTML =
+          `<div class="muted">
+             No master offers found.
+           </div>`;
+
+        return;
+      }
+
+      $("offersTable").innerHTML = `
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Offer</th>
+                <th>Network Payout</th>
+                <th>Goal</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+
+            <tbody>
+
+              ${cachedOffers.map(offer => `
+
+                <tr>
+
+                  <td>
+                    ${escapeHtml(offer.offerTitle)}
+                  </td>
+
+                  <td>
+                    ${money(offer.networkPayoutPaise)}
+                  </td>
+
+                  <td>
+                    ${escapeHtml(offer.goal)}
+                  </td>
+
+                  <td>
+                    ${statusBadge(offer.status)}
+                  </td>
+
+                  <td>
+
+                    <button
+                      class="btn small secondary"
+                      data-toggle-offer="${escapeHtml(offer.id)}"
+                    >
+                      ${offer.status === "Active"
+                        ? "Deactivate"
+                        : "Activate"}
+                    </button>
+
+                  </td>
+
+                </tr>
+
+              `).join("")}
+
+            </tbody>
+          </table>
+        </div>
+      `;
+
+      document
+        .querySelectorAll("[data-toggle-offer]")
+        .forEach(button => {
+
+          button.addEventListener("click", async () => {
+
+            const offerId =
+              button.dataset.toggleOffer;
+
+            const offer =
+              cachedOffers.find(x => x.id === offerId);
+
+            if (!offer) return;
+
+            try {
+
+              await updateMasterOffer({
+                offerId,
+                status:
+                  offer.status === "Active"
+                    ? "Inactive"
+                    : "Active"
+              });
+
+              showMessage(
+                "Offer status updated.",
+                "success"
+              );
+
+              await loadOffers();
+
+            } catch (error) {
+
+              showMessage(
+                error?.message || "Update failed.",
+                "error"
+              );
+            }
+          });
+        });
     }
 
-    window.toggleOfferStatus = async (offerId, newStatus) => {
-      await updateDoc(doc(db, "offers", offerId), { status: newStatus });
-      alert(`Offer Status set to ${newStatus}`);
-    };
 
-    function loadUserConversions(userId, role) {
-      const q = role === 'Publisher' 
-        ? query(collection(db, "conversions"), where("publisherId", "==", userId))
-        : query(collection(db, "conversions"), where("creatorId", "==", userId));
+    /* =========================================================
+       ASSIGNMENTS
+       ========================================================= */
 
-      onSnapshot(q, (snap) => {
-        cachedConversions = [];
-        snap.forEach(cDoc => cachedConversions.push(cDoc.data()));
-        updateDashboardMetrics(cachedRawClicks, role, 'last30');
-      });
+    async function loadAssignments() {
+
+      const role = currentProfile?.role;
+
+      if (!["Admin", "Publisher", "Creator"].includes(role)) {
+        $("assignmentsTable").innerHTML =
+          `<div class="muted">
+             No assignment access.
+           </div>`;
+        return;
+      }
+
+      const constraints = [];
+
+      if (role === "Creator") {
+        constraints.push(
+          where("creatorId", "==", currentUser.uid)
+        );
+      }
+
+      if (role === "Publisher") {
+        constraints.push(
+          where("publisherId", "==", currentUser.uid)
+        );
+      }
+
+      const assignmentQuery =
+        constraints.length
+          ? query(
+              collection(db, "assignments"),
+              ...constraints
+            )
+          : collection(db, "assignments");
+
+      const snapshot =
+        await getDocs(assignmentQuery);
+
+      cachedAssignments =
+        snapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+
+
+      /* Populate assignment dropdowns */
+
+      if (["Admin", "Publisher"].includes(role)) {
+
+        const usersSnapshot =
+          role === "Admin"
+            ? await getDocs(
+                collection(db, "users")
+              )
+            : await getDocs(
+                query(
+                  collection(db, "users"),
+                  where(
+                    "publisherId",
+                    "==",
+                    currentUser.uid
+                  )
+                )
+              );
+
+        const creators =
+          usersSnapshot.docs
+            .map(doc => ({
+              id: doc.id,
+              ...doc.data()
+            }))
+            .filter(user =>
+              user.role === "Creator"
+            );
+
+        $("assignmentCreator").innerHTML =
+          `<option value="">Select Creator</option>` +
+          creators.map(user => `
+            <option value="${escapeHtml(user.id)}">
+              ${escapeHtml(
+                user.displayName ||
+                user.email ||
+                user.id
+              )}
+            </option>
+          `).join("");
+
+        const activeOffers =
+          cachedOffers.length
+            ? cachedOffers.filter(
+                offer => offer.status === "Active"
+              )
+            : [];
+
+        $("assignmentOffer").innerHTML =
+          `<option value="">Select Offer</option>` +
+          activeOffers.map(offer => `
+            <option
+              value="${escapeHtml(offer.id)}"
+              data-payout="${Number(
+                offer.networkPayoutPaise || 0
+              )}"
+            >
+              ${escapeHtml(offer.offerTitle)}
+              — ${money(offer.networkPayoutPaise)}
+            </option>
+          `).join("");
+      }
+
+
+      if (!cachedAssignments.length) {
+
+        $("assignmentsTable").innerHTML =
+          `<div class="muted">
+             No assignments found.
+           </div>`;
+
+        return;
+      }
+
+
+      $("assignmentsTable").innerHTML = `
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Campaign</th>
+                <th>Creator</th>
+                <th>Creator Payout</th>
+                <th>Status</th>
+                <th>Created</th>
+              </tr>
+            </thead>
+
+            <tbody>
+
+              ${cachedAssignments.map(item => `
+
+                <tr>
+
+                  <td>
+                    ${escapeHtml(
+                      item.offerTitle ||
+                      item.offerId ||
+                      "-"
+                    )}
+                  </td>
+
+                  <td>
+                    ${escapeHtml(
+                      item.creatorId || "-"
+                    )}
+                  </td>
+
+                  <td>
+                    ${money(
+                      item.creatorPayoutPaise
+                    )}
+                  </td>
+
+                  <td>
+                    ${statusBadge(item.status)}
+                  </td>
+
+                  <td>
+                    ${formatDate(item.createdAt)}
+                  </td>
+
+                </tr>
+
+              `).join("")}
+
+            </tbody>
+          </table>
+        </div>
+      `;
     }
 
-    function loadAdminConversions() {
-      onSnapshot(collection(db, "conversions"), (snap) => {
-        cachedConversions = [];
-        snap.forEach(cDoc => cachedConversions.push(cDoc.data()));
-        updateDashboardMetrics(cachedRawClicks, 'MasterAdmin', 'last30');
-      });
+
+    $("assignmentForm").addEventListener("submit", async event => {
+
+      event.preventDefault();
+
+      try {
+
+        const creatorId =
+          $("assignmentCreator").value;
+
+        const offerId =
+          $("assignmentOffer").value;
+
+        const creatorPayout =
+          Number($("assignmentPayout").value);
+
+        if (!creatorId || !offerId) {
+          throw new Error(
+            "Select a creator and an offer."
+          );
+        }
+
+        if (
+          !Number.isFinite(creatorPayout) ||
+          creatorPayout < 0
+        ) {
+          throw new Error(
+            "Enter a valid creator payout."
+          );
+        }
+
+        await assignOffer({
+          creatorId,
+          offerId,
+          creatorPayout
+        });
+
+        $("assignmentForm").reset();
+
+        showMessage(
+          "Campaign assigned successfully.",
+          "success"
+        );
+
+        await loadAssignments();
+
+      } catch (error) {
+
+        showMessage(
+          error?.message ||
+          "Unable to assign campaign.",
+          "error"
+        );
+      }
+    });
+
+
+    $("assignmentOffer").addEventListener("change", () => {
+
+      const option =
+        $("assignmentOffer")
+          .selectedOptions[0];
+
+      if (!option) return;
+
+      const networkPayoutPaise =
+        Number(
+          option.dataset.payout || 0
+        );
+
+      /*
+       * Default creator payout:
+       * 75% of network payout.
+       * Backend validates it never exceeds
+       * the trusted network payout.
+       */
+
+      $("assignmentPayout").value =
+        ((networkPayoutPaise * 0.75) / 100)
+          .toFixed(2);
+    });
+
+
+    /* =========================================================
+       USERS
+       ========================================================= */
+
+    async function loadUsers() {
+
+      const role = currentProfile?.role;
+
+      if (role === "Admin") {
+
+        const snapshot =
+          await getDocs(
+            collection(db, "users")
+          );
+
+        cachedUsers =
+          snapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+          }));
+
+        if (!cachedUsers.length) {
+
+          $("usersTable").innerHTML =
+            `<div class="muted">
+               No users found.
+             </div>`;
+
+          return;
+        }
+
+        $("usersTable").innerHTML = `
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>User</th>
+                  <th>Email</th>
+                  <th>Current Role</th>
+                  <th>Publisher ID</th>
+                  <th>Change Role</th>
+                </tr>
+              </thead>
+
+              <tbody>
+
+                ${cachedUsers.map(user => `
+
+                  <tr>
+
+                    <td>
+                      ${escapeHtml(
+                        user.displayName ||
+                        "-"
+                      )}
+                    </td>
+
+                    <td>
+                      ${escapeHtml(
+                        user.email ||
+                        "-"
+                      )}
+                    </td>
+
+                    <td>
+                      ${statusBadge(
+                        user.role || "Pending"
+                      )}
+                    </td>
+
+                    <td>
+                      ${escapeHtml(
+                        user.publisherId ||
+                        "-"
+                      )}
+                    </td>
+
+                    <td>
+
+                      <div style="
+                        display:flex;
+                        gap:6px;
+                        min-width:250px;
+                      ">
+
+                        <select
+                          data-role-select="${escapeHtml(user.id)}"
+                          style="
+                            background:#0d1528;
+                            color:white;
+                            border:1px solid var(--border);
+                            border-radius:7px;
+                            padding:7px;
+                          "
+                        >
+
+                          <option value="Pending"
+                            ${user.role === "Pending" ? "selected" : ""}>
+                            Pending
+                          </option>
+
+                          <option value="Publisher"
+                            ${user.role === "Publisher" ? "selected" : ""}>
+                            Publisher
+                          </option>
+
+                          <option value="Creator"
+                            ${user.role === "Creator" ? "selected" : ""}>
+                            Creator
+                          </option>
+
+                          <option value="Admin"
+                            ${user.role === "Admin" ? "selected" : ""}>
+                            Admin
+                          </option>
+
+                        </select>
+
+                        <button
+                          class="btn small"
+                          data-save-role="${escapeHtml(user.id)}"
+                        >
+                          Save
+                        </button>
+
+                      </div>
+
+                    </td>
+
+                  </tr>
+
+                `).join("")}
+
+              </tbody>
+            </table>
+          </div>
+        `;
+
+
+        document
+          .querySelectorAll("[data-save-role]")
+          .forEach(button => {
+
+            button.addEventListener("click", async () => {
+
+              const uid =
+                button.dataset.saveRole;
+
+              const select =
+                document.querySelector(
+                  `[data-role-select="${CSS.escape(uid)}"]`
+                );
+
+              const newRole =
+                select?.value;
+
+              if (!newRole) return;
+
+              let publisherId = null;
+
+              if (newRole === "Creator") {
+
+                publisherId =
+                  prompt(
+                    "Enter this Creator's Publisher UID:"
+                  );
+
+                if (!publisherId) {
+                  return;
+                }
+              }
+
+              try {
+
+                await setUserRole({
+                  userId: uid,
+                  role: newRole,
+                  publisherId
+                });
+
+                showMessage(
+                  "User role updated.",
+                  "success"
+                );
+
+                await loadUsers();
+
+              } catch (error) {
+
+                showMessage(
+                  error?.message ||
+                  "Unable to update role.",
+                  "error"
+                );
+              }
+            });
+          });
+
+        return;
+      }
+
+
+      if (role === "Publisher") {
+
+        const snapshot =
+          await getDocs(
+            query(
+              collection(db, "users"),
+              where(
+                "publisherId",
+                "==",
+                currentUser.uid
+              )
+            )
+          );
+
+        const creators =
+          snapshot.docs
+            .map(doc => ({
+              id: doc.id,
+              ...doc.data()
+            }))
+            .filter(user =>
+              user.role === "Creator"
+            );
+
+        if (!creators.length) {
+
+          $("publisherCreatorsTable").innerHTML =
+            `<div class="muted">
+               No creators assigned to you yet.
+             </div>`;
+
+          return;
+        }
+
+        $("publisherCreatorsTable").innerHTML = `
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Creator</th>
+                  <th>Email</th>
+                  <th>Status</th>
+                  <th>Creator UID</th>
+                </tr>
+              </thead>
+
+              <tbody>
+
+                ${creators.map(user => `
+
+                  <tr>
+
+                    <td>
+                      ${escapeHtml(
+                        user.displayName || "-"
+                      )}
+                    </td>
+
+                    <td>
+                      ${escapeHtml(
+                        user.email || "-"
+                      )}
+                    </td>
+
+                    <td>
+                      ${statusBadge(
+                        user.role
+                      )}
+                    </td>
+
+                    <td>
+                      ${escapeHtml(user.id)}
+                    </td>
+
+                  </tr>
+
+                `).join("")}
+
+              </tbody>
+            </table>
+          </div>
+        `;
+
+      }
     }
 
-    function loadUserWithdrawals(userId) {
-      const q = query(collection(db, "withdrawals"), where("userId", "==", userId));
-      onSnapshot(q, (snap) => {
-        cachedWithdrawals = [];
-        let html = '';
-        snap.forEach(wDoc => {
-          const w = wDoc.data();
-          cachedWithdrawals.push(w);
-          html += `
-            <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 flex justify-between items-center text-xs">
-              <div>
-                <p class="font-bold text-white">₹${w.amount}</p>
-                <p class="text-[10px] text-slate-400">${new Date(w.timestamp).toLocaleDateString()}</p>
+
+    /* =========================================================
+       CONVERSIONS
+       ========================================================= */
+
+    async function loadConversions() {
+
+      const role = currentProfile?.role;
+
+      if (
+        !["Admin", "Publisher", "Creator"]
+          .includes(role)
+      ) {
+        $("conversionsTable").innerHTML =
+          `<div class="muted">
+             No conversion access.
+           </div>`;
+        return;
+      }
+
+      let conversionQuery;
+
+      if (role === "Creator") {
+
+        conversionQuery =
+          query(
+            collection(db, "conversions"),
+            where(
+              "creatorId",
+              "==",
+              currentUser.uid
+            )
+          );
+
+      } else if (role === "Publisher") {
+
+        conversionQuery =
+          query(
+            collection(db, "conversions"),
+            where(
+              "publisherId",
+              "==",
+              currentUser.uid
+            )
+          );
+
+      } else {
+
+        conversionQuery =
+          collection(db, "conversions");
+      }
+
+      const snapshot =
+        await getDocs(conversionQuery);
+
+      const conversions =
+        snapshot.docs
+          .map(doc => ({
+            id: doc.id,
+            ...doc.data()
+          }))
+          .sort(
+            (a,b) =>
+              timestampValue(b.updatedAt) -
+              timestampValue(a.updatedAt)
+          )
+          .slice(0, 200);
+
+
+      if (!conversions.length) {
+
+        $("conversionsTable").innerHTML =
+          `<div class="muted">
+             No conversions found.
+           </div>`;
+
+        return;
+      }
+
+
+      $("conversionsTable").innerHTML = `
+        <div class="table-wrap">
+
+          <table>
+
+            <thead>
+
+              <tr>
+                <th>Transaction</th>
+                <th>Offer</th>
+                <th>Creator</th>
+                <th>Status</th>
+                <th>Creator Payout</th>
+                <th>Updated</th>
+              </tr>
+
+            </thead>
+
+            <tbody>
+
+              ${conversions.map(item => `
+
+                <tr>
+
+                  <td>
+                    ${escapeHtml(
+                      item.transactionId ||
+                      item.id
+                    )}
+                  </td>
+
+                  <td>
+                    ${escapeHtml(
+                      item.offerTitle ||
+                      item.offerId ||
+                      "-"
+                    )}
+                  </td>
+
+                  <td>
+                    ${escapeHtml(
+                      item.creatorId || "-"
+                    )}
+                  </td>
+
+                  <td>
+                    ${statusBadge(item.status)}
+                  </td>
+
+                  <td>
+                    ${money(
+                      item.creatorPayoutPaise
+                    )}
+                  </td>
+
+                  <td>
+                    ${formatDate(item.updatedAt)}
+                  </td>
+
+                </tr>
+
+              `).join("")}
+
+            </tbody>
+
+          </table>
+
+        </div>
+      `;
+    }
+
+
+    /* =========================================================
+       WITHDRAWALS
+       ========================================================= */
+
+    $("withdrawalForm").addEventListener(
+      "submit",
+      async event => {
+
+        event.preventDefault();
+
+        try {
+
+          const amount =
+            Number(
+              $("withdrawalAmount").value
+            );
+
+          if (
+            !Number.isFinite(amount) ||
+            amount < 1000
+          ) {
+            throw new Error(
+              "Minimum withdrawal is ₹1,000."
+            );
+          }
+
+          await requestWithdrawal({
+            amount
+          });
+
+          $("withdrawalForm").reset();
+
+          showMessage(
+            "Withdrawal request submitted.",
+            "success"
+          );
+
+          await loadDashboard();
+          await loadWithdrawals();
+
+        } catch (error) {
+
+          showMessage(
+            error?.message ||
+            "Unable to request withdrawal.",
+            "error"
+          );
+        }
+      }
+    );
+
+
+    async function loadWithdrawals() {
+
+      const role = currentProfile?.role;
+
+      if (role === "Admin") {
+
+        const snapshot =
+          await getDocs(
+            query(
+              collection(db, "withdrawals"),
+              where(
+                "status",
+                "==",
+                "Pending"
+              )
+            )
+          );
+
+        const withdrawals =
+          snapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+          }));
+
+        if (!withdrawals.length) {
+
+          $("adminWithdrawalsTable").innerHTML =
+            `<div class="muted">
+               No pending withdrawals.
+             </div>`;
+
+        } else {
+
+          $("adminWithdrawalsTable").innerHTML = `
+            <div class="table-wrap">
+
+              <table>
+
+                <thead>
+                  <tr>
+                    <th>Creator</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Requested</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+
+                  ${withdrawals.map(item => `
+
+                    <tr>
+
+                      <td>
+                        ${escapeHtml(
+                          item.creatorId
+                        )}
+                      </td>
+
+                      <td>
+                        ${money(
+                          item.amountPaise
+                        )}
+                      </td>
+
+                      <td>
+                        ${statusBadge(
+                          item.status
+                        )}
+                      </td>
+
+                      <td>
+                        ${formatDate(
+                          item.createdAt
+                        )}
+                      </td>
+
+                      <td>
+
+                        <div class="action-row">
+
+                          <button
+                            class="btn small success"
+                            data-approve-withdrawal="${escapeHtml(item.id)}"
+                          >
+                            Approve
+                          </button>
+
+                          <button
+                            class="btn small danger"
+                            data-reject-withdrawal="${escapeHtml(item.id)}"
+                          >
+                            Reject
+                          </button>
+
+                        </div>
+
+                      </td>
+
+                    </tr>
+
+                  `).join("")}
+
+                </tbody>
+
+              </table>
+
+            </div>
+          `;
+
+
+          document
+            .querySelectorAll(
+              "[data-approve-withdrawal]"
+            )
+            .forEach(button => {
+
+              button.addEventListener(
+                "click",
+                () => handleWithdrawal(
+                  button.dataset.approveWithdrawal,
+                  "Approved"
+                )
+              );
+            });
+
+
+          document
+            .querySelectorAll(
+              "[data-reject-withdrawal]"
+            )
+            .forEach(button => {
+
+              button.addEventListener(
+                "click",
+                () => handleWithdrawal(
+                  button.dataset.rejectWithdrawal,
+                  "Rejected"
+                )
+              );
+            });
+        }
+
+        return;
+      }
+
+
+      if (role === "Creator") {
+
+        const snapshot =
+          await getDocs(
+            query(
+              collection(db, "withdrawals"),
+              where(
+                "creatorId",
+                "==",
+                currentUser.uid
+              )
+            )
+          );
+
+        const withdrawals =
+          snapshot.docs
+            .map(doc => ({
+              id: doc.id,
+              ...doc.data()
+            }))
+            .sort(
+              (a,b) =>
+                timestampValue(b.createdAt) -
+                timestampValue(a.createdAt)
+            );
+
+
+        if (!withdrawals.length) {
+
+          $("creatorWithdrawalsTable").innerHTML =
+            `<div class="muted">
+               No withdrawal history.
+             </div>`;
+
+          return;
+        }
+
+
+        $("creatorWithdrawalsTable").innerHTML = `
+          <div class="table-wrap">
+
+            <table>
+
+              <thead>
+                <tr>
+                  <th>Amount</th>
+                  <th>Status</th>
+                  <th>Requested</th>
+                  <th>Processed</th>
+                </tr>
+              </thead>
+
+              <tbody>
+
+                ${withdrawals.map(item => `
+
+                  <tr>
+
+                    <td>
+                      ${money(
+                        item.amountPaise
+                      )}
+                    </td>
+
+                    <td>
+                      ${statusBadge(
+                        item.status
+                      )}
+                    </td>
+
+                    <td>
+                      ${formatDate(
+                        item.createdAt
+                      )}
+                    </td>
+
+                    <td>
+                      ${formatDate(
+                        item.processedAt
+                      )}
+                    </td>
+
+                  </tr>
+
+                `).join("")}
+
+              </tbody>
+
+            </table>
+
+          </div>
+        `;
+      }
+    }
+
+
+    async function handleWithdrawal(
+      withdrawalId,
+      decision
+    ) {
+
+      try {
+
+        await processWithdrawal({
+          withdrawalId,
+          decision
+        });
+
+        showMessage(
+          `Withdrawal ${decision.toLowerCase()}.`,
+          "success"
+        );
+
+        await loadWithdrawals();
+        await loadDashboard();
+
+      } catch (error) {
+
+        showMessage(
+          error?.message ||
+          "Unable to process withdrawal.",
+          "error"
+        );
+      }
+    }
+
+
+    /* =========================================================
+       LEDGER
+       ========================================================= */
+
+    async function loadLedger() {
+
+      const role = currentProfile?.role;
+
+      if (!["Admin", "Creator"].includes(role)) {
+
+        $("ledgerTable").innerHTML =
+          `<div class="muted">
+             Ledger is available to creators and administrators.
+           </div>`;
+
+        return;
+      }
+
+
+      let ledgerQuery;
+
+      if (role === "Creator") {
+
+        ledgerQuery =
+          query(
+            collection(db, "ledger"),
+            where(
+              "creatorId",
+              "==",
+              currentUser.uid
+            )
+          );
+
+      } else {
+
+        ledgerQuery =
+          collection(db, "ledger");
+      }
+
+
+      const snapshot =
+        await getDocs(ledgerQuery);
+
+      const entries =
+        snapshot.docs
+          .map(doc => ({
+            id: doc.id,
+            ...doc.data()
+          }))
+          .sort(
+            (a,b) =>
+              timestampValue(b.createdAt) -
+              timestampValue(a.createdAt)
+          )
+          .slice(0, 300);
+
+
+      if (!entries.length) {
+
+        $("ledgerTable").innerHTML =
+          `<div class="muted">
+             No ledger entries.
+           </div>`;
+
+        return;
+      }
+
+
+      $("ledgerTable").innerHTML = `
+        <div class="table-wrap">
+
+          <table>
+
+            <thead>
+
+              <tr>
+                <th>Type</th>
+                <th>Creator</th>
+                <th>Amount</th>
+                <th>Reference</th>
+                <th>Date</th>
+              </tr>
+
+            </thead>
+
+            <tbody>
+
+              ${entries.map(item => `
+
+                <tr>
+
+                  <td>
+                    ${escapeHtml(
+                      item.type || "-"
+                    )}
+                  </td>
+
+                  <td>
+                    ${escapeHtml(
+                      item.creatorId || "-"
+                    )}
+                  </td>
+
+                  <td>
+                    ${money(
+                      item.amountPaise
+                    )}
+                  </td>
+
+                  <td>
+                    ${escapeHtml(
+                      item.referenceId || "-"
+                    )}
+                  </td>
+
+                  <td>
+                    ${formatDate(
+                      item.createdAt
+                    )}
+                  </td>
+
+                </tr>
+
+              `).join("")}
+
+            </tbody>
+
+          </table>
+
+        </div>
+      `;
+    }
+
+
+    /* =========================================================
+       CREATOR CAMPAIGNS
+       ========================================================= */
+
+    async function loadCreatorCampaigns() {
+
+      if (currentProfile?.role !== "Creator") {
+        return;
+      }
+
+      const snapshot =
+        await getDocs(
+          query(
+            collection(db, "assignments"),
+            where(
+              "creatorId",
+              "==",
+              currentUser.uid
+            )
+          )
+        );
+
+      const assignments =
+        snapshot.docs
+          .map(doc => ({
+            id: doc.id,
+            ...doc.data()
+          }))
+          .filter(
+            item => item.status === "Active"
+          );
+
+
+      if (!assignments.length) {
+
+        $("creatorCampaigns").innerHTML = `
+          <div class="panel">
+            <div class="muted">
+              No active campaigns have been assigned to you.
+            </div>
+          </div>
+        `;
+
+        return;
+      }
+
+
+      $("creatorCampaigns").innerHTML =
+        assignments.map(item => {
+
+          const trackingUrl =
+            `${window.location.origin}/track?assignmentId=${encodeURIComponent(item.id)}`;
+
+          return `
+
+            <div class="campaign-card">
+
+              <div class="campaign-title">
+                ${escapeHtml(
+                  item.offerTitle ||
+                  item.offerId ||
+                  "Campaign"
+                )}
               </div>
-              <span class="text-[10px] px-2 py-0.5 rounded-full ${w.status === 'Paid' ? 'bg-emerald-500/20 text-emerald-400' : (w.status === 'Rejected' ? 'bg-red-500/20 text-red-400' : 'bg-amber-500/20 text-amber-400')}">${w.status}</span>
+
+              <div class="campaign-meta">
+
+                Goal:
+                <strong>
+                  ${escapeHtml(
+                    item.goal || "-"
+                  )}
+                </strong>
+
+                <br />
+
+                Creator Payout:
+                <strong>
+                  ${money(
+                    item.creatorPayoutPaise
+                  )}
+                </strong>
+
+                <br />
+
+                Status:
+                ${statusBadge(item.status)}
+
+              </div>
+
+              <div class="tracking-box">
+
+                <input
+                  readonly
+                  value="${escapeHtml(trackingUrl)}"
+                />
+
+                <button
+                  class="btn small"
+                  data-copy-link="${escapeHtml(trackingUrl)}"
+                >
+                  Copy
+                </button>
+
+              </div>
+
             </div>
           `;
+        }).join("");
+
+
+      document
+        .querySelectorAll("[data-copy-link]")
+        .forEach(button => {
+
+          button.addEventListener("click", async () => {
+
+            const url =
+              button.dataset.copyLink;
+
+            try {
+
+              await navigator.clipboard.writeText(url);
+
+              showMessage(
+                "Tracking link copied.",
+                "success"
+              );
+
+            } catch {
+
+              showMessage(
+                "Could not copy the link.",
+                "error"
+              );
+            }
+          });
         });
-        document.getElementById('user-withdrawal-history').innerHTML = html || `<p class="text-slate-500 text-center py-2">No withdrawal requests found.</p>`;
-        updateDashboardMetrics(cachedRawClicks, currentUserRole, 'last30');
-      });
     }
 
-    function loadAdminWithdrawals() {
-      onSnapshot(collection(db, "withdrawals"), (snap) => {
-        let html = '';
-        snap.forEach(wDoc => {
-          const w = { id: wDoc.id, ...wDoc.data() };
-          html += `
-            <tr>
-              <td class="p-3 text-white font-bold">${w.userName || w.userId}</td>
-              <td class="p-3 text-amber-400 font-bold">₹${w.amount}</td>
-              <td class="p-3 font-mono text-purple-400">${w.upi}</td>
-              <td class="p-3"><span class="text-[10px] px-2 py-0.5 rounded-full ${w.status === 'Paid' ? 'bg-emerald-500/20 text-emerald-400' : (w.status === 'Rejected' ? 'bg-red-500/20 text-red-400' : 'bg-amber-500/20 text-amber-400')}">${w.status}</span></td>
-              <td class="p-3 text-slate-400">${new Date(w.timestamp).toLocaleDateString()}</td>
-              <td class="p-3 text-center space-x-1">
-                ${w.status === 'Pending' ? `
-                  <button onclick="updateWithdrawalStatus('${w.id}', 'Paid')" class="bg-emerald-600 text-white px-2 py-1 rounded text-[10px]">Approve & Pay</button>
-                  <button onclick="updateWithdrawalStatus('${w.id}', 'Rejected')" class="bg-red-600 text-white px-2 py-1 rounded text-[10px]">Reject</button>
-                ` : `<span class="text-[10px] text-slate-500">Completed</span>`}
-              </td>
-            </tr>
-          `;
-        });
-        document.getElementById('admin-withdrawals-table-body').innerHTML = html || `<tr><td colspan="6" class="p-4 text-center text-slate-500">No pending requests.</td></tr>`;
-      });
-    }
 
-    window.updateWithdrawalStatus = async (wId, status) => {
-      await updateDoc(doc(db, "withdrawals", wId), { status });
-      alert(`Withdrawal Marked as ${status}`);
-    };
+    /* =========================================================
+       CREATOR SPECIAL VIEW
+       ========================================================= */
 
-    window.applyTimeFilter = (filterRange) => {
-      document.getElementById('graph-subtitle-text').innerText = `Clicks, Conversions & Revenue analysis for ${filterRange === 'today' ? 'Today' : (filterRange === 'yesterday' ? 'Yesterday' : (filterRange === 'last7' ? 'Last 7 Days' : 'Last 30 Days'))}`;
-      updateDashboardMetrics(cachedRawClicks, currentUserRole, filterRange);
-    };
+    async function showCreatorWorkspace() {
 
-    function updateDashboardMetrics(rawClicks, role, timeRange = 'last30') {
-      let multiplier = 1.0;
-      if (timeRange === 'today') multiplier = 0.15;
-      else if (timeRange === 'yesterday') multiplier = 0.12;
-      else if (timeRange === 'last7') multiplier = 0.55;
-
-      const adjustedRawClicks = Math.floor(rawClicks * multiplier);
-      let finalDisplayClicks = (role === 'MasterAdmin') ? adjustedRawClicks : calculateDynamicCreatorClicks(adjustedRawClicks);
-
-      document.getElementById('display-clicks-count').innerText = finalDisplayClicks.toLocaleString();
-
-      const approvedConversions = cachedConversions.filter(c => c.status === 'Approved');
-      const conversionsCount = approvedConversions.length;
-      document.getElementById('display-conversions-count').innerText = conversionsCount.toString();
-
-      const crPercent = finalDisplayClicks > 0 ? ((conversionsCount / finalDisplayClicks) * 100).toFixed(2) : "0.00";
-      document.getElementById('display-cr-val').innerText = `${crPercent}%`;
-
-      let totalApprovedEarnings = 0;
-      if (role === 'MasterAdmin') {
-        totalApprovedEarnings = approvedConversions.reduce((sum, c) => sum + (parseFloat(c.networkPayout) || 0), 0);
-        document.getElementById('earnings-card-label').innerText = "Total Revenue";
-        document.getElementById('overview-header-title').innerHTML = `<i class="fa-solid fa-chart-pie text-purple-400"></i> Admin Overview`;
-        document.getElementById('overview-header-sub').innerText = "Real-time overall system performance summary.";
-      } else if (role === 'Publisher') {
-        totalApprovedEarnings = approvedConversions.reduce((sum, c) => sum + (parseFloat(c.pubPayout) || 0), 0);
-        document.getElementById('earnings-card-label').innerText = "Publisher Revenue";
-      } else {
-        totalApprovedEarnings = approvedConversions.reduce((sum, c) => sum + (parseFloat(c.creatorPayout) || 0), 0);
-        document.getElementById('earnings-card-label').innerText = "Revenue";
-        document.getElementById('overview-header-title').innerHTML = `<i class="fa-solid fa-chart-pie text-purple-400"></i> Creator Overview`;
-        document.getElementById('overview-header-sub').innerText = "Your personal performance and earnings breakdown.";
-
-        const ctrCard = document.getElementById('creator-ctr-card-wrapper');
-        if (ctrCard) {
-          ctrCard.classList.remove('hidden');
-          if (cachedImpressions !== null && cachedImpressions > 0) {
-            const ctr = ((finalDisplayClicks / cachedImpressions) * 100).toFixed(2) + '%';
-            document.getElementById('display-creator-ctr-val').innerText = ctr;
-          } else {
-            document.getElementById('display-creator-ctr-val').innerText = "N/A";
-          }
-        }
-      }
-
-      document.getElementById('display-earnings-val').innerText = `₹${totalApprovedEarnings.toFixed(2)}`;
-
-      const paidWithdrawals = cachedWithdrawals.filter(w => w.status === 'Paid').reduce((sum, w) => sum + (parseFloat(w.amount) || 0), 0);
-      const availableBalance = Math.max(0, totalApprovedEarnings - paidWithdrawals);
-
-      const approvedEl = document.getElementById('withdrawal-approved-earnings');
-      if (approvedEl) approvedEl.innerText = `₹${totalApprovedEarnings.toFixed(2)}`;
-      const paidEl = document.getElementById('withdrawal-paid-amount');
-      if (paidEl) paidEl.innerText = `₹${paidWithdrawals.toFixed(2)}`;
-      const availEl = document.getElementById('withdrawal-available-balance');
-      if (availEl) availEl.innerText = `₹${availableBalance.toFixed(2)}`;
-
-      const submitBtn = document.getElementById('submit-withdraw-btn');
-      if (submitBtn) {
-        if (availableBalance < 1000) {
-          submitBtn.disabled = true;
-          submitBtn.innerText = "Minimum ₹1,000 Required";
-        } else {
-          submitBtn.disabled = false;
-          submitBtn.innerText = "Submit Withdrawal Request";
-        }
-      }
-
-      renderAdminAnalyticsSection(finalDisplayClicks, conversionsCount, crPercent, totalApprovedEarnings);
-
-      const pClicks = Math.floor(finalDisplayClicks * 0.5);
-      const pConvs = Math.floor(conversionsCount * 0.5);
-      const pRev = totalApprovedEarnings * 0.5;
-      initChart([pClicks, finalDisplayClicks], [pConvs, conversionsCount], [pRev, totalApprovedEarnings]);
-    }
-
-    function renderAdminAnalyticsSection(clicks, conversions, cr, revenue) {
-      const cEl = document.getElementById('analytics-total-clicks');
-      if (cEl) cEl.innerText = clicks.toLocaleString();
-      const cvEl = document.getElementById('analytics-total-conversions');
-      if (cvEl) cvEl.innerText = conversions.toLocaleString();
-      const crEl = document.getElementById('analytics-cr');
-      if (crEl) crEl.innerText = `${cr}%`;
-      const revEl = document.getElementById('analytics-revenue');
-      if (revEl) revEl.innerText = `₹${revenue.toFixed(2)}`;
-
-      const ctrEl = document.getElementById('analytics-ctr');
-      if (ctrEl) {
-        if (cachedImpressions !== null && cachedImpressions > 0) {
-          ctrEl.innerText = ((clicks / cachedImpressions) * 100).toFixed(2) + '%';
-        } else {
-          ctrEl.innerText = "N/A";
-        }
-      }
-
-      const epcEl = document.getElementById('analytics-epc');
-      if (epcEl) {
-        const epcVal = clicks > 0 ? (revenue / clicks).toFixed(2) : "0.00";
-        epcEl.innerText = `₹${epcVal}`;
-      }
-
-      renderAnalyticsOfferTable();
-      renderAnalyticsCharts(clicks, conversions, revenue);
-    }
-
-    window.setAnalyticsDateFilter = (filter) => {
-      ['today', '7days', '30days', 'all'].forEach(f => {
-        const btn = document.getElementById(`btn-filter-${f}`);
-        if(btn) btn.className = "px-3 py-1.5 text-xs font-semibold text-slate-400 hover:text-white rounded-lg transition";
-      });
-      const activeBtn = document.getElementById(`btn-filter-${filter}`);
-      if(activeBtn) activeBtn.className = "px-3 py-1.5 text-xs font-semibold bg-purple-600 text-white rounded-lg shadow-sm transition";
-
-      updateDashboardMetrics(cachedRawClicks, currentUserRole, filter === 'all' ? 'last30' : filter);
-    };
-
-    function renderAnalyticsOfferTable() {
-      const tbody = document.getElementById('analytics-offer-table-body');
-      if (!tbody) return;
-
-      if (!broadcastOffersList || broadcastOffersList.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="6" class="p-6 text-center text-slate-500">No active offer performance recorded.</td></tr>`;
+      if (currentProfile?.role !== "Creator") {
         return;
       }
 
-      tbody.innerHTML = broadcastOffersList.map(offer => {
-        const offerConversions = cachedConversions.filter(c => c.offerId === offer.id && c.status === 'Approved');
-        const offerClicks = offer.clicks || 0;
-        const offerConvs = offerConversions.length;
-        const offerCR = offerClicks > 0 ? ((offerConvs / offerClicks) * 100).toFixed(2) : "0.00";
-        const offerRev = offerConversions.reduce((sum, c) => sum + (parseFloat(c.networkPayout) || 0), 0);
-        const offerEPC = offerClicks > 0 ? (offerRev / offerClicks).toFixed(2) : "0.00";
+      $("creatorCampaignSection")
+        .classList.remove("hidden");
 
-        return `
-          <tr class="hover:bg-slate-950/40 transition">
-            <td class="p-3.5 font-bold text-white">${offer.title}</td>
-            <td class="p-3.5 font-medium">${offerClicks}</td>
-            <td class="p-3.5 font-medium text-emerald-400">${offerConvs}</td>
-            <td class="p-3.5 text-purple-400 font-bold">${offerCR}%</td>
-            <td class="p-3.5 text-amber-400 font-bold">₹${offerRev.toFixed(2)}</td>
-            <td class="p-3.5 text-blue-400 font-bold">₹${offerEPC}</td>
-          </tr>
-        `;
-      }).join('');
+      await loadCreatorCampaigns();
     }
 
-    function renderAnalyticsCharts(clicks, conversions, revenue) {
-      const trendCtx = document.getElementById('analyticsTrendChart')?.getContext('2d');
-      const revCtx = document.getElementById('analyticsRevenueChart')?.getContext('2d');
 
-      if (!trendCtx || !revCtx) return;
+    /* =========================================================
+       INITIAL CREATOR LOAD PATCH
+       ========================================================= */
 
-      if (analyticsTrendChartInstance) analyticsTrendChartInstance.destroy();
-      if (analyticsRevenueChartInstance) analyticsRevenueChartInstance.destroy();
+    const originalLoadApplication =
+      loadApplication;
 
-      analyticsTrendChartInstance = new Chart(trendCtx, {
-        type: 'bar',
-        data: {
-          labels: ['Initial', 'Current Period'],
-          datasets: [
-            { label: 'Clicks', data: [Math.floor(clicks * 0.4), clicks], backgroundColor: '#8b5cf6' },
-            { label: 'Conversions', data: [Math.floor(conversions * 0.4), conversions], backgroundColor: '#10b981' }
-          ]
-        },
-        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#94a3b8' } } } }
-      });
 
-      analyticsRevenueChartInstance = new Chart(revCtx, {
-        type: 'line',
-        data: {
-          labels: ['Initial', 'Current Period'],
-          datasets: [{ label: 'Revenue (₹)', data: [revenue * 0.4, revenue], borderColor: '#f59e0b', backgroundColor: 'rgba(245, 158, 11, 0.15)', fill: true, tension: 0.3 }]
-        },
-        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#94a3b8' } } } }
-      });
-    }
+    /* Load creator campaigns whenever app loads */
 
-    window.requestWithdrawal = async (e) => {
-      e.preventDefault();
-      const amount = parseFloat(document.getElementById('withdraw-amount-input').value);
-      const upi = document.getElementById('withdraw-upi-input').value.trim();
+    const originalConfigureRoleUI =
+      configureRoleUI;
 
-      const customUser = JSON.parse(localStorage.getItem('tf_custom_user'));
-      const uid = customUser ? customUser.id : (auth.currentUser ? auth.currentUser.uid : null);
-      const userName = document.getElementById('user-display-name').innerText;
 
-      if (!uid) return alert('Session expired.');
-      if (amount < 1000) return alert('Minimum withdrawal amount is ₹1,000');
+    /* =========================================================
+       ROLE-AWARE PAGE OPEN
+       ========================================================= */
 
-      await addDoc(collection(db, "withdrawals"), {
-        userId: uid,
-        userName,
-        amount,
-        upi,
-        status: 'Pending',
-        timestamp: Date.now()
-      });
+    setTimeout(async () => {
 
-      alert('Withdrawal Request Submitted Successfully!');
-      e.target.reset();
-    };
-
-    function loadPublisherSpecificData(publisherId) {
-      document.getElementById('user-management-subtitle').innerText = "My Assigned Creators";
-      onSnapshot(collection(db, "users"), (usersSnap) => {
-        let publisherTotalClicks = 0;
-        let html = '';
-
-        usersSnap.forEach(uDoc => {
-          const d = uDoc.data();
-          if(d.createdBy === publisherId) {
-            const raw = d.clicks || 0;
-            publisherTotalClicks += raw;
-            const creatorDynamicClicks = calculateDynamicCreatorClicks(raw);
-
-            html += `<tr>
-              <td class="p-3 text-purple-400 font-bold">${d.role || 'Creator'}</td>
-              <td class="p-3 text-white">${d.name}<br><span class="text-[10px] text-slate-400">${d.email}</span></td>
-              <td class="p-3 font-mono text-emerald-400">${d.password || 'Google'}</td>
-              <td class="p-3 text-amber-400 font-bold">${raw.toLocaleString()}</td>
-              <td class="p-3 text-cyan-400 font-bold">${creatorDynamicClicks.toLocaleString()}</td>
-              <td class="p-3"><span class="text-[10px] px-2 py-0.5 rounded-full ${d.status === 'Blocked' ? 'bg-red-500/20 text-red-400' : 'bg-emerald-500/20 text-emerald-400'}">${d.status || 'Active'}</span></td>
-              <td class="p-3 text-amber-400">${d.upi || 'N/A'}</td>
-              <td class="p-3 text-center"><button onclick="openUserLinkModal('${uDoc.id}', '${d.name}')" class="bg-purple-600/20 text-purple-400 border border-purple-500/30 px-3 py-1 rounded-xl"><i class="fa-solid fa-eye"></i> Links & Offers</button></td>
-              <td class="p-3 text-center">
-                <select onchange="updateUserStatus('${uDoc.id}', this.value)" class="bg-slate-950 text-xs text-white p-1 rounded-lg">
-                  <option value="Active" ${d.status === 'Active' ? 'selected' : ''}>Active</option>
-                  <option value="Blocked" ${d.status === 'Blocked' ? 'selected' : ''}>Block</option>
-                </select>
-              </td>
-            </tr>`;
-          }
-        });
-
-        cachedRawClicks = publisherTotalClicks;
-        loadUserConversions(publisherId, 'Publisher');
-        loadUserWithdrawals(publisherId);
-        document.getElementById('user-table-body').innerHTML = html || `<tr><td colspan="9" class="p-4 text-center text-slate-500">No creators found.</td></tr>`;
-      });
-    }
-
-    function loadMasterUsersTable() {
-      document.getElementById('user-management-subtitle').innerText = "All Users & Raw vs Display Comparison";
-      onSnapshot(collection(db, "users"), (usersSnap) => {
-        let totalRaw = 0;
-        let html = '';
-
-        usersSnap.forEach(uDoc => {
-          const d = uDoc.data();
-          const raw = d.clicks || 0;
-          totalRaw += raw;
-          const creatorDynamicClicks = calculateDynamicCreatorClicks(raw);
-
-          html += `<tr>
-            <td class="p-3 font-bold ${d.role === 'Publisher' ? 'text-blue-400' : 'text-purple-400'}">${d.role || 'Creator'}</td>
-            <td class="p-3 text-white">${d.name}<br><span class="text-[10px] text-slate-400">${d.email}</span></td>
-            <td class="p-3 font-mono text-emerald-400">${d.password || 'Google'}</td>
-            <td class="p-3 text-amber-400 font-bold">${raw.toLocaleString()} (Original)</td>
-            <td class="p-3 text-cyan-400 font-bold">${creatorDynamicClicks.toLocaleString()} (Creator View)</td>
-            <td class="p-3"><span class="text-[10px] px-2 py-0.5 rounded-full ${d.status === 'Blocked' ? 'bg-red-500/20 text-red-400' : 'bg-emerald-500/20 text-emerald-400'}">${d.status || 'Active'}</span></td>
-            <td class="p-3 text-amber-400">${d.upi || 'N/A'}</td>
-            <td class="p-3 text-center"><button onclick="openUserLinkModal('${uDoc.id}', '${d.name}')" class="bg-purple-600/20 text-purple-400 border border-purple-500/30 px-3 py-1 rounded-xl"><i class="fa-solid fa-eye"></i> Links & Offers</button></td>
-            <td class="p-3 text-center">
-              <select onchange="updateUserStatus('${uDoc.id}', this.value)" class="bg-slate-950 text-xs text-white p-1 rounded-lg">
-                <option value="Active" ${d.status === 'Active' ? 'selected' : ''}>Active</option>
-                <option value="Blocked" ${d.status === 'Blocked' ? 'selected' : ''}>Block</option>
-              </select>
-            </td>
-          </tr>`;
-        });
-
-        cachedRawClicks = totalRaw;
-        updateDashboardMetrics(cachedRawClicks, 'MasterAdmin', 'last30');
-        document.getElementById('user-table-body').innerHTML = html;
-      });
-    }
-
-    window.updateUserStatus = async (userId, newStatus) => {
-      await updateDoc(doc(db, "users", userId), { status: newStatus });
-      alert(`User Status Updated: ${newStatus}`);
-    };
-
-    function showDashboard() {
-      document.getElementById('landing-page').classList.add('hidden');
-      document.getElementById('auth-modal').classList.add('hidden');
-      document.getElementById('dashboard-app').classList.remove('hidden');
-      document.getElementById('dashboard-app').classList.add('flex');
-    }
-
-    window.switchTab = (tabId) => {
-      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-      const activeEl = document.getElementById('tab-' + tabId);
-      if (activeEl) activeEl.classList.add('active');
-    };
-
-    window.updateProfile = async (e) => {
-      e.preventDefault();
-      const name = document.getElementById('edit-display-name').value;
-      const upi = document.getElementById('edit-upi-id').value;
-      const customUser = JSON.parse(localStorage.getItem('tf_custom_user'));
-      const uid = customUser ? customUser.id : (auth.currentUser ? auth.currentUser.uid : null);
-
-      if (uid) {
-        await updateDoc(doc(db, "users", uid), { name, upi });
-        alert('Profile Saved!');
-      } else if (currentUserRole === 'MasterAdmin') {
-        alert('Admin Profile Saved!');
-      }
-    };
-
-    window.addManualUserWithPass = async (e) => {
-      e.preventDefault();
-      const role = document.getElementById('manual-user-role').value;
-      const name = document.getElementById('manual-user-name').value;
-      const email = document.getElementById('manual-user-email').value;
-      const password = document.getElementById('manual-user-password').value;
-
-      const newDocId = "usr_" + Date.now();
-      await setDoc(doc(db, "users", newDocId), { role, name, email, password, clicks: 0, upi: '', status: 'Active', createdBy: currentLoggedInId || 'Admin', assignedLinks: [] });
-      alert('User Account Created!');
-      e.target.reset();
-      switchTab('admin-manage-users');
-    };
-
-    window.openUserLinkModal = async (userId, userName) => {
-      activeTargetUserId = userId;
-      document.getElementById('modal-user-title').innerText = `Manage Custom Approved Links`;
-      document.getElementById('modal-user-subtitle').innerText = `Target User: ${userName}`;
-
-      const assignSec = document.getElementById('publisher-broadcast-assign-section');
-      if(currentUserRole === 'Publisher' || currentUserRole === 'MasterAdmin') {
-        assignSec.classList.remove('hidden');
-      } else {
-        assignSec.classList.add('hidden');
-      }
-
-      document.getElementById('user-link-modal').classList.remove('hidden');
-      refreshModalAssignedLinks();
-    };
-
-    window.closeUserLinkModal = () => {
-      document.getElementById('user-link-modal').classList.add('hidden');
-      activeTargetUserId = null;
-    };
-
-    async function refreshModalAssignedLinks() {
-      if(!activeTargetUserId) return;
-      const userDoc = await getDoc(doc(db, "users", activeTargetUserId));
-      if(userDoc.exists()) {
-        const links = userDoc.data().assignedLinks || [];
-        const container = document.getElementById('modal-assigned-links-list');
-        container.innerHTML = links.map((l, idx) => `
-          <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800 flex items-center justify-between text-xs">
-            <div>
-              <p class="font-bold text-white">${l.title}</p>
-              <p class="text-[10px] text-purple-400 font-mono truncate max-w-[200px]">${l.url}</p>
-            </div>
-            <button onclick="deleteUserAssignedLink(${idx})" class="text-red-400 font-bold text-[10px]">Delete</button>
-          </div>
-        `).join('') || `<p class="text-xs text-slate-500">No assigned links.</p>`;
-      }
-    }
-
-    window.assignLinkToUser = async (e) => {
-      e.preventDefault();
-      if(!activeTargetUserId) return;
-      const title = document.getElementById('assign-link-title').value;
-      const url = document.getElementById('assign-link-url').value;
-
-      const userRef = doc(db, "users", activeTargetUserId);
-      const userSnap = await getDoc(userRef);
-
-      if(userSnap.exists()) {
-        const existingLinks = userSnap.data().assignedLinks || [];
-        existingLinks.push({ id: Date.now(), title, url, status: 'Active', alias: '' });
-        await updateDoc(userRef, { assignedLinks: existingLinks });
-        alert('Link Assigned!');
-        refreshModalAssignedLinks();
-      }
-    };
-
-    window.assignBroadcastedOfferToCreator = async () => {
-      if(!activeTargetUserId) return;
-      const offerId = document.getElementById('modal-broadcast-offers-select').value;
-      if(!offerId) return alert('Select an offer first');
-
-      const offerObj = broadcastOffersList.find(o => o.id === offerId);
-      if(!offerObj) return;
-
-      const userRef = doc(db, "users", activeTargetUserId);
-      const userSnap = await getDoc(userRef);
-
-      if(userSnap.exists()) {
-        const existingLinks = userSnap.data().assignedLinks || [];
-        existingLinks.push({ 
-          id: offerObj.id, 
-          title: offerObj.title, 
-          url: offerObj.netUrl, 
-          status: 'Active', 
-          alias: '',
-          isBroadcastOffer: true
-        });
-        await updateDoc(userRef, { assignedLinks: existingLinks });
-        alert('Broadcasted Offer Assigned to Creator!');
-        refreshModalAssignedLinks();
-      }
-    };
-
-    window.deleteUserAssignedLink = async (idx) => {
-      if(!activeTargetUserId) return;
-      const userRef = doc(db, "users", activeTargetUserId);
-      const userSnap = await getDoc(userRef);
-      if(userSnap.exists()) {
-        const links = userSnap.data().assignedLinks || [];
-        links.splice(idx, 1);
-        await updateDoc(userRef, { assignedLinks: links });
-        refreshModalAssignedLinks();
-      }
-    };
-
-    function renderApprovedOffersForUser(userId, assignedLinks) {
-      const container = document.getElementById('offers-list-container');
-
-      if(assignedLinks.length === 0) {
-        container.innerHTML = `<p class="text-xs text-slate-500 col-span-2">No custom links approved for your account yet.</p>`;
-        return;
-      }
-
-      container.innerHTML = assignedLinks.map((o, idx) => {
-        const currentAlias = o.alias ? `&alias=${o.alias}` : '';
-        const trackingLink = `${window.location.origin}${window.location.pathname}?ref=${userId}&offerId=${o.id}${currentAlias}`;
-        
-        return `
-          <div class="bg-slate-900 border border-purple-500/30 p-5 rounded-2xl space-y-3 relative shadow-xl">
-            <div class="flex items-center justify-between">
-              <h4 class="font-bold text-white">${o.title}</h4>
-              <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">Active</span>
-            </div>
-            
-            <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800 flex items-center justify-between gap-2">
-              <input type="text" readonly id="link-field-${idx}" value="${trackingLink}" class="bg-transparent text-xs text-purple-300 font-mono outline-none w-full">
-              <button onclick="navigator.clipboard.writeText(document.getElementById('link-field-${idx}').value); alert('Campaign Link Copied!');" class="bg-purple-600 text-white text-[10px] px-3 py-1.5 rounded-lg font-bold shrink-0">Copy</button>
-            </div>
-
-            ${currentUserRole === 'Creator' ? `
-            <div class="bg-slate-950/60 p-2.5 rounded-xl border border-slate-800/80 flex items-center gap-2">
-              <i class="fa-solid fa-wand-magic-sparkles text-amber-400 text-xs"></i>
-              <input type="text" id="alias-input-${idx}" placeholder="Custom Alias" value="${o.alias || ''}" class="bg-slate-900 border border-slate-800 text-xs text-white px-2.5 py-1.5 rounded-lg outline-none w-full">
-              <button onclick="saveCreatorAlias(${idx})" class="bg-amber-500 text-slate-950 font-extrabold text-[10px] px-3 py-1.5 rounded-lg">Save</button>
-            </div>` : ''}
-          </div>
-        `;
-      }).join('');
-    }
-
-    window.saveCreatorAlias = async (idx) => {
-      const customUser = JSON.parse(localStorage.getItem('tf_custom_user'));
-      const uid = customUser ? customUser.id : (auth.currentUser ? auth.currentUser.uid : null);
-      if(!uid) return;
-
-      const newAlias = document.getElementById(`alias-input-${idx}`).value.trim();
-      const userRef = doc(db, "users", uid);
-      const userSnap = await getDoc(userRef);
-
-      if(userSnap.exists()) {
-        const links = userSnap.data().assignedLinks || [];
-        if(links[idx]) {
-          links[idx].alias = newAlias;
-          await updateDoc(userRef, { assignedLinks: links });
-          alert('Alias Saved!');
+      if (
+        currentUser &&
+        currentProfile?.role === "Creator"
+      ) {
+        try {
+          await showCreatorWorkspace();
+        } catch (error) {
+          console.error(error);
         }
       }
-    };
 
-    window.addNewOffer = async (e) => {
-      e.preventDefault();
-      const title = document.getElementById('new-offer-title').value.trim();
-      const netUrl = document.getElementById('new-offer-url').value.trim();
-      const eventType = document.getElementById('new-offer-event').value;
-      const netPayout = parseFloat(document.getElementById('new-offer-net-payout').value);
-      const pubPayout = parseFloat(document.getElementById('new-offer-pub-payout').value);
-      const creatorPayout = parseFloat(document.getElementById('new-offer-creator-payout').value);
+    }, 1200);
 
-      if ((creatorPayout + pubPayout) > netPayout) {
-        return alert(`Error: Combined Payout (Publisher: ₹${pubPayout} + Creator: ₹${creatorPayout}) cannot exceed Main Network Payout (₹${netPayout}).`);
+
+    /* =========================================================
+       PERIODIC DASHBOARD REFRESH
+       ========================================================= */
+
+    setInterval(async () => {
+
+      if (
+        currentUser &&
+        currentProfile &&
+        !document.hidden
+      ) {
+
+        try {
+          await loadDashboard();
+        } catch {
+          // Silent background refresh failure.
+        }
       }
 
-      await addDoc(collection(db, "offers"), {
-        title,
-        netUrl,
-        eventType,
-        netPayout,
-        pubPayout,
-        creatorPayout,
-        status: 'Active',
-        createdAt: Date.now()
-      });
+    }, 60000);
 
-      alert('Campaign Offer Broadcasted Live to All Publishers!');
-      e.target.reset();
-    };
 
-    let myChart = null;
-    function initChart(clicksData, convsData, revData) {
-      const ctx = document.getElementById('trafficChart')?.getContext('2d');
-      if (!ctx) return;
-      if (myChart) myChart.destroy();
-      myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: ['Previous', 'Current'],
-          datasets: [
-            { label: 'Clicks', data: clicksData, borderColor: '#8b5cf6', backgroundColor: 'rgba(139, 92, 246, 0.1)', fill: true, tension: 0.3 },
-            { label: 'Conversions', data: convsData, borderColor: '#10b981', backgroundColor: 'rgba(16, 185, 129, 0.1)', fill: true, tension: 0.3 },
-            { label: 'Revenue (₹)', data: revData, borderColor: '#f59e0b', backgroundColor: 'rgba(245, 158, 11, 0.1)', fill: true, tension: 0.3 }
-          ]
-        },
-        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#94a3b8' } } } }
-      });
-    }
+    /* =========================================================
+       SECURITY / CONFIG NOTICE
+       ========================================================= */
 
-    document.getElementById('generate-btn').onclick = () => {
-      const alias = document.getElementById('alias-input').value.trim();
-      const customUser = JSON.parse(localStorage.getItem('tf_custom_user'));
-      const uid = customUser ? customUser.id : (auth.currentUser ? auth.currentUser.uid : 'guest');
-      document.getElementById('final-link-output').value = `${window.location.origin}${window.location.pathname}?ref=${uid}&alias=${alias}`;
-      alert('Tracking Link Generated!');
-    };
+    /*
+     * IMPORTANT:
+     *
+     * 1. Do NOT put Firebase Admin credentials here.
+     * 2. Do NOT put affiliate network postback secrets here.
+     * 3. Master network tracking URLs are protected by Firestore rules.
+     * 4. Financial writes are performed by Cloud Functions.
+     * 5. /track and /postback are backend endpoints.
+     * 6. The backend must be configured with the REAL affiliate
+     *    network's documented click parameter, macro and postback
+     *    parameters before live traffic is sent.
+     *
+     * This frontend intentionally does not invent affiliate-network
+     * parameters.
+     */
 
-    document.getElementById('copy-link-btn').onclick = () => {
-      navigator.clipboard.writeText(document.getElementById('final-link-output').value);
-      alert('Link Copied to Clipboard!');
-    };
   </script>
+
 </body>
 </html>
