@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TrackFlow - Analytics & Offers Hub</title>
+  <title>TrackFlow - Analytics Hub</title>
   
   <!-- LOGO & FAVICON -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='tf-grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%233b82f6'/><stop offset='50%' stop-color='%238b5cf6'/><stop offset='100%' stop-color='%23ec4899'/></linearGradient></defs><circle cx='50' cy='50' r='46' fill='%230f172a' stroke='url(%23tf-grad)' stroke-width='4'/><path d='M30 35 L50 65 L70 35' fill='none' stroke='url(%23tf-grad)' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'/></svg>">
@@ -144,6 +144,7 @@
             <i class="fa-solid fa-chart-pie w-5"></i> Performance Hub
           </button>
           
+          <!-- SEPARATE ADMIN ANALYTICS OPTION -->
           <button id="nav-admin-analytics" onclick="switchTab('admin-analytics')" class="hidden w-full text-left flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-cyan-400 bg-cyan-500/10 border border-cyan-500/20 font-bold text-sm transition">
             <i class="fa-solid fa-chart-line w-5"></i> System Analytics
           </button>
@@ -187,8 +188,9 @@
     <!-- MAIN CONTENT AREA -->
     <main class="flex-1 overflow-y-auto p-4 md:p-6 space-y-6">
 
-      <!-- TAB 1: OVERVIEW METRICS -->
+      <!-- TAB 1: OVERVIEW METRICS (ADMIN & CREATOR) -->
       <div id="tab-overview" class="tab-content active space-y-6">
+        
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-900 border border-slate-800 p-4 rounded-2xl shadow-md">
           <div>
             <h2 id="overview-header-title" class="text-lg font-extrabold text-white flex items-center gap-2">
@@ -197,6 +199,7 @@
             <p id="overview-header-sub" class="text-xs text-slate-400">Realtime Performance Summary</p>
           </div>
 
+          <!-- CALENDAR FILTER -->
           <div class="flex items-center gap-2">
             <i class="fa-solid fa-calendar-days text-purple-400 text-sm"></i>
             <select id="time-range-filter" onchange="applyTimeFilter(this.value)" class="bg-slate-950 border border-slate-800 text-xs font-bold text-purple-300 py-2 px-3.5 rounded-xl outline-none focus:border-purple-500">
@@ -208,7 +211,10 @@
           </div>
         </div>
 
+        <!-- STATS CARDS GRID -->
         <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          
+          <!-- 1. TOTAL REVENUE CARD -->
           <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl">
             <div class="flex items-center justify-between">
               <p id="earnings-card-label" class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Total Revenue</p>
@@ -218,6 +224,7 @@
             <span id="earnings-card-sub" class="text-[11px] text-slate-400 mt-2 inline-block">Validated Earnings</span>
           </div>
 
+          <!-- 2. CONVERSIONS CARD -->
           <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl">
             <div class="flex items-center justify-between">
               <p class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Conversions</p>
@@ -227,6 +234,7 @@
             <span id="conversion-status-sub" class="text-[11px] text-slate-400 mt-2 inline-block">Approved Conversions</span>
           </div>
 
+          <!-- 3. TOTAL CLICKS CARD -->
           <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl relative overflow-hidden">
             <div class="flex items-center justify-between">
               <p class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Total Clicks</p>
@@ -236,6 +244,7 @@
             <span class="text-[11px] text-emerald-400 mt-2 inline-block font-medium"><i class="fa-solid fa-check-circle mr-1"></i>Verified Clicks</span>
           </div>
 
+          <!-- 4. CONVERSION RATE CARD -->
           <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl">
             <div class="flex items-center justify-between">
               <p class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Conversion Rate</p>
@@ -244,8 +253,10 @@
             <h3 id="display-cr-val" class="text-3xl font-extrabold text-purple-400 mt-3">0.00%</h3>
             <span class="text-[11px] text-slate-400 mt-2 inline-block">Realtime CR</span>
           </div>
+
         </section>
 
+        <!-- CREATOR CTR CARD -->
         <div id="creator-ctr-card-wrapper" class="hidden">
           <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl max-w-xs">
             <div class="flex items-center justify-between">
@@ -257,6 +268,7 @@
           </div>
         </div>
 
+        <!-- GRAPH BELOW OVERVIEW CARDS -->
         <div class="bg-slate-900 border border-slate-800 p-6 rounded-3xl shadow-xl">
           <div class="flex items-center justify-between mb-4">
             <div>
@@ -289,6 +301,7 @@
           </div>
         </div>
 
+        <!-- ANALYTICS CARDS GRID -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl">
             <p class="text-xs text-slate-400 uppercase font-semibold">Total Clicks</p>
@@ -374,10 +387,10 @@
         </section>
       </div>
 
-      <!-- TAB 3: APPROVED OFFERS HUB -->
+      <!-- TAB 3: APPROVED OFFERS -->
       <div id="tab-offers-hub" class="tab-content space-y-4">
         <h3 class="text-base font-bold text-white mb-2"><i class="fa-solid fa-gift text-purple-400 mr-2"></i>Campaign Offers Hub</h3>
-        <p class="text-xs text-slate-400">Approved high-converting campaigns active for your account.</p>
+        <p class="text-xs text-slate-400">Approved campaigns available for your account.</p>
         <div id="offers-list-container" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
       </div>
 
@@ -504,26 +517,26 @@
         </div>
       </div>
 
-      <!-- TAB 8: SIMPLE OFFER MANAGEMENT -->
+      <!-- TAB 8: OFFER MANAGEMENT -->
       <div id="tab-admin-add-offer" class="tab-content space-y-6">
         <div class="bg-slate-900 border border-amber-500/40 p-6 rounded-3xl space-y-4 shadow-2xl max-w-2xl mx-auto">
-          <h3 class="text-base font-bold text-amber-400 flex items-center gap-2"><i class="fa-solid fa-folder-plus"></i> Streamlined Offer Management</h3>
-          <p class="text-xs text-slate-400">Paste network link, assign event and payout rates. Broadcasts live across the network.</p>
+          <h3 class="text-base font-bold text-amber-400 flex items-center gap-2"><i class="fa-solid fa-folder-plus"></i> Simple Offer Management</h3>
+          <p class="text-xs text-slate-400">Paste tracking link, set goal and payout. Broadcasts live to Publishers.</p>
 
           <form onsubmit="addNewOffer(event)" class="space-y-4 text-xs">
             <div>
               <label class="block text-slate-400 mb-1">Campaign Title</label>
-              <input type="text" id="new-offer-title" required placeholder="e.g. Free Fire Diamond Pass Offer" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-amber-500">
+              <input type="text" id="new-offer-title" required placeholder="e.g. Free Fire App Install Offer" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-amber-500">
             </div>
 
             <div>
-              <label class="block text-slate-400 mb-1">Network Tracking URL (Destination)</label>
+              <label class="block text-slate-400 mb-1">Network Tracking URL (Main Link)</label>
               <input type="url" id="new-offer-url" required placeholder="https://trackinglink.com/click?offer_id=123" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-amber-500 font-mono">
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label class="block text-slate-400 mb-1">Conversion Goal Event</label>
+                <label class="block text-slate-400 mb-1">Conversion Goal</label>
                 <select id="new-offer-event" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-amber-500 font-semibold">
                   <option value="App Install">App Install</option>
                   <option value="User Registration">User Registration</option>
@@ -534,14 +547,14 @@
 
               <div>
                 <label class="block text-slate-400 mb-1">Main Network Payout (₹)</label>
-                <input type="number" step="0.01" id="new-offer-net-payout" required placeholder="e.g. 25" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-amber-500">
+                <input type="number" step="0.01" id="new-offer-net-payout" required placeholder="e.g. 20" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-amber-500">
               </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label class="block text-slate-400 mb-1">Publisher Payout (₹)</label>
-                <input type="number" step="0.01" id="new-offer-pub-payout" required placeholder="e.g. 18" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-amber-500">
+                <input type="number" step="0.01" id="new-offer-pub-payout" required placeholder="e.g. 15" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl text-white outline-none focus:border-amber-500">
               </div>
 
               <div>
